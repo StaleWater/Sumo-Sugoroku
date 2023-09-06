@@ -10,6 +10,7 @@ public class SugorokuManager : MonoBehaviour {
     [SerializeField] Vector2Int diceMinMax;
     [SerializeField] EventPopup popup;
     [SerializeField] TMP_Text rollText;
+    [SerializeField] float popupDelay;
     [SerializeField] float cameraZoomPadding;
     [SerializeField] float cameraZoomDurationSEC;
     [SerializeField] AnimationCurve cameraZoomCurve;
@@ -78,6 +79,7 @@ public class SugorokuManager : MonoBehaviour {
         // curTile should be updated after the above coroutine
         Tile tile = tiles[curTile];
         yield return StartCoroutine(CamZoomTile(tile));
+        yield return new WaitForSeconds(popupDelay);
         tile.Event(this);
     }
 
@@ -93,18 +95,40 @@ public class SugorokuManager : MonoBehaviour {
     IEnumerator CamZoomTile(Tile tile) {
         float newCamSize = tile.GetComponent<SpriteRenderer>().bounds.extents.y + cameraZoomPadding;
         Vector3 newCamPos = tile.transform.position;
-        yield return StartCoroutine(CamZoom(newCamPos, newCamSize));
+
+        Quaternion newCamRotation;
+        switch (tile.orientation) {
+            case Orientation.Up:
+                newCamRotation = Quaternion.identity;
+                break;
+            case Orientation.Right:
+                newCamRotation = Quaternion.Euler(0.0f, 0.0f, -90.0f);
+                break;
+            case Orientation.Down:
+                newCamRotation = Quaternion.Euler(0.0f, 0.0f, 180.0f);
+                break;
+            case Orientation.Left:
+                newCamRotation = Quaternion.Euler(0.0f, 0.0f, 90.0f);
+                break;
+
+            default:
+                newCamRotation = Quaternion.identity;
+                break;
+        }
+
+        yield return StartCoroutine(CamZoom(newCamPos, newCamSize, newCamRotation));
     }
 
     IEnumerator CamZoomReset() {
-        yield return StartCoroutine(CamZoom(defaultCamPos, defaultCamSize));
+        yield return StartCoroutine(CamZoom(defaultCamPos, defaultCamSize, Quaternion.identity));
     }
 
-    IEnumerator CamZoom(Vector3 endCamPos, float endCamSize) {
+    IEnumerator CamZoom(Vector3 endCamPos, float endCamSize, Quaternion endCamRotation) {
         endCamPos.z = cam.transform.position.z;
 
         Vector3 startPos = cam.transform.position;
         float startSize = cam.orthographicSize;
+        Quaternion startRotation = cam.transform.localRotation;
         float timePassed = 0.0f;
 
         while(timePassed <= cameraZoomDurationSEC) {
@@ -112,6 +136,7 @@ public class SugorokuManager : MonoBehaviour {
             float curveY = cameraZoomCurve.Evaluate(curveX);
             cam.transform.position = Vector3.Lerp(startPos, endCamPos, curveY);
             cam.orthographicSize = Mathf.Lerp(startSize, endCamSize, curveY);
+            cam.transform.localRotation = Quaternion.Slerp(startRotation, endCamRotation, curveY);
 
             yield return null;
 
@@ -120,6 +145,7 @@ public class SugorokuManager : MonoBehaviour {
 
         cam.transform.position = endCamPos;
         cam.orthographicSize = endCamSize;
+        cam.transform.localRotation = endCamRotation;
 
     }
 
