@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SumoPlayer : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
     [Range(1.0f, 20.0f)]
     [SerializeField] float moveSpeed;
+    SumoGuy sumo;
+
+    void Start() {
+        sumo = GetComponent<SumoGuy>();
+    }
 
     void Update() {
         HandleInput();
@@ -12,14 +17,10 @@ public class SumoPlayer : MonoBehaviour {
 
     void HandleInput() {
         float mov = Input.GetAxis("Horizontal");
-        if(Mathf.Abs(mov) > 0.1f) Move(mov * moveSpeed * Time.deltaTime);
+        if(Mathf.Abs(mov) > 0.1f) sumo.Move(mov * moveSpeed * Time.deltaTime);
+        if(Input.GetButtonDown("Fire1")) sumo.PushAttack();
     }
 
-    void Move(float delta) {
-        var pos = transform.position;
-        pos.x += delta;
-        transform.position = pos;
-    }
 
 }
 
