@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 1
+  content: 
 --- !u!1 &289909409
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,6 +320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
+  content: 
 --- !u!1 &294238009
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,6 +553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 2
+  content: 
 --- !u!1 &329387910
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,6 +652,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 3
+  content: 
 --- !u!1 &345828242
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,6 +751,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
+  content: Tile 2 Tile 2 Tile 2 GANG LETS GOOOOO rikishi
 --- !u!1 &467741861
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,6 +850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 2
+  content: 
 --- !u!1 &477339558
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,6 +1083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
+  content: tile 6 who???? who said that????
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1267,6 +1274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 2
+  content: 
 --- !u!1 &607299766
 GameObject:
   m_ObjectHideFlags: 0
@@ -1343,6 +1351,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  dictionary: {fileID: 667063888}
 --- !u!225 &607299769
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1453,6 +1462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
+  content: 
 --- !u!1 &658391176
 GameObject:
   m_ObjectHideFlags: 0
@@ -1551,6 +1561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 1
+  content: 
 --- !u!1 &662038553
 GameObject:
   m_ObjectHideFlags: 0
@@ -1695,6 +1706,7 @@ GameObject:
   - component: {fileID: 667063886}
   - component: {fileID: 667063885}
   - component: {fileID: 667063887}
+  - component: {fileID: 667063888}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -1871,6 +1883,23 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &667063888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667063884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 185623cbcb675c14e9f7d1161a1fab49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dictEditor:
+  - term: rikishi
+    description: he is the sumo guy who does sumo
+  - term: yobidashi
+    description: yoyo dashi dahsi yo yo whaattt
 --- !u!1 &698817948
 GameObject:
   m_ObjectHideFlags: 0
@@ -2037,6 +2066,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 2
+  content: 
 --- !u!1 &762015538
 GameObject:
   m_ObjectHideFlags: 0
@@ -2135,6 +2165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 3
+  content: 
 --- !u!1 &818384739
 GameObject:
   m_ObjectHideFlags: 0
@@ -2471,6 +2502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 1
+  content: 
 --- !u!1 &927903432
 GameObject:
   m_ObjectHideFlags: 0
@@ -2703,6 +2735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
+  content: Tile four am i right rikishi?
 --- !u!1 &950853156
 GameObject:
   m_ObjectHideFlags: 0
@@ -2734,6 +2767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
+  content: 
 --- !u!212 &950853158
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3169,6 +3203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
+  content: 
 --- !u!1 &1258652080
 GameObject:
   m_ObjectHideFlags: 0
@@ -3267,6 +3302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 1
+  content: 
 --- !u!1 &1292552487
 GameObject:
   m_ObjectHideFlags: 0
@@ -3365,6 +3401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 2
+  content: 
 --- !u!1 &1328652330
 GameObject:
   m_ObjectHideFlags: 0
@@ -3463,6 +3500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 3
+  content: 
 --- !u!1 &1483084579
 GameObject:
   m_ObjectHideFlags: 0
@@ -3561,6 +3599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 3
+  content: 
 --- !u!1 &1489771207
 GameObject:
   m_ObjectHideFlags: 0
@@ -3736,6 +3775,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
+  content: 'this is tile three, uhhhh. That''s it. yobidashi. yeah.
+
+    yobidashi'
 --- !u!1 &1714454355
 GameObject:
   m_ObjectHideFlags: 0
@@ -3834,6 +3876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 1
+  content: 
 --- !u!1 &1754739839
 GameObject:
   m_ObjectHideFlags: 0
@@ -3932,6 +3975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 3
+  content: 
 --- !u!1 &1838652415
 GameObject:
   m_ObjectHideFlags: 0
@@ -4030,6 +4074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
+  content: holy damn it's tile 5 yobidashi woah
 --- !u!1 &1883551961
 GameObject:
   m_ObjectHideFlags: 0
@@ -4128,6 +4173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 1
+  content: 
 --- !u!1 &1926020656
 GameObject:
   m_ObjectHideFlags: 0
@@ -4359,6 +4405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 2
+  content: 
 --- !u!1 &1951968683
 GameObject:
   m_ObjectHideFlags: 0
@@ -4457,6 +4504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 3
+  content: 
 --- !u!1 &1953006909
 GameObject:
   m_ObjectHideFlags: 0
@@ -4555,6 +4603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
+  content: 
 --- !u!1 &2089420917
 GameObject:
   m_ObjectHideFlags: 0
@@ -4787,6 +4836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
+  content: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

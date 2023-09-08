@@ -20,6 +20,7 @@ public class SugorokuManager : MonoBehaviour {
     int endTile;
     float defaultCamSize;
     Vector3 defaultCamPos;
+    TermDictionary dictionary;
 
     void Start() {
         cam = Camera.main;
@@ -30,6 +31,9 @@ public class SugorokuManager : MonoBehaviour {
     }
 
     public void Init() {
+        dictionary = GetComponent<TermDictionary>();
+        dictionary.Init();
+        foreach(var tile in tiles) tile.Init(dictionary);
         popup.Init();
         hideRollText();
         endTile = tiles.Length - 1;

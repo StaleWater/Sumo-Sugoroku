@@ -10,6 +10,7 @@ public class EventPopup : MonoBehaviour {
     [SerializeField] TMP_Text eventText;
     [SerializeField] float fadeDurationSEC;
     [SerializeField] AnimationCurve fadeCurve;
+    [SerializeField] TermDictionary dictionary;
 
     UnityAction onExit;
     CanvasGroup cg;
@@ -18,6 +19,20 @@ public class EventPopup : MonoBehaviour {
         cg = GetComponent<CanvasGroup>();
         cg.alpha = 0.0f;
         gameObject.SetActive(false);
+    }
+
+    void Update() {
+        if(Input.GetMouseButtonDown(0)) CheckLinkClick();
+    }
+
+    void CheckLinkClick() {
+        Vector2 screenPos = Input.mousePosition;
+        int index = TMP_TextUtilities.FindIntersectingLink(eventText, screenPos, null);
+        if(index == -1) return;
+        TMP_LinkInfo link = eventText.textInfo.linkInfo[index];
+        string text = link.GetLinkText();
+        string desc = dictionary.Lookup(text);
+        Debug.Log($"{text}: {desc}");
     }
 
     public void SetText(string text) {
