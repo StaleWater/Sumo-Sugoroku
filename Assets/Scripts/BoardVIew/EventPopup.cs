@@ -8,9 +8,14 @@ using UnityEngine.UI;
 public class EventPopup : MonoBehaviour {
     
     [SerializeField] TMP_Text eventText;
+    [SerializeField] TMP_Text termText;
+    [SerializeField] TMP_Text descriptionText;
+    [SerializeField] GameObject definitionPanel;
     [SerializeField] float fadeDurationSEC;
     [SerializeField] AnimationCurve fadeCurve;
     [SerializeField] TermDictionary dictionary;
+    [SerializeField] UIEventChecker uiChecker;
+    [SerializeField] Vector2 definitionOffset;
 
     UnityAction onExit;
     CanvasGroup cg;
@@ -18,22 +23,40 @@ public class EventPopup : MonoBehaviour {
     public void Init() {
         cg = GetComponent<CanvasGroup>();
         cg.alpha = 0.0f;
+        definitionPanel.SetActive(false);
         gameObject.SetActive(false);
     }
 
     void Update() {
-        if(Input.GetMouseButtonDown(0)) CheckLinkClick();
+        if(Input.GetMouseButtonDown(0)) {
+            if(definitionPanel.activeSelf && !uiChecker.ClickedOn(definitionPanel)) HideDefinition();
+            else if(!definitionPanel.activeSelf) CheckLinkClick();
+        }
     }
 
     void CheckLinkClick() {
         Vector2 screenPos = Input.mousePosition;
         int index = TMP_TextUtilities.FindIntersectingLink(eventText, screenPos, null);
         if(index == -1) return;
+
         TMP_LinkInfo link = eventText.textInfo.linkInfo[index];
+
         string text = link.GetLinkText();
         string desc = dictionary.Lookup(text);
-        Debug.Log($"{text}: {desc}");
+
+        ShowDefinition(text, desc);
     }
+
+    void ShowDefinition(string text, string desc) {
+        termText.text = text;
+        descriptionText.text = desc;
+        definitionPanel.SetActive(true);
+    }
+
+    void HideDefinition() {
+        definitionPanel.SetActive(false);
+    }
+
 
     public void SetText(string text) {
         eventText.text = text;

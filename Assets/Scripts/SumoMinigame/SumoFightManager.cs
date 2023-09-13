@@ -9,6 +9,8 @@ public class SumoFightManager : MonoBehaviour
     [Range(1,6)]
     [SerializeField] int difficulty;
     [SerializeField] float fieldSize;
+    [SerializeField] SpriteRenderer background;
+    [SerializeField] Color bgEndColor;
     
     void Start() {
         Init();
@@ -36,6 +38,7 @@ public class SumoFightManager : MonoBehaviour
     }
 
     void GameEnd(SumoGuy winner, SumoGuy loser) {
+        background.color = bgEndColor;
         Debug.Log($"GAME OVER {winner} WINS");
     }
 
