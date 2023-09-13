@@ -11,6 +11,8 @@ public class SumoGuy : MonoBehaviour {
     [SerializeField] int pushDamage;
     [SerializeField] float pushBackDistance;
     [SerializeField] float pushRange;
+    [SerializeField] SpriteRenderer enduranceBarSpr;
+    Material endBarMaterial;
 
     public BoxCollider2D box;
     Movable mov;
@@ -22,6 +24,8 @@ public class SumoGuy : MonoBehaviour {
         mov = GetComponent<Movable>();
         raycastHits = new RaycastHit2D[5];
         endurance = maxEndurance;
+        endBarMaterial = new Material(enduranceBarSpr.material);
+        UpdateEndBarMaterial();
     }
 
     public void Move(float delta) {
@@ -77,10 +81,18 @@ public class SumoGuy : MonoBehaviour {
         if(endurance == maxEndurance || amount == 0) return;
 
         endurance += amount;
+        UpdateEndBarMaterial();
         if(endurance > maxEndurance) {
             endurance = maxEndurance;
             HideEnduranceBar();
         }
+    }
+
+    void UpdateEndBarMaterial() {
+        float per = endurance / (float)maxEndurance;
+        Debug.Log(per);
+        endBarMaterial.SetFloat("_Percent", per);
+        enduranceBarSpr.material = endBarMaterial;
     }
 
     public void TakeDamage(int amount) {
@@ -88,7 +100,9 @@ public class SumoGuy : MonoBehaviour {
 
         bool wasAtMax = endurance == maxEndurance;
 
+        Debug.Log($"TOOK DAMAGE HP IS {endurance}");
         endurance -= amount;
+        UpdateEndBarMaterial();
         if(endurance < 0) {
             endurance = 0;
             Die();
