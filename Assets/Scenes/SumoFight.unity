@@ -361,11 +361,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c8947a2da92f140a4b468fbd525ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endurance: 50
+  endurance: 100
   facingRight: 0
-  maxEndurance: 50
-  enduranceRecoveryPerSec: 1
-  pushDamage: 10
+  maxEndurance: 100
+  enduranceRecoveryRate: 0.1
+  pushDamage: 25
   pushBackDistance: 2
   pushRange: 1
   enduranceBarSpr: {fileID: 402284390}
@@ -895,11 +895,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c8947a2da92f140a4b468fbd525ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endurance: 50
+  endurance: 100
   facingRight: 1
-  maxEndurance: 50
-  enduranceRecoveryPerSec: 1
-  pushDamage: 10
+  maxEndurance: 100
+  enduranceRecoveryRate: 0.1
+  pushDamage: 25
   pushBackDistance: 1
   pushRange: 0.5
   enduranceBarSpr: {fileID: 979035417}

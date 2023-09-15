@@ -14,6 +14,7 @@ public class SugorokuManager : MonoBehaviour {
     [SerializeField] float cameraZoomPadding;
     [SerializeField] float cameraZoomDurationSEC;
     [SerializeField] AnimationCurve cameraZoomCurve;
+    [SerializeField] Dice dice;
 
     Camera cam;
     int curTile;
@@ -38,6 +39,7 @@ public class SugorokuManager : MonoBehaviour {
         hideRollText();
         endTile = tiles.Length - 1;
         PlayerTeleport(0);
+        dice.Init();
         StartCoroutine(CamZoomReset());
     }
 
@@ -65,14 +67,13 @@ public class SugorokuManager : MonoBehaviour {
     }
 
     public void OnRollButton() {
-        StartCoroutine(RollAndMove());
+        dice.Roll((int x) => {
+            StartCoroutine(Move(x));
+        });
     }
 
-    IEnumerator RollAndMove() {
+    IEnumerator Move(int numMoves) {
 
-        // dice animation here
-
-        int numMoves = RandomNumMoves();
         showRollText($"You rolled a {numMoves}");
 
         int nextTileIndex = Mathf.Min(curTile + numMoves, tiles.Length - 1);
@@ -80,6 +81,7 @@ public class SugorokuManager : MonoBehaviour {
 
         hideRollText();
 
+        dice.Reset();
         // curTile should be updated after the above coroutine
         Tile tile = tiles[curTile];
         yield return StartCoroutine(CamZoomTile(tile));

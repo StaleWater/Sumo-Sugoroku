@@ -7,7 +7,7 @@ public class SumoGuy : MonoBehaviour {
     public int endurance;
     public bool facingRight;
     [SerializeField] int maxEndurance;
-    [SerializeField] int enduranceRecoveryPerSec;
+    [SerializeField] float enduranceRecoveryRate;
     [SerializeField] int pushDamage;
     [SerializeField] float pushBackDistance;
     [SerializeField] float pushRange;
@@ -26,6 +26,7 @@ public class SumoGuy : MonoBehaviour {
         endurance = maxEndurance;
         endBarMaterial = new Material(enduranceBarSpr.material);
         UpdateEndBarMaterial();
+        HideEnduranceBar();
     }
 
     public void Move(float delta) {
@@ -70,10 +71,10 @@ public class SumoGuy : MonoBehaviour {
     }
 
     IEnumerator PassiveRecovery() {
-        var waiter = new WaitForSeconds(1);
+        var waiter = new WaitForSeconds(enduranceRecoveryRate);
         while(endurance < maxEndurance) {
             yield return waiter;
-            Recover(enduranceRecoveryPerSec);
+            Recover(1);
         }
     }
 
@@ -82,7 +83,7 @@ public class SumoGuy : MonoBehaviour {
 
         endurance += amount;
         UpdateEndBarMaterial();
-        if(endurance > maxEndurance) {
+        if(endurance >= maxEndurance) {
             endurance = maxEndurance;
             HideEnduranceBar();
         }
@@ -90,7 +91,6 @@ public class SumoGuy : MonoBehaviour {
 
     void UpdateEndBarMaterial() {
         float per = endurance / (float)maxEndurance;
-        Debug.Log(per);
         endBarMaterial.SetFloat("_Percent", per);
         enduranceBarSpr.material = endBarMaterial;
     }
@@ -100,7 +100,6 @@ public class SumoGuy : MonoBehaviour {
 
         bool wasAtMax = endurance == maxEndurance;
 
-        Debug.Log($"TOOK DAMAGE HP IS {endurance}");
         endurance -= amount;
         UpdateEndBarMaterial();
         if(endurance < 0) {
@@ -119,11 +118,11 @@ public class SumoGuy : MonoBehaviour {
     }
 
     void ShowEnduranceBar() {
-
+        enduranceBarSpr.enabled = true;
     }
 
     void HideEnduranceBar() {
-
+        enduranceBarSpr.enabled = false;
     }
 }
 
