@@ -1,22 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SumoGuy : MonoBehaviour {
 
-    public int endurance;
-    public bool facingRight;
     [SerializeField] int maxEndurance;
     [SerializeField] float enduranceRecoveryRate;
     [SerializeField] int pushDamage;
     [SerializeField] float pushBackDistance;
-    [SerializeField] float pushRange;
     [SerializeField] SpriteRenderer enduranceBarSpr;
-    Material endBarMaterial;
 
+    public int endurance;
+    public bool facingRight;
+    public float pushRange;
+    public bool alive;
+    Material endBarMaterial;
     public BoxCollider2D box;
     Movable mov;
     RaycastHit2D[] raycastHits; 
+    UnityAction onDeath;
+
 
 
     public void Init() {
@@ -27,6 +31,11 @@ public class SumoGuy : MonoBehaviour {
         endBarMaterial = new Material(enduranceBarSpr.material);
         UpdateEndBarMaterial();
         HideEnduranceBar();
+        alive = true;
+    }
+
+    public void SetOnDeath(UnityAction ond) {
+        onDeath = ond;
     }
 
     public void Move(float delta) {
@@ -113,8 +122,10 @@ public class SumoGuy : MonoBehaviour {
 
     }
 
-    void Die() {
+    public void Die() {
+        alive = false;
         Debug.Log("You died");
+        onDeath?.Invoke();
     }
 
     void ShowEnduranceBar() {

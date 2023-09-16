@@ -72,8 +72,8 @@ Material:
     - _QueueOffset: 0
     - _Width: 1
     m_Colors:
-    - _BackColor: {r: 0.7161151, g: 0.5999911, b: 0.9150943, a: 0}
-    - _BarColor: {r: 0.8396226, g: 0.21782663, b: 0.21782663, a: 0}
+    - _BackColor: {r: 0.5943396, g: 0.54668033, b: 0.54668033, a: 0.3529412}
+    - _BarColor: {r: 0.8396226, g: 0.21782663, b: 0.21782663, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}

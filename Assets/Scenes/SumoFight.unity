@@ -313,6 +313,7 @@ GameObject:
   - component: {fileID: 425002403}
   - component: {fileID: 425002402}
   - component: {fileID: 425002401}
+  - component: {fileID: 425002406}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -361,14 +362,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c8947a2da92f140a4b468fbd525ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endurance: 100
-  facingRight: 0
   maxEndurance: 100
   enduranceRecoveryRate: 0.1
   pushDamage: 25
   pushBackDistance: 2
-  pushRange: 1
   enduranceBarSpr: {fileID: 402284390}
+  endurance: 100
+  facingRight: 0
+  pushRange: 0.5
+  alive: 0
   box: {fileID: 0}
 --- !u!50 &425002403
 Rigidbody2D:
@@ -494,6 +496,31 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &425002406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425002399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ee767b001b0e904c801fa52622206d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionCooldownSEC: 0.5
+  moveSpeed: 1
+  weights:
+  - action: 0
+    weight: 5
+  - action: 1
+    weight: 1
+  - action: 2
+    weight: 10
+  - action: 3
+    weight: 1
+  state: 3
+  active: 0
 --- !u!1 &979035416
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,14 +922,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c8947a2da92f140a4b468fbd525ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endurance: 100
-  facingRight: 1
   maxEndurance: 100
   enduranceRecoveryRate: 0.1
   pushDamage: 25
   pushBackDistance: 1
-  pushRange: 0.5
   enduranceBarSpr: {fileID: 979035417}
+  endurance: 100
+  facingRight: 1
+  pushRange: 0.5
+  alive: 0
   box: {fileID: 0}
 --- !u!114 &1214933962
 MonoBehaviour:
@@ -1161,7 +1189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1214933961}
-  enemy: {fileID: 425002402}
+  enemy: {fileID: 425002406}
   difficulty: 1
   fieldSize: 7
   background: {fileID: 1625124503}
