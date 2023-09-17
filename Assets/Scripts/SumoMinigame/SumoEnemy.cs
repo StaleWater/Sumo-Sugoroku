@@ -20,6 +20,7 @@ public class SumoEnemy : MonoBehaviour {
         MoveForward,
         MoveBack,
         Push,
+        Block,
         Idle
     }
 
@@ -47,6 +48,7 @@ public class SumoEnemy : MonoBehaviour {
 
     public void StopActionLoop() {
         if(actionLoop != null) StopCoroutine(actionLoop);
+        state = SumoAction.Idle;
     }
 
     IEnumerator ActionLoop() {
@@ -77,6 +79,10 @@ public class SumoEnemy : MonoBehaviour {
                 guy.PushAttack();
                 state = SumoAction.Idle;
                 break;
+            case SumoAction.Block:
+                guy.Block();
+                state = SumoAction.Block;
+                break;
             default:
                 state = action;
                 break;
@@ -84,6 +90,8 @@ public class SumoEnemy : MonoBehaviour {
     }
 
     void NextAction(float distToPlayer, float distToRingEdge) {
+        if(state == SumoAction.Block) guy.EndBlock();
+
         var possible = new List<SumoAction>();
         int weightTotal = 0;
 
@@ -91,6 +99,7 @@ public class SumoEnemy : MonoBehaviour {
         if(distToPlayer <= guy.pushRange) possible.Add(SumoAction.Push);
         if(distToPlayer > guy.pushRange / 2.0f) possible.Add(SumoAction.MoveForward);
         if(distToRingEdge > moveSpeed * actionCooldownSEC) possible.Add(SumoAction.MoveBack);
+        if(distToPlayer <= guy.pushRange * 2.0f) possible.Add(SumoAction.Block);
 
         int numActions = possible.Count;
         var percents = new float[numActions];

@@ -7,6 +7,7 @@ public class SumoFightManager : MonoBehaviour
     [SerializeField] SumoGuy player;
     [SerializeField] SumoEnemy enemy;
     SumoGuy enemyGuy;
+
     [Range(1,6)]
     [SerializeField] int difficulty;
     [SerializeField] float fieldSize;
@@ -58,6 +59,7 @@ public class SumoFightManager : MonoBehaviour
     void GameEnd(SumoGuy winner, SumoGuy loser) {
         background.color = bgEndColor;
         enemy.active = false;
+        enemy.StopActionLoop();
         Debug.Log($"GAME OVER {winner} WINS");
     }
 

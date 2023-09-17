@@ -10,17 +10,22 @@ public class SumoGuy : MonoBehaviour {
     [SerializeField] int pushDamage;
     [SerializeField] float pushBackDistance;
     [SerializeField] SpriteRenderer enduranceBarSpr;
+    [SerializeField] float actionStunTimeSEC;
 
     public int endurance;
     public bool facingRight;
     public float pushRange;
     public bool alive;
+    public bool blocking;
+    bool duringAction;
+    float groundLevel;
+
     Material endBarMaterial;
     public BoxCollider2D box;
     Movable mov;
     RaycastHit2D[] raycastHits; 
     UnityAction onDeath;
-
+    WaitForSeconds actionStunWaiter;
 
 
     public void Init() {
@@ -31,7 +36,10 @@ public class SumoGuy : MonoBehaviour {
         endBarMaterial = new Material(enduranceBarSpr.material);
         UpdateEndBarMaterial();
         HideEnduranceBar();
+        actionStunWaiter = new WaitForSeconds(actionStunTimeSEC);
         alive = true;
+        duringAction = false;
+        groundLevel = transform.position.y;
     }
 
     public void SetOnDeath(UnityAction ond) {
@@ -39,6 +47,8 @@ public class SumoGuy : MonoBehaviour {
     }
 
     public void Move(float delta) {
+        if(duringAction) return;
+
         var pos = transform.position;
         pos.x += delta;
         if((facingRight && delta > 0.0f) || (!facingRight && delta < 0.0f)) {
@@ -59,11 +69,41 @@ public class SumoGuy : MonoBehaviour {
     }
 
     public void PushAttack() {
+        if(duringAction) return;
+
         SumoGuy other = FindSumoInFront(pushRange);
         if(other == null) return;
 
-        other.TakeDamage(pushDamage);
-        other.ShiftBack(pushBackDistance);
+        int dmg = pushDamage;
+        float pushDist = pushBackDistance;
+
+        if(other.blocking) {
+            dmg /= 4;
+            pushDist *= 0.1f;
+        }
+
+        other.TakeDamage(dmg);
+        other.ShiftBack(pushDist);
+
+        StartCoroutine(ActionStun());
+    }
+
+    public void Block() {
+        if(duringAction) return;
+
+        blocking = true;
+        duringAction = true;
+        var pos = transform.position;
+        pos.y -= 0.1f;
+        transform.position = pos;
+    }
+
+    public void EndBlock() {
+        blocking = false;
+        duringAction = false;
+        var pos = transform.position;
+        pos.y = groundLevel;
+        transform.position = pos;
     }
 
     SumoGuy FindSumoInFront(float distance) {
@@ -77,6 +117,12 @@ public class SumoGuy : MonoBehaviour {
         }
 
         return guy;
+    }
+
+    IEnumerator ActionStun() {
+        duringAction = true;
+        yield return actionStunWaiter;
+        duringAction = false;
     }
 
     IEnumerator PassiveRecovery() {
@@ -120,10 +166,13 @@ public class SumoGuy : MonoBehaviour {
             StartCoroutine(PassiveRecovery());
         }
 
+        if(!blocking) StartCoroutine(ActionStun());
+
     }
 
     public void Die() {
         alive = false;
+        duringAction = true;
         Debug.Log("You died");
         onDeath?.Invoke();
     }
