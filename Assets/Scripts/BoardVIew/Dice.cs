@@ -44,7 +44,7 @@ public class Dice : MonoBehaviour {
         var right = transform.right;
         var zp = Vector3.Cross(up, right);
         var realUp = new Vector3(0.0f, 0.0f, -1.0f);
-        Vector3[] dirs = {-right, zp, up, -up, -zp, right};
+        Vector3[] dirs = {-right, -zp, up, -up, zp, right};
 
         for(int i=0; i < 6; i++) {
             float diff = (dirs[i] - realUp).magnitude;

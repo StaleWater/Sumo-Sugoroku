@@ -2,8 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
+
+public struct BoardStateData {
+    public bool usingState;
+    public int curTile;
+    public int tilesTillNextFight;
+    public Vector3 playerPos;
+    public int curFightLevel;
+}
 
 public class SugorokuManager : MonoBehaviour {
+
+
+    public static BoardStateData stateData;
 
     [SerializeField] Tile[] tiles;
     [SerializeField] Player player;
@@ -15,6 +27,7 @@ public class SugorokuManager : MonoBehaviour {
     [SerializeField] float cameraZoomDurationSEC;
     [SerializeField] AnimationCurve cameraZoomCurve;
     [SerializeField] Dice dice;
+    [SerializeField] int tilesBetweenFights;
 
     Camera cam;
     int curTile;
@@ -22,6 +35,8 @@ public class SugorokuManager : MonoBehaviour {
     float defaultCamSize;
     Vector3 defaultCamPos;
     TermDictionary dictionary;
+    int tilesTillNextFight;
+    int curFightLevel;
 
     void Start() {
         cam = Camera.main;
@@ -38,9 +53,20 @@ public class SugorokuManager : MonoBehaviour {
         popup.Init();
         hideRollText();
         endTile = tiles.Length - 1;
-        PlayerTeleport(0);
+
+        if(stateData.usingState) LoadState();
+        else {
+            tilesTillNextFight = tilesBetweenFights;
+            curFightLevel = 1;
+            PlayerTeleport(0);
+        }
+
+
         dice.Init();
+
+        if(curTile == endTile) GameEnd();
         StartCoroutine(CamZoomReset());
+
     }
 
     IEnumerator PlayerToTile(int tileIndex, bool stayOnPath = true) {
@@ -82,6 +108,7 @@ public class SugorokuManager : MonoBehaviour {
         hideRollText();
 
         dice.Reset();
+        tilesTillNextFight -= numMoves;
         // curTile should be updated after the above coroutine
         Tile tile = tiles[curTile];
         yield return StartCoroutine(CamZoomTile(tile));
@@ -155,8 +182,36 @@ public class SugorokuManager : MonoBehaviour {
 
     }
 
+    void CheckForFight() {
+        if(tilesTillNextFight <= 0) {
+            tilesTillNextFight += tilesBetweenFights;
+            SaveState();
+            curFightLevel++;
+            SceneManager.LoadScene("SumoFight");
+        }
+    }
+
     void GameEnd() {
         showRollText("You finished the game great job fool");
+    }
+
+    void SaveState() {
+        stateData.curTile = curTile;
+        stateData.curFightLevel = curFightLevel;
+        stateData.playerPos = player.transform.position;
+        stateData.tilesTillNextFight = tilesTillNextFight;
+        stateData.usingState = true;
+    }
+
+    void LoadState() {
+        if(!stateData.usingState) Debug.Log("WARNING: Loading from a state that is not intended to be used");
+        curTile = stateData.curTile;
+        curFightLevel = stateData.curFightLevel;
+        player.transform.position = stateData.playerPos;
+        tilesTillNextFight = stateData.tilesTillNextFight;
+
+        // a state should only ever be loaded from once, so disable the flag
+        stateData.usingState = false;
     }
 
     public void ShowPopup(string text) {
@@ -169,8 +224,8 @@ public class SugorokuManager : MonoBehaviour {
     }
 
     IEnumerator OnEventEnd() {
+        CheckForFight();
         yield return StartCoroutine(CamZoomReset());
-        
         if(curTile == endTile) GameEnd();
     }
 

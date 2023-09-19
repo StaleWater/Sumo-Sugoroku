@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class SumoFightManager : MonoBehaviour
-{
+public class SumoFightManager : MonoBehaviour {
     [SerializeField] SumoGuy player;
     [SerializeField] SumoEnemy enemy;
     SumoGuy enemyGuy;
@@ -30,6 +30,8 @@ public class SumoFightManager : MonoBehaviour
         enemyGuy.SetOnDeath(() => {
             GameEnd(player, enemyGuy);
         });
+
+        if(SugorokuManager.stateData.usingState) difficulty = SugorokuManager.stateData.curFightLevel;
 
         StartCoroutine(CheckGameEnd());
         enemy.StartActionLoop();
@@ -61,6 +63,12 @@ public class SumoFightManager : MonoBehaviour
         enemy.active = false;
         enemy.StopActionLoop();
         Debug.Log($"GAME OVER {winner} WINS");
+        StartCoroutine(BackToBoard());
+    }
+
+    IEnumerator BackToBoard() {
+        yield return new WaitForSeconds(5.0f);
+        SceneManager.LoadScene("TheBoard");
     }
 
     bool InRing(SumoGuy guy) {
