@@ -1,0 +1,59 @@
+:root {
+	justify-content: center;
+	align-items: center;
+	background-color: #316280;
+}
+
+/* (START) --- Title --- */
+
+.title-container {
+	align-items: center;
+	margin-top: -250px;
+}
+
+.title {
+	color: white;
+	font-size: 150px;
+	-unity-font-style: bold;
+	text-shadow: 0 0 20px #EEEEEE;
+}
+
+.sub-title {
+	color: maroon;
+	font-size: 50px;
+	margin-top: -35px;
+	letter-spacing: 38px;
+	text-shadow: 0 0 10px red;
+}
+
+/* (END) --- Title --- */
+
+/* (START) --- Buttons --- */
+
+.menu-buttons {
+	margin-top: 60px;
+	margin-bottom: -125px;
+}
+
+.menu-buttons Button {
+	width: 150px;
+	height: 50px;
+	background-color: transparent;
+	border-width: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+
+	font-size: 25px;
+	color: white;
+}
+
+.menu-buttons Button:focus {
+	background-color: yellowgreen;
+}
+
+.menu-buttons Button:hover {
+	border-width: 1px;
+	border-color: white;
+}
+
+/* (END) --- Buttons --- */
