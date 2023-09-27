@@ -26,6 +26,7 @@ public class Dice : MonoBehaviour {
     }
 
     public void Reset() {
+        StopAllCoroutines();
         rb.isKinematic = true;
         transform.position = startPos;
     }
@@ -45,12 +46,14 @@ public class Dice : MonoBehaviour {
         var zp = Vector3.Cross(up, right);
         var realUp = new Vector3(0.0f, 0.0f, -1.0f);
         Vector3[] dirs = {-right, -zp, up, -up, zp, right};
+        float[] diffs = new float[6];
 
+        int minI = 0;
         for(int i=0; i < 6; i++) {
-            float diff = (dirs[i] - realUp).magnitude;
-            if(diff < 0.01f) return i + 1;
+            diffs[i] = (dirs[i] - realUp).magnitude;
+            if(diffs[i] < diffs[minI]) minI = i;
         }
 
-        return 0;
+        return minI + 1;
     }
 }

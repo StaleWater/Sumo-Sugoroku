@@ -2003,6 +2003,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   dice: {fileID: 1013567298}
   tilesBetweenFights: 5
+  gameState: 0
 --- !u!114 &667063888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2475,7 +2476,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807056417}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -3479,7 +3480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPos: {x: 4, y: -6, z: -2}
-  rollForce: {x: -20, y: 30, z: 5}
+  rollForce: {x: -20, y: 40, z: 5}
   appliedPosOnCube: {x: 0, y: 0, z: -0.8}
 --- !u!1 &1044835410
 GameObject:
@@ -4420,7 +4421,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1340675129}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -4999,7 +5000,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1764717590}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -5687,7 +5688,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2089420918
 RectTransform:
   m_ObjectHideFlags: 0

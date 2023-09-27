@@ -4,12 +4,43 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 
+public enum GameState {
+    Transitioning,
+    RollPhase,
+    EventOccuring,
+}
+
 public struct BoardStateData {
     public bool usingState;
     public int curTile;
     public int tilesTillNextFight;
     public Vector3 playerPos;
     public int curFightLevel;
+    public CameraData camData;
+}
+
+public struct CameraData {
+    public Vector3 position;
+    public float size;
+    public Quaternion rotation;
+
+    public CameraData(Vector3 pos, float s, Quaternion rot) {
+        position = pos;
+        size = s;
+        rotation = rot;
+    }
+
+    public CameraData(Camera cam) {
+        position = cam.transform.position;
+        size = cam.orthographicSize;
+        rotation = cam.transform.localRotation;
+    }
+
+    public void Apply(Camera cam) {
+        cam.transform.position = position;
+        cam.orthographicSize = size;
+        cam.transform.localRotation = rotation;
+    }
 }
 
 public class SugorokuManager : MonoBehaviour {
@@ -32,41 +63,60 @@ public class SugorokuManager : MonoBehaviour {
     Camera cam;
     int curTile;
     int endTile;
-    float defaultCamSize;
-    Vector3 defaultCamPos;
+    CameraData defaultCamState;
     TermDictionary dictionary;
     int tilesTillNextFight;
     int curFightLevel;
 
+    public GameState gameState;
+
     void Start() {
         cam = Camera.main;
         popup.RegisterOnExit(OnPopupExit);
-        defaultCamSize = cam.orthographicSize;
-        defaultCamPos = cam.transform.position;
+        defaultCamState = new CameraData(cam);
         Init();
     }
 
     public void Init() {
+        // For when the Restart button is hit; may remove later, but useful for debugging right now
+        StopAllCoroutines();
+
+        gameState = GameState.Transitioning;
+
         dictionary = GetComponent<TermDictionary>();
         dictionary.Init();
         foreach(var tile in tiles) tile.Init(dictionary);
+
         popup.Init();
         hideRollText();
+
+        dice.Init();
+
         endTile = tiles.Length - 1;
 
-        if(stateData.usingState) LoadState();
+        StartCoroutine(InitSettleState());
+    }
+
+    // checks for Init() to make sure that, no matter what state we load from,
+    // our starting state for the next roll is the same.
+    IEnumerator InitSettleState() {
+        if(stateData.usingState) {
+            LoadState();
+            yield return new WaitForSeconds(1.0f);
+            yield return StartCoroutine(CamZoomReset());
+        }
         else {
             tilesTillNextFight = tilesBetweenFights;
             curFightLevel = 1;
             PlayerTeleport(0);
+            defaultCamState.Apply(cam);
         }
 
+        // event checks come after the camera is in its full-screen default state
 
-        dice.Init();
+        gameState = GameState.RollPhase;
 
         if(curTile == endTile) GameEnd();
-        StartCoroutine(CamZoomReset());
-
     }
 
     IEnumerator PlayerToTile(int tileIndex, bool stayOnPath = true) {
@@ -93,13 +143,16 @@ public class SugorokuManager : MonoBehaviour {
     }
 
     public void OnRollButton() {
+        if(gameState != GameState.RollPhase) return;
+
+        gameState = GameState.Transitioning;
+
         dice.Roll((int x) => {
             StartCoroutine(Move(x));
         });
     }
 
     IEnumerator Move(int numMoves) {
-
         showRollText($"You rolled a {numMoves}");
 
         int nextTileIndex = Mathf.Min(curTile + numMoves, tiles.Length - 1);
@@ -111,8 +164,11 @@ public class SugorokuManager : MonoBehaviour {
         tilesTillNextFight -= numMoves;
         // curTile should be updated after the above coroutine
         Tile tile = tiles[curTile];
+
         yield return StartCoroutine(CamZoomTile(tile));
         yield return new WaitForSeconds(popupDelay);
+
+        gameState = GameState.EventOccuring;
         tile.Event(this);
     }
 
@@ -149,14 +205,19 @@ public class SugorokuManager : MonoBehaviour {
                 break;
         }
 
-        yield return StartCoroutine(CamZoom(newCamPos, newCamSize, newCamRotation));
+        CameraData cd = new CameraData(newCamPos, newCamSize, newCamRotation);
+
+        yield return StartCoroutine(CamZoom(cd));
     }
 
     IEnumerator CamZoomReset() {
-        yield return StartCoroutine(CamZoom(defaultCamPos, defaultCamSize, Quaternion.identity));
+        yield return StartCoroutine(CamZoom(defaultCamState));
     }
 
-    IEnumerator CamZoom(Vector3 endCamPos, float endCamSize, Quaternion endCamRotation) {
+    IEnumerator CamZoom(CameraData cd) {
+        Vector3 endCamPos = cd.position;
+        float endCamSize = cd.size;
+        Quaternion endCamRotation = cd.rotation; 
         endCamPos.z = cam.transform.position.z;
 
         Vector3 startPos = cam.transform.position;
@@ -169,7 +230,11 @@ public class SugorokuManager : MonoBehaviour {
             float curveY = cameraZoomCurve.Evaluate(curveX);
             cam.transform.position = Vector3.Lerp(startPos, endCamPos, curveY);
             cam.orthographicSize = Mathf.Lerp(startSize, endCamSize, curveY);
-            cam.transform.localRotation = Quaternion.Slerp(startRotation, endCamRotation, curveY);
+
+            var rotQ = Quaternion.Slerp(startRotation, endCamRotation, curveY);
+            cam.transform.localRotation = rotQ;
+            // rotate the player to align with the camera
+            player.transform.localRotation = rotQ;
 
             yield return null;
 
@@ -200,6 +265,7 @@ public class SugorokuManager : MonoBehaviour {
         stateData.curFightLevel = curFightLevel;
         stateData.playerPos = player.transform.position;
         stateData.tilesTillNextFight = tilesTillNextFight;
+        stateData.camData = new CameraData(cam);
         stateData.usingState = true;
     }
 
@@ -208,7 +274,10 @@ public class SugorokuManager : MonoBehaviour {
         curTile = stateData.curTile;
         curFightLevel = stateData.curFightLevel;
         player.transform.position = stateData.playerPos;
+        player.transform.localRotation = stateData.camData.rotation;
         tilesTillNextFight = stateData.tilesTillNextFight;
+        stateData.camData.Apply(cam);
+
 
         // a state should only ever be loaded from once, so disable the flag
         stateData.usingState = false;
@@ -225,8 +294,15 @@ public class SugorokuManager : MonoBehaviour {
 
     IEnumerator OnEventEnd() {
         CheckForFight();
+
+        // if we make it here, a fight did not occur
+
+        gameState = GameState.Transitioning;
         yield return StartCoroutine(CamZoomReset());
+
         if(curTile == endTile) GameEnd();
+
+        gameState = GameState.RollPhase;
     }
 
 }
