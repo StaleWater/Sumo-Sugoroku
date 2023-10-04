@@ -376,7 +376,7 @@ Transform:
   m_GameObject: {fileID: 425002399}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.94, y: -1.63, z: -0.0030754593}
+  m_LocalPosition: {x: 0.94, y: -1.63, z: 0}
   m_LocalScale: {x: -0.15, y: 0.15, z: 1.3022779}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -413,10 +413,10 @@ MonoBehaviour:
   pushDamage: 25
   pushBackDistance: 1
   enduranceBarSpr: {fileID: 402284390}
-  actionStunTimeSEC: 0.25
+  actionStunTimeSEC: 0.5
   endurance: 100
   facingRight: 0
-  pushRange: 0.5
+  pushRange: 0.75
   alive: 0
   blocking: 0
   box: {fileID: 0}
@@ -479,7 +479,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.40397787, y: -0.48028564}
+  m_Offset: {x: -1.9317715, y: -0.48028564}
   m_SpriteTilingProperty:
     border: {x: 2.52, y: 8.4, z: 1.5699999, w: 9.53}
     pivot: {x: 0.5, y: 0.5}
@@ -490,7 +490,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 18.050041, y: 23.268784}
+  m_Size: {x: 13.378542, y: 23.268784}
   m_EdgeRadius: 0
 --- !u!212 &425002405
 SpriteRenderer:
@@ -556,7 +556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ee767b001b0e904c801fa52622206d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionCooldownSEC: 0.25
+  actionCooldownSEC: 0.5
   moveSpeed: 1
   weights:
   - action: 0
@@ -890,7 +890,7 @@ Transform:
   m_GameObject: {fileID: 1214933954}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.4669, y: -1.64, z: -0.0030754593}
+  m_LocalPosition: {x: -4.4669, y: -1.64, z: -1}
   m_LocalScale: {x: 0.15, y: 0.15, z: 1.3022779}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -942,7 +942,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.6813898, y: -0.49784374}
+  m_Offset: {x: -2.0103536, y: -0.49784374}
   m_SpriteTilingProperty:
     border: {x: 2.52, y: 8.4, z: 1.5699999, w: 9.53}
     pivot: {x: 0.5, y: 0.5}
@@ -953,7 +953,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20.43722, y: 23.324617}
+  m_Size: {x: 13.107804, y: 23.324617}
   m_EdgeRadius: 0
 --- !u!50 &1214933960
 Rigidbody2D:
@@ -1002,7 +1002,7 @@ MonoBehaviour:
   actionStunTimeSEC: 0.25
   endurance: 100
   facingRight: 1
-  pushRange: 0.5
+  pushRange: 0.75
   alive: 0
   blocking: 0
   box: {fileID: 0}

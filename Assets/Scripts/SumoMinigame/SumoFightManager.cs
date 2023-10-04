@@ -53,7 +53,9 @@ public class SumoFightManager : MonoBehaviour {
     }
 
     public (float, float) GetEnemyInputData() {
-        float distToPlayer = Mathf.Abs(enemy.transform.position.x - player.transform.position.x - player.box.bounds.size.x);
+        float pfr = Mathf.Abs(enemyGuy.box.bounds.min.x - player.box.bounds.max.x);
+        float efr = Mathf.Abs(player.box.bounds.min.x - enemyGuy.box.bounds.max.x);
+        float distToPlayer = Mathf.Min(pfr, efr);
         float distToEdge = Mathf.Abs(enemy.transform.position.x - fieldSize - player.box.bounds.extents.x);
         return (distToPlayer, distToEdge);
     }
