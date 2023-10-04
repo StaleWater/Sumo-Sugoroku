@@ -26,11 +26,13 @@ public class SumoGuy : MonoBehaviour {
     RaycastHit2D[] raycastHits; 
     UnityAction onDeath;
     WaitForSeconds actionStunWaiter;
+    Animator ani;
 
 
     public void Init() {
         box = GetComponent<BoxCollider2D>();
         mov = GetComponent<Movable>();
+        ani = GetComponent<Animator>();
         raycastHits = new RaycastHit2D[5];
         endurance = maxEndurance;
         endBarMaterial = new Material(enduranceBarSpr.material);
@@ -72,20 +74,27 @@ public class SumoGuy : MonoBehaviour {
         if(duringAction) return;
 
         SumoGuy other = FindSumoInFront(pushRange);
-        if(other == null) return;
+        if(other != null) {
+            int dmg = pushDamage;
+            float pushDist = pushBackDistance;
 
-        int dmg = pushDamage;
-        float pushDist = pushBackDistance;
+            if(other.blocking) {
+                dmg /= 4;
+                pushDist *= 0.1f;
+            }
 
-        if(other.blocking) {
-            dmg /= 4;
-            pushDist *= 0.1f;
+            other.TakeDamage(dmg);
+            other.ShiftBack(pushDist);
         }
 
-        other.TakeDamage(dmg);
-        other.ShiftBack(pushDist);
 
-        StartCoroutine(ActionStun());
+        StartCoroutine(PushAnimation());
+    }
+
+    IEnumerator PushAnimation() {
+        ani.SetBool("Pushing", true);
+        yield return StartCoroutine(ActionStun());
+        ani.SetBool("Pushing", false);
     }
 
     public void Block() {
@@ -118,6 +127,7 @@ public class SumoGuy : MonoBehaviour {
 
         return guy;
     }
+
 
     IEnumerator ActionStun() {
         duringAction = true;
