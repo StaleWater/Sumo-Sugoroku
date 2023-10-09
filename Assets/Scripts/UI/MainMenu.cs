@@ -7,11 +7,15 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] private UIDocument document;
     [SerializeField] private StyleSheet styleSheet;
+	[SerializeField] UIFadeable screenCurtain;
 
 	[SerializeField] private string startGameSceneName;
 
     private void Start()
     {
+		screenCurtain.Init();
+		screenCurtain.Show();
+		StartCoroutine(screenCurtain.FadeOut());
 		StartCoroutine(Generate());
     }
 
@@ -66,8 +70,13 @@ public class MainMenu : MonoBehaviour
 		root.Add(menuButtons);
 	}
 
-	private void StartGame()
-	{
+	private void StartGame() {
+		StartCoroutine(StartGameHelper());
+	}
+
+	IEnumerator StartGameHelper() {
+		yield return new WaitForSeconds(0.5f);
+		yield return StartCoroutine(screenCurtain.FadeIn());
 		SceneManager.LoadScene(startGameSceneName);
 	}
 

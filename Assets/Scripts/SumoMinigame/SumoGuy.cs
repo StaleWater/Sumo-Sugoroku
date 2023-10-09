@@ -56,8 +56,14 @@ public class SumoGuy : MonoBehaviour {
         if((facingRight && delta > 0.0f) || (!facingRight && delta < 0.0f)) {
             SumoGuy other = FindSumoInFront(Mathf.Abs(delta));
             if(other != null) {
-                if(facingRight) pos.x = other.box.bounds.min.x - box.bounds.extents.x;
-                else pos.x = other.box.bounds.max.x + box.bounds.extents.x;
+                if(facingRight) {
+                    float fatness = box.bounds.max.x - transform.position.x;
+                    pos.x = other.box.bounds.min.x - fatness;
+                }
+                else {
+                    float fatness = transform.position.x - box.bounds.min.x;
+                    pos.x = other.box.bounds.max.x + fatness;
+                }
             }
         }
 
@@ -183,7 +189,6 @@ public class SumoGuy : MonoBehaviour {
     public void Die() {
         alive = false;
         duringAction = true;
-        Debug.Log("You died");
         onDeath?.Invoke();
     }
 

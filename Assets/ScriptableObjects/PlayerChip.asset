@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ade706bb18fc51641bbdb7044b026e73, type: 3}
   m_Name: PlayerChip
   m_EditorClassIdentifier: 
-  fadeInSpeed: 2.57
-  fadeOutSpeed: 2.63
+  fadeInSpeed: 2
+  fadeOutSpeed: 2

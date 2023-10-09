@@ -9,6 +9,42 @@ public class Fadeable : MonoBehaviour {
 
     Coroutine currentFade;
 
+    public List<(SpriteRenderer, Color)> SelfAndKids() {
+        var spr = GetComponent<SpriteRenderer>();
+        var children = new List<(SpriteRenderer, Color)>();
+
+        children.Add((spr, spr.color));
+
+        foreach(Transform child in transform) {
+            SpriteRenderer s = child.GetComponent<SpriteRenderer>();
+            if(s != null) {
+                children.Add((s, s.color));
+            }
+        }
+
+        return children;
+    }
+
+    public void Show() {
+        var children = SelfAndKids();
+
+        foreach((var s, var c) in children) {
+            Color cn = c;
+            cn.a = 1.0f; 
+            s.color = cn;
+        }
+    }
+
+    public void Hide() {
+        var children = SelfAndKids();
+
+        foreach((var s, var c) in children) {
+            Color cn = c;
+            cn.a = 0.0f; 
+            s.color = cn;
+        }
+    }
+
     public bool IsFading() {
         return currentFade != null;
     }
@@ -34,12 +70,17 @@ public class Fadeable : MonoBehaviour {
 
     IEnumerator FadeInHelper(FadeableSettings settings, Action onComplete) {
         var spr = GetComponent<SpriteRenderer>();
-        Color oldColor = spr.color;
+        var children = SelfAndKids();
+
         float opacity = 0.0f;
 
         while(opacity < 1.0f) {
             opacity += Time.deltaTime * settings.fadeInSpeed;
-            spr.color = new Color(oldColor.r, oldColor.g, oldColor.b, opacity);
+            foreach((SpriteRenderer s, Color c) in children) {
+                Color cn = c;
+                cn.a = opacity; 
+                s.color = cn;
+            }
             yield return null;
         }
 
@@ -48,12 +89,20 @@ public class Fadeable : MonoBehaviour {
 
     IEnumerator FadeOutHelper(FadeableSettings settings, Action onComplete) {
         var spr = GetComponent<SpriteRenderer>();
-        Color oldColor = spr.color;
+
+        var children = SelfAndKids();
+
         float opacity = 1.0f;
 
         while(opacity > 0.0f) {
             opacity -= Time.deltaTime * settings.fadeOutSpeed;
-            spr.color = new Color(oldColor.r, oldColor.g, oldColor.b, opacity);
+
+            foreach((SpriteRenderer s, Color c) in children) {
+                Color cn = c;
+                cn.a = opacity; 
+                s.color = cn;
+            }
+
             yield return null;
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum GameState {
     Transitioning,
@@ -17,6 +18,7 @@ public struct BoardStateData {
     public Vector3 playerPos;
     public int curFightLevel;
     public CameraData camData;
+    public int riggedTileIndex;
 }
 
 public struct CameraData {
@@ -53,24 +55,32 @@ public class SugorokuManager : MonoBehaviour {
     [SerializeField] Vector2Int diceMinMax;
     [SerializeField] EventPopup popup;
     [SerializeField] TMP_Text rollText;
+    [SerializeField] UIFadeable rollTextContainer; 
+    [SerializeField] Button rollButton;
     [SerializeField] float popupDelay;
     [SerializeField] float cameraZoomPadding;
     [SerializeField] float cameraZoomDurationSEC;
     [SerializeField] AnimationCurve cameraZoomCurve;
     [SerializeField] Dice dice;
     [SerializeField] int tilesBetweenFights;
+    [SerializeField] int[] tilesToVisit;
+    [SerializeField] UIFadeable screenCurtain; 
 
     Camera cam;
     int curTile;
     int endTile;
+    int riggedTileIndex;
     CameraData defaultCamState;
     TermDictionary dictionary;
     int tilesTillNextFight;
-    int curFightLevel;
+    public int curFightLevel;
+
+    string rollPhaseText = "Roll the dice!";
 
     public GameState gameState;
 
     void Start() {
+        Application.targetFrameRate = 60;
         cam = Camera.main;
         popup.RegisterOnExit(OnPopupExit);
         defaultCamState = new CameraData(cam);
@@ -86,13 +96,17 @@ public class SugorokuManager : MonoBehaviour {
         dictionary = GetComponent<TermDictionary>();
         dictionary.Init();
         foreach(var tile in tiles) tile.Init(dictionary);
-
+        
         popup.Init();
-        hideRollText();
-
         dice.Init();
+        rollTextContainer.Init();
+        screenCurtain.Init();
 
         endTile = tiles.Length - 1;
+        ShowRollText(rollPhaseText);
+
+        screenCurtain.gameObject.SetActive(true);
+        screenCurtain.Show();
 
         StartCoroutine(InitSettleState());
     }
@@ -102,21 +116,35 @@ public class SugorokuManager : MonoBehaviour {
     IEnumerator InitSettleState() {
         if(stateData.usingState) {
             LoadState();
+            player.GetComponent<Fadeable>().Hide();
+            yield return StartCoroutine(screenCurtain.FadeOut());
             yield return new WaitForSeconds(1.0f);
-            yield return StartCoroutine(CamZoomReset());
+
+            if(curTile == endTile) StartEvent(tiles[curTile]);
+            else yield return StartCoroutine(ReturnFromEvent());
         }
         else {
-            tilesTillNextFight = tilesBetweenFights;
-            curFightLevel = 1;
-            PlayerTeleport(0);
-            defaultCamState.Apply(cam);
+            StartGameState();
+            yield return StartCoroutine(screenCurtain.FadeOut());
+            yield return new WaitForSeconds(1.0f);
+            Tile tile = tiles[curTile];
+            yield return StartCoroutine(TileZoomProcess(tile));
+            StartEvent(tile);
         }
 
-        // event checks come after the camera is in its full-screen default state
 
-        gameState = GameState.RollPhase;
+    }
 
-        if(curTile == endTile) GameEnd();
+    void StartGameState() {
+            tilesTillNextFight = tilesBetweenFights;
+            curFightLevel = 0;
+            PlayerTeleport(0);
+            defaultCamState.Apply(cam);
+            riggedTileIndex = 0;
+            rollTextContainer.Show();
+            gameState = GameState.RollPhase;
+            curTile = 0;
+            rollTextContainer.Hide();
     }
 
     IEnumerator PlayerToTile(int tileIndex, bool stayOnPath = true) {
@@ -142,42 +170,67 @@ public class SugorokuManager : MonoBehaviour {
         return Random.Range(diceMinMax.x, diceMinMax.y + 1);
     }
 
+    int RiggedNumMoves() {
+        int nextTile = tilesToVisit[++riggedTileIndex] - 1;
+        int dist = nextTile - curTile;
+        if(dist > 6) {
+            Debug.Log("TOO BIG STOP");
+            return 0;
+        }
+
+        return dist;
+    }
+
     public void OnRollButton() {
         if(gameState != GameState.RollPhase) return;
 
         gameState = GameState.Transitioning;
 
-        dice.Roll((int x) => {
+        int moves = RiggedNumMoves();
+
+
+        dice.RiggedRoll((int x) => {
             StartCoroutine(Move(x));
-        });
+        }, moves);
     }
 
     IEnumerator Move(int numMoves) {
-        showRollText($"You rolled a {numMoves}");
+        ShowRollText($"You rolled a {numMoves}");
 
         int nextTileIndex = Mathf.Min(curTile + numMoves, tiles.Length - 1);
         yield return StartCoroutine(PlayerToTile(nextTileIndex));
 
-        hideRollText();
+        HideRollText();
 
         dice.Reset();
         tilesTillNextFight -= numMoves;
         // curTile should be updated after the above coroutine
         Tile tile = tiles[curTile];
 
-        yield return StartCoroutine(CamZoomTile(tile));
-        yield return new WaitForSeconds(popupDelay);
+        yield return StartCoroutine(TileZoomProcess(tile));
 
-        gameState = GameState.EventOccuring;
-        tile.Event(this);
+        if(curTile == endTile) StartCoroutine(StartFight());
+        else StartEvent(tile);
     }
 
-    void showRollText(string text) {
+    IEnumerator TileZoomProcess(Tile tile) {
+        StartCoroutine(rollTextContainer.FadeOut());
+        yield return StartCoroutine(CamZoomTile(tile));
+        player.GetComponent<Fadeable>().FadeOut();
+        yield return new WaitForSeconds(popupDelay);
+    }
+
+   void StartEvent(Tile tile) {
+        gameState = GameState.EventOccuring;
+        tile.Event(this);
+   } 
+
+    void ShowRollText(string text) {
         rollText.text = text;
         rollText.gameObject.SetActive(true);
     }
 
-    void hideRollText() {
+    void HideRollText() {
         rollText.gameObject.SetActive(false);
     }
 
@@ -247,17 +300,26 @@ public class SugorokuManager : MonoBehaviour {
 
     }
 
-    void CheckForFight() {
+    bool CheckForFight() {
         if(tilesTillNextFight <= 0) {
             tilesTillNextFight += tilesBetweenFights;
-            SaveState();
-            curFightLevel++;
-            SceneManager.LoadScene("SumoFight");
+            StartCoroutine(StartFight());
+            return true;
         }
+        return false;
+    }
+
+    IEnumerator StartFight() {
+            curFightLevel++;
+            SaveState();
+            yield return new WaitForSeconds(1.0f);
+            yield return StartCoroutine(screenCurtain.FadeIn());
+            SceneManager.LoadScene("SumoFight");
     }
 
     void GameEnd() {
-        showRollText("You finished the game great job fool");
+        ShowRollText("Game Finished!");
+        rollButton.interactable = false;
     }
 
     void SaveState() {
@@ -267,6 +329,7 @@ public class SugorokuManager : MonoBehaviour {
         stateData.tilesTillNextFight = tilesTillNextFight;
         stateData.camData = new CameraData(cam);
         stateData.usingState = true;
+        stateData.riggedTileIndex = riggedTileIndex;
     }
 
     void LoadState() {
@@ -277,6 +340,7 @@ public class SugorokuManager : MonoBehaviour {
         player.transform.localRotation = stateData.camData.rotation;
         tilesTillNextFight = stateData.tilesTillNextFight;
         stateData.camData.Apply(cam);
+        riggedTileIndex = stateData.riggedTileIndex;
 
 
         // a state should only ever be loaded from once, so disable the flag
@@ -292,17 +356,31 @@ public class SugorokuManager : MonoBehaviour {
         StartCoroutine(OnEventEnd());
     }
 
-    IEnumerator OnEventEnd() {
-        CheckForFight();
-
-        // if we make it here, a fight did not occur
-
+    IEnumerator ReturnFromEvent() {
         gameState = GameState.Transitioning;
+        player.GetComponent<Fadeable>().FadeIn();
         yield return StartCoroutine(CamZoomReset());
 
-        if(curTile == endTile) GameEnd();
-
         gameState = GameState.RollPhase;
+        ShowRollText(rollPhaseText);
+        StartCoroutine(rollTextContainer.FadeIn());
+
+        if(curTile == endTile) GameEnd();
+    }
+
+    IEnumerator OnEventEnd() {
+        if(!CheckForFight()) {
+            yield return StartCoroutine(ReturnFromEvent());
+        }
+    }
+
+    public void BackToMenu() {
+        StartCoroutine(BackToMenuHelper());
+    }
+
+    IEnumerator BackToMenuHelper() {
+        yield return StartCoroutine(screenCurtain.FadeIn());
+        SceneManager.LoadScene("MainMenu");
     }
 
 }

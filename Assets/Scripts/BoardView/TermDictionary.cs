@@ -35,7 +35,7 @@ public class TermDictionary : MonoBehaviour {
 
                 newText += text.Substring(si, i - si);
                 if((head < 0 || !Char.IsLetter(text[head])) && (tail >= text.Length || !Char.IsLetter(text[tail]))) {
-                    newText += $"<link><i><color=\"blue\">{term}</color></i></link>";
+                    newText += $"<link><color=#ce2c2f>{term}</color></link>";
                 }
 
                 si = tail;

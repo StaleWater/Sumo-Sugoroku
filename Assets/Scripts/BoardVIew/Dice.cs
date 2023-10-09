@@ -10,17 +10,39 @@ public class Dice : MonoBehaviour {
 
     Rigidbody rb;
     BoxCollider box;
+    Quaternion[] rollNumbers;
 
     public void Init() {
         rb = GetComponent<Rigidbody>();
         box = GetComponent<BoxCollider>();
+        InitRiggedDice();
         Reset(); 
+    }
+
+    void InitRiggedDice() {
+        rollNumbers = new Quaternion[6];
+        rollNumbers[0] = new Quaternion(0.00000f, 0.70711f, 0.00000f, 0.70711f);
+        rollNumbers[1] = new Quaternion(0f, 0f, 0f, 1f);
+        rollNumbers[2] = new Quaternion(0.70711f, 0f, 0f, 0.70711f);
+        rollNumbers[3] = new Quaternion(-0.70711f, 0f, 0f, 0.70711f);
+        rollNumbers[4] = new Quaternion(1f, 0f, 0f, 0f);
+        rollNumbers[5] = new Quaternion(0.00000f, -0.70711f, 0.00000f, 0.70711f);
     }
 
     public void Roll(UnityAction<int> onRoll) {
         rb.isKinematic = false;
         Vector3 appliedPos = startPos + Vector3.Scale(box.bounds.extents, appliedPosOnCube);
         rb.rotation = Random.rotation;
+        rb.AddForceAtPosition(rollForce, appliedPos);
+        StartCoroutine(WaitToFinishRoll(onRoll));
+    }
+
+    public void RiggedRoll(UnityAction<int> onRoll, int num) {
+        rb.isKinematic = false;
+        Vector3 appliedPos = startPos + Vector3.Scale(box.bounds.extents, appliedPosOnCube);
+
+        rb.rotation = rollNumbers[num - 1];
+
         rb.AddForceAtPosition(rollForce, appliedPos);
         StartCoroutine(WaitToFinishRoll(onRoll));
     }
@@ -56,4 +78,5 @@ public class Dice : MonoBehaviour {
 
         return minI + 1;
     }
+
 }

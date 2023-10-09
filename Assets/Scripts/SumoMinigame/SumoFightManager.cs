@@ -2,26 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class SumoFightManager : MonoBehaviour {
     [SerializeField] SumoGuy player;
-    [SerializeField] SumoEnemy enemy;
-    SumoGuy enemyGuy;
-
-    [Range(1,6)]
-    [SerializeField] int difficulty;
+    [SerializeField] SumoEnemy[] enemyList;
+    [SerializeField] Vector3 playerStartPos;
+    [SerializeField] Vector3 enemyStartPos;
     [SerializeField] float fieldSize;
     [SerializeField] SpriteRenderer background;
     [SerializeField] Color bgEndColor;
+    [SerializeField] UIFadeable screenCurtain;
+    [SerializeField] TMP_Text topText;
     
+    SumoGuy enemyGuy;
+    SumoEnemy enemy;
+
     void Start() {
         Init();
     }
 
     public void Init() {
         player.Init();
+
+        enemy = ChooseEnemy();
         enemy.Init(this);
         enemyGuy = enemy.GetComponent<SumoGuy>();
+
+        enemy.transform.position = enemyStartPos;
+        player.transform.position = playerStartPos;
+
+        screenCurtain.Init();
+        screenCurtain.gameObject.SetActive(true);
 
         player.SetOnDeath(() => {
             GameEnd(enemyGuy, player);
@@ -31,9 +43,24 @@ public class SumoFightManager : MonoBehaviour {
             GameEnd(player, enemyGuy);
         });
 
-        if(SugorokuManager.stateData.usingState) difficulty = SugorokuManager.stateData.curFightLevel;
-
         StartCoroutine(CheckGameEnd());
+
+        screenCurtain.Show();
+        
+        StartCoroutine(FightPrep());
+    }
+
+    SumoEnemy ChooseEnemy() {
+        int i = Mathf.Max(0, SugorokuManager.stateData.curFightLevel - 1);
+
+        var prefab = enemyList[i];
+        SumoEnemy e = Instantiate(prefab, transform);
+        return e;
+    }
+
+    IEnumerator FightPrep() {
+        yield return StartCoroutine(screenCurtain.FadeOut());
+        yield return new WaitForSeconds(1.0f);
         enemy.StartActionLoop();
     }
 
@@ -64,12 +91,15 @@ public class SumoFightManager : MonoBehaviour {
         background.color = bgEndColor;
         enemy.active = false;
         enemy.StopActionLoop();
-        Debug.Log($"GAME OVER {winner} WINS");
+        string victor = winner == player ? "PLAYER" : "ENEMY";
+        topText.text = $"{victor} WINS";
+
         StartCoroutine(BackToBoard());
     }
 
     IEnumerator BackToBoard() {
         yield return new WaitForSeconds(5.0f);
+        yield return StartCoroutine(screenCurtain.FadeIn());
         SceneManager.LoadScene("TheBoard");
     }
 

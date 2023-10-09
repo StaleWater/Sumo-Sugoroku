@@ -11,18 +11,16 @@ public class EventPopup : MonoBehaviour {
     [SerializeField] TMP_Text termText;
     [SerializeField] TMP_Text descriptionText;
     [SerializeField] GameObject definitionPanel;
-    [SerializeField] float fadeDurationSEC;
-    [SerializeField] AnimationCurve fadeCurve;
     [SerializeField] TermDictionary dictionary;
     [SerializeField] UIEventChecker uiChecker;
     [SerializeField] Vector2 definitionOffset;
 
     UnityAction onExit;
-    CanvasGroup cg;
+    UIFadeable fader;
 
     public void Init() {
-        cg = GetComponent<CanvasGroup>();
-        cg.alpha = 0.0f;
+        fader = GetComponent<UIFadeable>();
+        fader.Init();
         definitionPanel.SetActive(false);
         gameObject.SetActive(false);
     }
@@ -64,20 +62,13 @@ public class EventPopup : MonoBehaviour {
 
     public void Show() {
         gameObject.SetActive(true);
-        StartCoroutine(FadeIn());
+        StartCoroutine(fader.FadeIn());
     }
 
     public void Hide() {
         StartCoroutine(OnExit());
     }
 
-    IEnumerator FadeIn() {
-        yield return StartCoroutine(Fade(0.0f, 1.0f));
-    }
-
-    IEnumerator FadeOut() {
-        yield return StartCoroutine(Fade(1.0f, 0.0f));
-    }
 
     public void RegisterOnExit(UnityAction e) {
         onExit += e;
@@ -88,25 +79,10 @@ public class EventPopup : MonoBehaviour {
     }
 
     IEnumerator OnExit() {
-        yield return StartCoroutine(FadeOut());
+        yield return StartCoroutine(fader.FadeOut());
         onExit?.Invoke();
         gameObject.SetActive(false);
     }
 
-    IEnumerator Fade(float startOpacity, float endOpacity) {
-        float timePassed = 0.0f;
-
-        while(timePassed <= fadeDurationSEC) {
-            float curveX = timePassed / fadeDurationSEC;
-            float curveY = fadeCurve.Evaluate(curveX);
-            cg.alpha = Mathf.Lerp(startOpacity, endOpacity, curveY);
-
-            yield return null;
-
-            timePassed += Time.deltaTime;
-        }
-
-        cg.alpha = endOpacity;
-    }
 
 }
