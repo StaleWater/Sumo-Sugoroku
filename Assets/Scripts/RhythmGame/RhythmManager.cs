@@ -13,6 +13,8 @@ public class RhythmManager : MonoBehaviour
     [SerializeField] float missToleranceBEATS;
     [SerializeField] Staff staff1;
     [SerializeField] Staff staff2;
+    [SerializeField] Staff staff3;
+    [SerializeField] Staff staff4;
     [SerializeField] Animator sumoAni;
     [SerializeField] float pushAniDurationSEC;
 
@@ -41,40 +43,49 @@ public class RhythmManager : MonoBehaviour
         reactionTimeBEATS = reactionTimeSEC * tempoBPS;
         startDelayBEATS = startDelaySEC * tempoBPS;
 
-        staff1.Init(KeyCode.A, reactionTimeBEATS, tempoBPS, 
+        staff1.Init(KeyCode.UpArrow, reactionTimeBEATS, tempoBPS, 
                 hitToleranceBEATS, missToleranceBEATS);
 
-        staff2.Init(KeyCode.D, reactionTimeBEATS, tempoBPS, 
+        staff2.Init(KeyCode.RightArrow, reactionTimeBEATS, tempoBPS, 
+                hitToleranceBEATS, missToleranceBEATS);
+
+        staff3.Init(KeyCode.LeftArrow, reactionTimeBEATS, tempoBPS, 
+                hitToleranceBEATS, missToleranceBEATS);
+
+        staff4.Init(KeyCode.DownArrow, reactionTimeBEATS, tempoBPS, 
                 hitToleranceBEATS, missToleranceBEATS);
 
         UnityAction<bool, bool> onHitAttempt = OnHitAttempt;
 
         staff1.RegisterOnHitAttempt(onHitAttempt);
         staff2.RegisterOnHitAttempt(onHitAttempt);
+        staff3.RegisterOnHitAttempt(onHitAttempt);
+        staff4.RegisterOnHitAttempt(onHitAttempt);
 
         pushWaiter = new WaitForSeconds(pushAniDurationSEC);
 
-        smp = new StaffMultiplexer(new List<Staff>() {staff1, staff2});
+        smp = new StaffMultiplexer(new List<Staff>() {staff1, staff2, staff3, staff4});
 
         float q = QUARTER_NOTE;
         float e = EIGHTH_NOTE;
+        float s = SIXTEENTH_NOTE;
 
         // use bit masks to assign a note to multiple staves 
         int s1 = 1;
         int s2 = 2;
-        //int s3 = 4;
-        //int s4 = 8;
+        int s3 = 4;
+        int s4 = 8;
 
         List<(float, int)> notes = new List<(float, int)>() {
             (q, s1),
             (q, s1|s2),
-            (e, s1),
-            (e, s1),
+            (e, s3),
+            (e, s3),
             (q, s1),
-            (q, s2),
+            (q, s4),
             (q+e, s1|s2),
-            (e, s1|s2),
-            (e, s1|s2),
+            (e, s2|s4),
+            (e, s2|s4),
         };
 
         smp.SetSheetMusic(notes, startDelayBEATS);
