@@ -72,7 +72,7 @@ public class Fadeable : MonoBehaviour {
         var spr = GetComponent<SpriteRenderer>();
         var children = SelfAndKids();
 
-        float opacity = 0.0f;
+        float opacity = spr.color.a;
 
         while(opacity < 1.0f) {
             opacity += Time.deltaTime * settings.fadeInSpeed;
@@ -92,7 +92,7 @@ public class Fadeable : MonoBehaviour {
 
         var children = SelfAndKids();
 
-        float opacity = 1.0f;
+        float opacity = spr.color.a;
 
         while(opacity > 0.0f) {
             opacity -= Time.deltaTime * settings.fadeOutSpeed;
