@@ -61,7 +61,9 @@ public class SugorokuManager : MonoBehaviour {
     [SerializeField] float cameraZoomPadding;
     [SerializeField] float cameraZoomDurationSEC;
     [SerializeField] AnimationCurve cameraZoomCurve;
-    [SerializeField] Dice dice;
+	[SerializeField] float cameraPanDurationSEC;
+	[SerializeField] AnimationCurve cameraPanCurve;
+	[SerializeField] Dice dice;
     [SerializeField] int tilesBetweenFights;
     [SerializeField] int[] tilesToVisit;
     [SerializeField] UIFadeable screenCurtain; 
@@ -130,7 +132,11 @@ public class SugorokuManager : MonoBehaviour {
             Tile tile = tiles[curTile];
             yield return StartCoroutine(TileZoomProcess(tile));
             StartEvent(tile);
-        }
+
+            // TODO
+			// Disable the clickable tile
+			// tile.GetComponent<BoxCollider2D>().enabled = false;
+		}
 
 
     }
@@ -209,21 +215,39 @@ public class SugorokuManager : MonoBehaviour {
 
         yield return StartCoroutine(TileZoomProcess(tile));
 
-        if(curTile == endTile) StartCoroutine(StartFight());
+		if(curTile == endTile) StartCoroutine(StartFight());
         else StartEvent(tile);
+
+        // TODO
+        // Disable the clickable tile
+		// tile.GetComponent<BoxCollider2D>().enabled = false;
     }
 
+    /*
+        TODO: Zoom in camera enough to fit the offset with the narrative.
+        If the player clicks on the tile, the camera will zoom into the tile.
+        If the player gets out of the tile, the camera zooms out and goes back to the previous offset.
+    */
     IEnumerator TileZoomProcess(Tile tile) {
         StartCoroutine(rollTextContainer.FadeOut());
-        yield return StartCoroutine(CamZoomTile(tile));
-        player.GetComponent<Fadeable>().FadeOut();
-        yield return new WaitForSeconds(popupDelay);
+        yield return StartCoroutine(CamZoomTile(tile, 0.5f));
+
+		// Fade out the game pieces on the current tile
+		player.GetComponent<Fadeable>().FadeOut();
+
+        // TODO: Offset the camera to allow for a pop-up
+        yield return StartCoroutine(CamPanTile(tile));
+
+		tile.GetComponent<BoxCollider2D>().enabled = true;
+
+		// Wait for some delay before introducing a pop-up done outside of this function
+		// yield return new WaitForSeconds(popupDelay);
     }
 
-   void StartEvent(Tile tile) {
+    void StartEvent(Tile tile) {
         gameState = GameState.EventOccuring;
-        tile.Event(this);
-   } 
+        tile.Event(this, TileContentType.Narrative);
+    } 
 
     void ShowRollText(string text) {
         rollText.text = text;
@@ -234,10 +258,17 @@ public class SugorokuManager : MonoBehaviour {
         rollText.gameObject.SetActive(false);
     }
 
-    IEnumerator CamZoomTile(Tile tile) {
-        float newCamSize = tile.GetComponent<SpriteRenderer>().bounds.extents.y + cameraZoomPadding;
-        Vector3 newCamPos = tile.transform.position;
+	// Increasing scale means more zoom relative default zoom where tile's longest edge is the bound
+	IEnumerator CamZoomTile(Tile tile, float scale = 1.0f) {
+        Vector3 tileExtentsSize = tile.GetComponent<SpriteRenderer>().bounds.extents;
+		bool isSideways = tile.orientation == Orientation.Right || tile.orientation == Orientation.Left;
 
+		// TODO: figure out new size; maybe use the tile's aspect ratio
+		float newCamSize = isSideways? tileExtentsSize.x : tileExtentsSize.y; // Adjust the camera zoom
+        newCamSize = (newCamSize / scale) + cameraZoomPadding;
+		Vector3 newCamPos = tile.transform.position; // Set the camera position onto the center of the tile
+
+        // Rotate the camera so that the image on the tile is upright
         Quaternion newCamRotation;
         switch (tile.orientation) {
             case Orientation.Up:
@@ -261,7 +292,7 @@ public class SugorokuManager : MonoBehaviour {
         CameraData cd = new CameraData(newCamPos, newCamSize, newCamRotation);
 
         yield return StartCoroutine(CamZoom(cd));
-    }
+	}
 
     IEnumerator CamZoomReset() {
         yield return StartCoroutine(CamZoom(defaultCamState));
@@ -300,6 +331,52 @@ public class SugorokuManager : MonoBehaviour {
 
     }
 
+    // Offsets the tile to one half of the camera's view
+	IEnumerator CamPanTile(Tile tile) {
+		// Get the tile's aspect ratio to determine where to pan the camera
+        // Orientation.* = edge : Up = bottom, Down = top, Right = left, Left = right
+		bool isSideways = tile.orientation == Orientation.Right || tile.orientation == Orientation.Left;
+
+        // Currently, offsetting is center aligned; one edge of the tile is always on one of the perpendicular 2 center lines
+        // TODO: offset so that the image is centered at +-1/4 of the camera
+		Vector3 tileExtentsSize = tile.GetComponent<SpriteRenderer>().bounds.extents;
+		Vector3 offset;
+		if (!tile.isPortrait) {
+            // Landscape
+            offset = -cam.transform.up;
+            offset *= isSideways ? tileExtentsSize.x + cameraZoomPadding / 2 : tileExtentsSize.y + cameraZoomPadding / 2;
+		} 
+        else {
+            // Portrait
+            offset = -cam.transform.right;
+			offset *= isSideways ? tileExtentsSize.y + cameraZoomPadding / 2 : tileExtentsSize.x + cameraZoomPadding / 2;
+		} 
+
+		// Begin the camera pan after gathering information
+		CameraData cd = new CameraData(cam.transform.position + offset, 1.0f, Quaternion.identity);
+		yield return StartCoroutine(CamPan(cd));
+	}
+
+	IEnumerator CamPan(CameraData cd) {
+		Vector3 startPos = cam.transform.position;
+		Vector3 endCamPos = cd.position;
+		endCamPos.z = cam.transform.position.z;
+
+		float timePassed = 0.0f;
+		while (timePassed <= cameraPanDurationSEC)
+		{
+			float curveX = timePassed / cameraPanDurationSEC;
+			float curveY = cameraPanCurve.Evaluate(curveX);
+			cam.transform.position = Vector3.Lerp(startPos, endCamPos, curveY);
+
+			yield return null;
+
+			timePassed += Time.deltaTime;
+		}
+
+		cam.transform.position = endCamPos;
+    }
+
     bool CheckForFight() {
         if(tilesTillNextFight <= 0) {
             tilesTillNextFight += tilesBetweenFights;
@@ -310,11 +387,11 @@ public class SugorokuManager : MonoBehaviour {
     }
 
     IEnumerator StartFight() {
-            curFightLevel++;
-            SaveState();
-            yield return new WaitForSeconds(1.0f);
-            yield return StartCoroutine(screenCurtain.FadeIn());
-            SceneManager.LoadScene("SumoFight");
+        curFightLevel++;
+        SaveState();
+        yield return new WaitForSeconds(1.0f);
+        yield return StartCoroutine(screenCurtain.FadeIn());
+        SceneManager.LoadScene("SumoFight");
     }
 
     void GameEnd() {
@@ -347,8 +424,10 @@ public class SugorokuManager : MonoBehaviour {
         stateData.usingState = false;
     }
 
-    public void ShowPopup(string text) {
+    public void ShowPopup(in string text, in Vector2 scale, in Vector2 offsetScale) {
         popup.SetText(text);
+        popup.SetScale(scale);
+        popup.ApplyOffsetScale(offsetScale);
         popup.Show();
     }
 

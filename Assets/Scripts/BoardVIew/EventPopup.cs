@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class EventPopup : MonoBehaviour {
     
     [SerializeField] TMP_Text eventText;
     [SerializeField] TMP_Text termText;
+    [SerializeField] GameObject eventPanel;
     [SerializeField] TMP_Text descriptionText;
     [SerializeField] GameObject definitionPanel;
     [SerializeField] TermDictionary dictionary;
@@ -18,12 +20,17 @@ public class EventPopup : MonoBehaviour {
     UnityAction onExit;
     UIFadeable fader;
 
+    private Vector3 originalEventPanelPosition;
+    private Vector2 originalEventPanelSizeDelta;
+
     public void Init() {
         fader = GetComponent<UIFadeable>();
         fader.Init();
         definitionPanel.SetActive(false);
         gameObject.SetActive(false);
-    }
+		originalEventPanelPosition = eventPanel.GetComponent<RectTransform>().position;
+		originalEventPanelSizeDelta = eventPanel.GetComponent<RectTransform>().sizeDelta;
+	}
 
     void Update() {
         if(Input.GetMouseButtonDown(0)) {
@@ -55,10 +62,18 @@ public class EventPopup : MonoBehaviour {
         definitionPanel.SetActive(false);
     }
 
+    public void ApplyOffsetScale(in Vector2 offsetScale) {
+        eventPanel.GetComponent<RectTransform>().position *= offsetScale;
+	}
 
-    public void SetText(string text) {
+	public void SetScale(in Vector2 scale)
+	{
+		eventPanel.GetComponent<RectTransform>().sizeDelta *= scale;
+	}
+
+	public void SetText(in string text) {
         eventText.text = text;
-    }
+	}
 
     public void Show() {
         gameObject.SetActive(true);
@@ -68,7 +83,6 @@ public class EventPopup : MonoBehaviour {
     public void Hide() {
         StartCoroutine(OnExit());
     }
-
 
     public void RegisterOnExit(UnityAction e) {
         onExit += e;
@@ -82,7 +96,8 @@ public class EventPopup : MonoBehaviour {
         yield return StartCoroutine(fader.FadeOut());
         onExit?.Invoke();
         gameObject.SetActive(false);
-    }
-
+		eventPanel.GetComponent<RectTransform>().position = originalEventPanelPosition;
+		eventPanel.GetComponent<RectTransform>().sizeDelta = originalEventPanelSizeDelta;
+	}
 
 }
