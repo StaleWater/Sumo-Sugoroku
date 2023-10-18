@@ -7,6 +7,8 @@ public class ChankoManager : MonoBehaviour
     [SerializeField] ChankoItem[] items;
     [SerializeField] float showTime;
     [SerializeField] float betweenItemsTime;
+    [SerializeField] Transform pot;
+    [SerializeField] int numRounds;
 
     Fadeable[] itemImages;
     bool selectTime;
@@ -14,6 +16,7 @@ public class ChankoManager : MonoBehaviour
     WaitForSeconds betweenWaiter;
     int[] order;
     int orderIndex;
+    int curRound;
 
     void Start() {
         Init();    
@@ -29,39 +32,71 @@ public class ChankoManager : MonoBehaviour
         SpawnImages();
     }
 
+
     void SpawnImages() {
         itemImages = new Fadeable[items.Length];
         for(int i=0; i < items.Length; i++) {
-            Fadeable img = Instantiate(items[i].GetComponent<Fadeable>());
+            Fadeable img = Instantiate(items[i].fade);
             img.transform.position = transform.position;
             img.Hide();
             itemImages[i] = img;
         }
     }
 
-    public void StartGame() {
-        order = RandomItemOrder();
-        StartCoroutine(Gametime());
+    void HideItems() {
+        foreach(var item in items) {
+            item.fade.Hide();
+        }
     }
 
-    IEnumerator Gametime() {
+    bool AllItemsGone() {
         foreach(var item in items) {
-            item.GetComponent<Fadeable>().FadeIn();
+            if(item.fade.IsVisible()) return false;
         }
+        return true;
+    }
+
+    public void StartGame() {
+        curRound = 0;
+        HideItems();
+        StartCoroutine(NextRound());
+    }
+
+    IEnumerator NextRound() {
+        curRound++;
+        if(curRound > numRounds) {
+            GameEnd();
+            yield break;
+        }
+
+        Debug.Log($"ROUND {curRound}");
+
+        order = RandomItemOrder();
+
+        yield return StartCoroutine(Showtime());
+
+        yield return StartCoroutine(ResetItems());
+
+        selectTime = true;
+        orderIndex = 0;
+    }
+
+    IEnumerator ResetItems() {
+        foreach(var item in items) {
+            item.ResetState();
+            item.fade.FadeIn();
+        }
+
         yield return new WaitUntil(() => {
             bool done = true;
             foreach(var item in items) {
-                if(item.GetComponent<Fadeable>().IsFading()) {
+                if(item.fade.IsFading()) {
                     done = false;
                     break;
                 }
             }
             return done;
         });
-        Debug.Log("MADE IT");
-
-        yield return StartCoroutine(Showtime());
-
     }
 
     IEnumerator Showtime() {
@@ -70,8 +105,6 @@ public class ChankoManager : MonoBehaviour
             yield return betweenWaiter;
         }
 
-        selectTime = true;
-        orderIndex = 0;
     }
 
     int[] RandomItemOrder() {
@@ -98,24 +131,41 @@ public class ChankoManager : MonoBehaviour
         img.FadeOut();
     }
 
-    public void OnItemClick(int itemId) {
-        if(!selectTime) return;
+    public IEnumerator OnItemClick(int itemId) {
+        if(!selectTime) yield break;
+
         if(itemId != order[orderIndex]) {
-            Debug.Log("WRONG ITEM");
-            GameEnd(false);
+            HideItems();
+            RoundEnd(false);
         }
         else {
-            Debug.Log("GOOD");
-            items[itemId].GetComponent<Fadeable>().FadeOut();
+            var item = items[itemId];
+
             orderIndex++;
-            if(orderIndex >= order.Length) GameEnd(true);
+            if(orderIndex >= order.Length) StartCoroutine(RoundEnd(true));
+
+            yield return StartCoroutine(item.FlyTo(pot.position));
+            items[itemId].fade.FadeOut();
         }
     }
 
-    void GameEnd(bool win) {
+    IEnumerator RoundEnd(bool win) {
         selectTime = false;
-        if(win) Debug.Log("GOOD JOB YOU WIN");
-        else Debug.Log("IDIOT YOU SUCK YOU LOSE");
+
+        if(win) Debug.Log("GOOD JOB");
+        else {
+            Debug.Log("IDIOT YOU SUCK YOU LOSE");
+            GameEnd();
+            yield break;
+        }
+
+        yield return new WaitUntil(() => AllItemsGone());
+
+        StartCoroutine(NextRound());
+    }
+
+    void GameEnd() {
+        Debug.Log("GAME DONE");
     }
 
 }

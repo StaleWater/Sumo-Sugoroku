@@ -108,6 +108,7 @@ public class Staff : MonoBehaviour
 
         // do a fade in animation or something
         var fade = note.GetComponent<Fadeable>();
+        fade.Hide();
         fade.FadeIn();        
 
         return note;
@@ -176,7 +177,7 @@ public class Staff : MonoBehaviour
 
             waitTime -= beatsPassed;
             if(waitTime < 0.0f) {
-                // note is now on screen
+                // next note is now on screen
                 sprites[nextNote] = SpawnNote();
                 waitTime = notes[nextNote];
                 notes[nextNote] = reactionTimeBEATS;

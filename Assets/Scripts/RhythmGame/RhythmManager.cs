@@ -66,6 +66,13 @@ public class RhythmManager : MonoBehaviour
 
         smp = new StaffMultiplexer(new List<Staff>() {staff1, staff2, staff3, staff4});
 
+        var notes = GetSheetMusic();
+
+        smp.SetSheetMusic(notes, startDelayBEATS);
+    }
+
+    List<(float, int)> GetSheetMusic() {
+        float h = HALF_NOTE;
         float q = QUARTER_NOTE;
         float e = EIGHTH_NOTE;
         float s = SIXTEENTH_NOTE;
@@ -86,9 +93,40 @@ public class RhythmManager : MonoBehaviour
             (q+e, s1|s2),
             (e, s2|s4),
             (e, s2|s4),
+            (h, s1|s4),
+            (e, s1),
+            (e, s2),
+            (e, s3),
+            (e, s4),
+            (e, s3),
+            (e, s2),
+            (e, s1),
+            (e, s2),
+            (e, s1),
+            (e, s3),
+            (e, s1),
+            (e, s4),
+            (e, s1),
+            (e, s4),
+            (e, s1),
+            (e, s4),
+            (q, s2|s3),
+            (q, s2|s3),
+            (s, s3),
+            (s, s2),
+            (s, s3),
+            (s, s2),
+            (s, s3),
+            (s, s2),
+            (s, s3),
+            (s, s2),
+            (q, s3|s2),
+            (q, s3|s2),
+            (h, s3|s2),
         };
 
-        smp.SetSheetMusic(notes, startDelayBEATS);
+        return notes;
+
     }
 
     public void StartGame() {

@@ -25,6 +25,11 @@ public class Fadeable : MonoBehaviour {
         return children;
     }
 
+    public bool IsVisible() {
+        var spr = GetComponent<SpriteRenderer>();
+        return spr.color.a > 0.001f;
+    }
+
     public void Show() {
         var children = SelfAndKids();
 
@@ -84,6 +89,8 @@ public class Fadeable : MonoBehaviour {
             yield return null;
         }
 
+        currentFade = null;
+
         onComplete?.Invoke();
     }
 
@@ -105,6 +112,8 @@ public class Fadeable : MonoBehaviour {
 
             yield return null;
         }
+
+        currentFade = null;
 
         onComplete?.Invoke();
     }
