@@ -86,7 +86,8 @@ public class SugorokuManager : MonoBehaviour {
         cam = Camera.main;
         popup.RegisterOnExit(OnPopupExit);
         defaultCamState = new CameraData(cam);
-        Init();
+		Tile.clicked = TileExtraEvent;
+		Init();
     }
 
     public void Init() {
@@ -98,8 +99,8 @@ public class SugorokuManager : MonoBehaviour {
         dictionary = GetComponent<TermDictionary>();
         dictionary.Init();
         foreach(var tile in tiles) tile.Init(dictionary);
-        
-        popup.Init();
+
+		popup.Init();
         dice.Init();
         rollTextContainer.Init();
         screenCurtain.Init();
@@ -131,6 +132,7 @@ public class SugorokuManager : MonoBehaviour {
             yield return new WaitForSeconds(1.0f);
             Tile tile = tiles[curTile];
             yield return StartCoroutine(TileZoomProcess(tile));
+            Debug.Log("Finished zooming level 1 into tile");
             StartEvent(tile);
 
             // TODO
@@ -236,7 +238,7 @@ public class SugorokuManager : MonoBehaviour {
 		player.GetComponent<Fadeable>().FadeOut();
 
         // TODO: Offset the camera to allow for a pop-up
-        yield return StartCoroutine(CamPanTile(tile));
+        // yield return StartCoroutine(CamPanTile(tile));
 
 		tile.GetComponent<BoxCollider2D>().enabled = true;
 
@@ -247,7 +249,22 @@ public class SugorokuManager : MonoBehaviour {
     void StartEvent(Tile tile) {
         gameState = GameState.EventOccuring;
         tile.Event(this, TileContentType.Narrative);
-    } 
+    }
+
+    public void TileExtraEvent(Tile tile) {
+        // TODO: do popup stuff
+        Debug.Log("EXTRA TILE EVENT OCCURED");
+
+        // Handle the narrative pop-up
+		tile.GetComponent<BoxCollider2D>().enabled = false; // Image cannot be clicked again
+        StartCoroutine(ExtraEvent(tile));
+	}
+
+    IEnumerator ExtraEvent(Tile tile) {
+        popup.Hide();
+		yield return StartCoroutine(CamZoomTile(tile));
+		tile.Event(this, TileContentType.Extra);
+	}
 
     void ShowRollText(string text) {
         rollText.text = text;
@@ -263,13 +280,20 @@ public class SugorokuManager : MonoBehaviour {
         Vector3 tileExtentsSize = tile.GetComponent<SpriteRenderer>().bounds.extents;
 		bool isSideways = tile.orientation == Orientation.Right || tile.orientation == Orientation.Left;
 
-		// TODO: figure out new size; maybe use the tile's aspect ratio
-		float newCamSize = isSideways? tileExtentsSize.x : tileExtentsSize.y; // Adjust the camera zoom
+        // TODO: figure out new size; maybe use the tile's aspect ratio
+        float tileRatio = isSideways ? tileExtentsSize.y / tileExtentsSize.x : tileExtentsSize.x / tileExtentsSize.y;
+
+        float newCamSize = isSideways ? tileExtentsSize.x : tileExtentsSize.y;
+		if (cam.aspect < tileRatio)
+        {
+			newCamSize *= (tileRatio / cam.aspect);
+		}
         newCamSize = (newCamSize / scale) + cameraZoomPadding;
+
 		Vector3 newCamPos = tile.transform.position; // Set the camera position onto the center of the tile
 
-        // Rotate the camera so that the image on the tile is upright
-        Quaternion newCamRotation;
+		// Rotate the camera so that the image on the tile is upright
+		Quaternion newCamRotation;
         switch (tile.orientation) {
             case Orientation.Up:
                 newCamRotation = Quaternion.identity;

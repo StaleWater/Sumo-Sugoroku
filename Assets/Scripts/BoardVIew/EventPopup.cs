@@ -81,8 +81,9 @@ public class EventPopup : MonoBehaviour {
     }
 
     public void Hide() {
-        StartCoroutine(OnExit());
-    }
+		// StartCoroutine(OnExit());
+		StartCoroutine(OnHide());
+	}
 
     public void RegisterOnExit(UnityAction e) {
         onExit += e;
@@ -92,12 +93,21 @@ public class EventPopup : MonoBehaviour {
         StartCoroutine(OnExit());
     }
 
+    IEnumerator OnHide() {
+		yield return StartCoroutine(fader.FadeOut());
+		eventPanel.GetComponent<RectTransform>().position = originalEventPanelPosition;
+		eventPanel.GetComponent<RectTransform>().sizeDelta = originalEventPanelSizeDelta;
+		Debug.Log("Hiding popup");
+		gameObject.SetActive(false);
+	}
+
     IEnumerator OnExit() {
         yield return StartCoroutine(fader.FadeOut());
         onExit?.Invoke();
         gameObject.SetActive(false);
 		eventPanel.GetComponent<RectTransform>().position = originalEventPanelPosition;
 		eventPanel.GetComponent<RectTransform>().sizeDelta = originalEventPanelSizeDelta;
+        Debug.Log("Pop up exited");
 	}
 
 }

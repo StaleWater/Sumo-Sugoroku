@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
 
 // TODO: make it clickable if player lands on it, which will reveal extra information
@@ -11,6 +13,8 @@ public enum TileContentType {
 }
 
 public class Tile : MonoBehaviour {
+
+    public static Action<Tile> clicked;
 
     public Orientation orientation;
     [TextArea(15,20)]
@@ -35,7 +39,7 @@ public class Tile : MonoBehaviour {
     public void Event(SugorokuManager man, TileContentType type) {
 		switch (type) {
 			case TileContentType.Narrative:
-                Vector2 values = isPortrait ? new Vector2(0.5f, 1.0f) : new Vector2(1.0f, 0.5f) ;
+                Vector2 values = isPortrait ? new Vector2(0.5f, 1.0f) : new Vector2(1.0f, 0.5f);
 				man.ShowPopup(parsedNarrative, values, values);
 				break;
 			case TileContentType.Extra:
@@ -44,6 +48,7 @@ public class Tile : MonoBehaviour {
 
 			default:
                 // TODO: do something with invalid type
+                Debug.Log("Shouldn't print");
 				break;
 		}
     }
@@ -53,6 +58,7 @@ public class Tile : MonoBehaviour {
     // Maybe trigger an event
 	public void OnMouseDown() {
         Debug.Log("A tile was clicked");
+        clicked?.Invoke(this);
 	}
 }
 
