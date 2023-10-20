@@ -225,11 +225,6 @@ public class SugorokuManager : MonoBehaviour {
 		// tile.GetComponent<BoxCollider2D>().enabled = false;
     }
 
-    /*
-        TODO: Zoom in camera enough to fit the offset with the narrative.
-        If the player clicks on the tile, the camera will zoom into the tile.
-        If the player gets out of the tile, the camera zooms out and goes back to the previous offset.
-    */
     IEnumerator TileZoomProcess(Tile tile) {
         StartCoroutine(rollTextContainer.FadeOut());
         yield return StartCoroutine(CamZoomTile(tile, 0.5f));
@@ -237,18 +232,17 @@ public class SugorokuManager : MonoBehaviour {
 		// Fade out the game pieces on the current tile
 		player.GetComponent<Fadeable>().FadeOut();
 
-        // TODO: Offset the camera to allow for a pop-up
-        // yield return StartCoroutine(CamPanTile(tile));
-
-		tile.GetComponent<BoxCollider2D>().enabled = true;
+        // Offset the camera to allow for the pop-up
+        yield return StartCoroutine(CamPanTilePercent(tile, 50));
 
 		// Wait for some delay before introducing a pop-up done outside of this function
-		// yield return new WaitForSeconds(popupDelay);
+		yield return new WaitForSeconds(popupDelay);
     }
 
     void StartEvent(Tile tile) {
         gameState = GameState.EventOccuring;
-        tile.Event(this, TileContentType.Narrative);
+		tile.GetComponent<BoxCollider2D>().enabled = true; // Tile now clickable since event is occuring
+		tile.Event(this, TileContentType.Narrative);
     }
 
     public void TileExtraEvent(Tile tile) {
@@ -275,26 +269,24 @@ public class SugorokuManager : MonoBehaviour {
         rollText.gameObject.SetActive(false);
     }
 
-	// Increasing scale means more zoom relative default zoom where tile's longest edge is the bound
 	IEnumerator CamZoomTile(Tile tile, float scale = 1.0f) {
         Vector3 tileExtentsSize = tile.GetComponent<SpriteRenderer>().bounds.extents;
 		bool isSideways = tile.orientation == Orientation.Right || tile.orientation == Orientation.Left;
-
-        // TODO: figure out new size; maybe use the tile's aspect ratio
         float tileRatio = isSideways ? tileExtentsSize.y / tileExtentsSize.x : tileExtentsSize.x / tileExtentsSize.y;
 
+        // Figure out the new view
         float newCamSize = isSideways ? tileExtentsSize.x : tileExtentsSize.y;
-		if (cam.aspect < tileRatio)
-        {
+		if (cam.aspect < tileRatio) {
 			newCamSize *= (tileRatio / cam.aspect);
 		}
-        newCamSize = (newCamSize / scale) + cameraZoomPadding;
+        newCamSize = (newCamSize / scale) + cameraZoomPadding; // If the scale increases, the zoom increases
 
+        // Figure out the new position
 		Vector3 newCamPos = tile.transform.position; // Set the camera position onto the center of the tile
 
-		// Rotate the camera so that the image on the tile is upright
+        // Figure out the new rotation
 		Quaternion newCamRotation;
-        switch (tile.orientation) {
+        switch (tile.orientation) { // Rotate the camera so that the image on the tile is upright
             case Orientation.Up:
                 newCamRotation = Quaternion.identity;
                 break;
@@ -355,25 +347,24 @@ public class SugorokuManager : MonoBehaviour {
 
     }
 
-    // Offsets the tile to one half of the camera's view
-	IEnumerator CamPanTile(Tile tile) {
+    // Offsets the tile to some percentage of the camera's view; 
+	IEnumerator CamPanTilePercent(Tile tile, int percent) {
 		// Get the tile's aspect ratio to determine where to pan the camera
         // Orientation.* = edge : Up = bottom, Down = top, Right = left, Left = right
 		bool isSideways = tile.orientation == Orientation.Right || tile.orientation == Orientation.Left;
 
-        // Currently, offsetting is center aligned; one edge of the tile is always on one of the perpendicular 2 center lines
-        // TODO: offset so that the image is centered at +-1/4 of the camera
-		Vector3 tileExtentsSize = tile.GetComponent<SpriteRenderer>().bounds.extents;
 		Vector3 offset;
+        float oneFourthCamHeight = cam.orthographicSize * (percent / 100.0f);
+        float oneFourthCamWidth = oneFourthCamHeight * cam.aspect;
 		if (!tile.isPortrait) {
             // Landscape
             offset = -cam.transform.up;
-            offset *= isSideways ? tileExtentsSize.x + cameraZoomPadding / 2 : tileExtentsSize.y + cameraZoomPadding / 2;
+            offset *= isSideways ? oneFourthCamHeight : oneFourthCamHeight;
 		} 
         else {
             // Portrait
             offset = -cam.transform.right;
-			offset *= isSideways ? tileExtentsSize.y + cameraZoomPadding / 2 : tileExtentsSize.x + cameraZoomPadding / 2;
+			offset *= isSideways ? oneFourthCamWidth : oneFourthCamWidth;
 		} 
 
 		// Begin the camera pan after gathering information
