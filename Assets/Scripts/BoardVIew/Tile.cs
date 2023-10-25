@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +23,11 @@ public class Tile : MonoBehaviour {
     private string parsedExtraContent;
     public bool isPortrait { get; private set; }
 
+    private bool activeClick = false;
+
     public void Init(TermDictionary dict) {
+		GetComponent<BoxCollider2D>().enabled = false;
+
 		parsedNarrative = dict.TagTermsInString(narrative);
 		parsedExtraContent = dict.TagTermsInString(extraContent);
 
@@ -32,8 +35,6 @@ public class Tile : MonoBehaviour {
 		bool isSideways = orientation == Orientation.Right || orientation == Orientation.Left;
 		float ratio = isSideways ? scale.y / scale.x : scale.x / scale.y;
         isPortrait = ratio <= 1; // Square is considered a portrait
-
-		GetComponent<BoxCollider2D>().enabled = false;
 	}
 
     public void Event(SugorokuManager man, TileContentType type) {
@@ -43,6 +44,7 @@ public class Tile : MonoBehaviour {
 				man.ShowPopup(parsedNarrative, values, values, this);
 				break;
 			case TileContentType.Extra:
+                // TODO
 				man.ShowPopup(parsedExtraContent, Vector2.one, Vector2.one, this);
 				break;
 
@@ -53,11 +55,18 @@ public class Tile : MonoBehaviour {
 		}
     }
 
-    // TODO
-    // Signal to EventPopup that a tile was clicked via Sugoroku Manager
 	public void OnMouseDown() {
         Debug.Log("A tile was clicked");
-        clicked.Invoke();
+        activeClick = true;
+	}
+
+	// TODO
+	// Signal to EventPopup that a tile was clicked via Sugoroku Manager
+	public void OnMouseUp() {
+		if (activeClick) {
+			clicked.Invoke();
+            activeClick = false;
+		}
 	}
 }
 

@@ -235,7 +235,12 @@ public class SugorokuManager : MonoBehaviour {
 		tile.Event(this, TileContentType.Narrative);
     }
 
-    void ShowRollText(string text) {
+    public void StartExtraEvent(Tile tile)
+    {
+		StartCoroutine(CamZoomTile(tile));
+	}
+
+	void ShowRollText(string text) {
         rollText.text = text;
         rollText.gameObject.SetActive(true);
     }

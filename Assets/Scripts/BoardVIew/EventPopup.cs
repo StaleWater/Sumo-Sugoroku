@@ -17,11 +17,11 @@ public class EventPopup : MonoBehaviour {
     [SerializeField] UIEventChecker uiChecker;
     [SerializeField] Vector2 definitionOffset;
 
+	UnityAction onExit;
+	UIFadeable fader;
+
 	[SerializeField] ExtraPopup extraPopup;
     private Tile tile;
-
-	UnityAction onExit;
-    UIFadeable fader;
 
     private Vector3 originalEventPanelPosition;
     private Vector2 originalEventPanelSizeDelta;
@@ -33,6 +33,7 @@ public class EventPopup : MonoBehaviour {
         gameObject.SetActive(false);
 		originalEventPanelPosition = eventPanel.GetComponent<RectTransform>().position;
 		originalEventPanelSizeDelta = eventPanel.GetComponent<RectTransform>().sizeDelta;
+        extraPopup.Init();
 	}
 
     void Update() {
@@ -121,7 +122,15 @@ public class EventPopup : MonoBehaviour {
     {
         Debug.Log("Hello World!");
 
-        // Note: tile is first enabled in "Show(tile)"
+		// Hide the event popup
 		tile.GetComponent<BoxCollider2D>().enabled = false; // Disable the tile
+		Hide();
+
+        // Run the extra event
+        StartCoroutine(extraPopup.Begin());
+        
+        // Show the event popup
+        Show(tile);
+		tile.GetComponent<BoxCollider2D>().enabled = true; // Enable the tile
 	}
 }
