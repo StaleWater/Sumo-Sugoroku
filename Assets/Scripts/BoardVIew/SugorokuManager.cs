@@ -77,7 +77,7 @@ public class SugorokuManager : MonoBehaviour {
     int tilesTillNextFight;
     public int curFightLevel;
 
-    string rollPhaseText = "Roll the dice!";
+	string rollPhaseText = "Roll the dice!";
 
     public GameState gameState;
 
@@ -86,7 +86,6 @@ public class SugorokuManager : MonoBehaviour {
         cam = Camera.main;
         popup.RegisterOnExit(OnPopupExit);
         defaultCamState = new CameraData(cam);
-		Tile.clicked = TileExtraEvent;
 		Init();
     }
 
@@ -134,10 +133,6 @@ public class SugorokuManager : MonoBehaviour {
             yield return StartCoroutine(TileZoomProcess(tile));
             Debug.Log("Finished zooming level 1 into tile");
             StartEvent(tile);
-
-            // TODO
-			// Disable the clickable tile
-			// tile.GetComponent<BoxCollider2D>().enabled = false;
 		}
 
 
@@ -219,10 +214,6 @@ public class SugorokuManager : MonoBehaviour {
 
 		if(curTile == endTile) StartCoroutine(StartFight());
         else StartEvent(tile);
-
-        // TODO
-        // Disable the clickable tile
-		// tile.GetComponent<BoxCollider2D>().enabled = false;
     }
 
     IEnumerator TileZoomProcess(Tile tile) {
@@ -241,24 +232,8 @@ public class SugorokuManager : MonoBehaviour {
 
     void StartEvent(Tile tile) {
         gameState = GameState.EventOccuring;
-		tile.GetComponent<BoxCollider2D>().enabled = true; // Tile now clickable since event is occuring
 		tile.Event(this, TileContentType.Narrative);
     }
-
-    public void TileExtraEvent(Tile tile) {
-        // TODO: do popup stuff
-        Debug.Log("EXTRA TILE EVENT OCCURED");
-
-        // Handle the narrative pop-up
-		tile.GetComponent<BoxCollider2D>().enabled = false; // Image cannot be clicked again
-        StartCoroutine(ExtraEvent(tile));
-	}
-
-    IEnumerator ExtraEvent(Tile tile) {
-        popup.Hide();
-		yield return StartCoroutine(CamZoomTile(tile));
-		tile.Event(this, TileContentType.Extra);
-	}
 
     void ShowRollText(string text) {
         rollText.text = text;
@@ -347,7 +322,7 @@ public class SugorokuManager : MonoBehaviour {
 
     }
 
-    // Offsets the tile to some percentage of the camera's view; 
+    // Offsets the tile to some percentage of the camera's view
 	IEnumerator CamPanTilePercent(Tile tile, int percent) {
 		// Get the tile's aspect ratio to determine where to pan the camera
         // Orientation.* = edge : Up = bottom, Down = top, Right = left, Left = right
@@ -439,11 +414,11 @@ public class SugorokuManager : MonoBehaviour {
         stateData.usingState = false;
     }
 
-    public void ShowPopup(in string text, in Vector2 scale, in Vector2 offsetScale) {
+    public void ShowPopup(in string text, in Vector2 scale, in Vector2 offsetScale, in Tile currTile) {
         popup.SetText(text);
         popup.SetScale(scale);
         popup.ApplyOffsetScale(offsetScale);
-        popup.Show();
+        popup.Show(currTile);
     }
 
     public void OnPopupExit() {

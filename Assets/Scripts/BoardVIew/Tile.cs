@@ -14,7 +14,7 @@ public enum TileContentType {
 
 public class Tile : MonoBehaviour {
 
-    public static Action<Tile> clicked;
+    [SerializeField] private UnityEvent clicked;
 
     public Orientation orientation;
     [TextArea(15,20)]
@@ -40,10 +40,10 @@ public class Tile : MonoBehaviour {
 		switch (type) {
 			case TileContentType.Narrative:
                 Vector2 values = isPortrait ? new Vector2(0.5f, 1.0f) : new Vector2(1.0f, 0.5f);
-				man.ShowPopup(parsedNarrative, values, values);
+				man.ShowPopup(parsedNarrative, values, values, this);
 				break;
 			case TileContentType.Extra:
-				man.ShowPopup(parsedExtraContent, Vector2.one, Vector2.one);
+				man.ShowPopup(parsedExtraContent, Vector2.one, Vector2.one, this);
 				break;
 
 			default:
@@ -54,11 +54,10 @@ public class Tile : MonoBehaviour {
     }
 
     // TODO
-    // Signal to SugorokuManager that this tile was clicked
-    // Maybe trigger an event
+    // Signal to EventPopup that a tile was clicked via Sugoroku Manager
 	public void OnMouseDown() {
         Debug.Log("A tile was clicked");
-        clicked?.Invoke(this);
+        clicked.Invoke();
 	}
 }
 
