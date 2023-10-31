@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using System;
 
 public class EventPopup : MonoBehaviour {
     
@@ -21,10 +22,12 @@ public class EventPopup : MonoBehaviour {
 	UIFadeable fader;
 
 	[SerializeField] ExtraPopup extraPopup;
-    private Tile tile;
+    private Tile currTile;
 
     private Vector3 originalEventPanelPosition;
     private Vector2 originalEventPanelSizeDelta;
+
+    public static Action<Tile> extraEventHasEnded;
 
     public void Init() {
         fader = GetComponent<UIFadeable>();
@@ -80,15 +83,21 @@ public class EventPopup : MonoBehaviour {
 	}
 
     public void Show(Tile tile) {
-        this.tile = tile;
+		currTile = tile;
         gameObject.SetActive(true);
         StartCoroutine(fader.FadeIn());
 		tile.GetComponent<BoxCollider2D>().enabled = true; // Tile now clickable since event is occuring
 	}
 
     public void Hide() {
-		// StartCoroutine(OnExit());
-		StartCoroutine(OnHide());
+        StartCoroutine(HideProcess());
+	}
+
+    private IEnumerator HideProcess() {
+		currTile.GetComponent<BoxCollider2D>().enabled = false; // Disable the tile
+		yield return StartCoroutine(fader.FadeOut());
+		Debug.Log("Hiding popup");
+		gameObject.SetActive(false);
 	}
 
     public void RegisterOnExit(UnityAction e) {
@@ -99,38 +108,25 @@ public class EventPopup : MonoBehaviour {
         StartCoroutine(OnExit());
     }
 
-    IEnumerator OnHide() {
-		tile.GetComponent<BoxCollider2D>().enabled = false; // Disable the tile
-		yield return StartCoroutine(fader.FadeOut());
-		eventPanel.GetComponent<RectTransform>().position = originalEventPanelPosition;
-		eventPanel.GetComponent<RectTransform>().sizeDelta = originalEventPanelSizeDelta;
-		Debug.Log("Hiding popup");
-		gameObject.SetActive(false);
-	}
-
     IEnumerator OnExit() {
-		tile.GetComponent<BoxCollider2D>().enabled = false; // Disable the tile
+		currTile.GetComponent<BoxCollider2D>().enabled = false; // Disable the tile
 		yield return StartCoroutine(fader.FadeOut());
         onExit?.Invoke();
         gameObject.SetActive(false);
 		eventPanel.GetComponent<RectTransform>().position = originalEventPanelPosition;
 		eventPanel.GetComponent<RectTransform>().sizeDelta = originalEventPanelSizeDelta;
-        Debug.Log("Pop up exited");
+        Debug.Log("Pop up exited and resetted transformations");
 	}
 
-    public void ExtraEvent(Tile tile)
+    public void BeginExtraPopup()
     {
-        Debug.Log("Hello World!");
-
-		// Hide the event popup
-		tile.GetComponent<BoxCollider2D>().enabled = false; // Disable the tile
-		Hide();
-
+        Debug.Log("Showing extra pop-up");
         // Run the extra event
-        StartCoroutine(extraPopup.Begin());
-        
-        // Show the event popup
-        Show(tile);
-		tile.GetComponent<BoxCollider2D>().enabled = true; // Enable the tile
+        extraPopup.Begin();
+	}
+
+    public void EndExtraPopup()
+    {
+        extraEventHasEnded?.Invoke(currTile);
 	}
 }

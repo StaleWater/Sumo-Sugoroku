@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public enum GameState {
     Transitioning,
@@ -47,7 +48,6 @@ public struct CameraData {
 
 public class SugorokuManager : MonoBehaviour {
 
-
     public static BoardStateData stateData;
 
     [SerializeField] Tile[] tiles;
@@ -66,9 +66,10 @@ public class SugorokuManager : MonoBehaviour {
 	[SerializeField] Dice dice;
     [SerializeField] int tilesBetweenFights;
     [SerializeField] int[] tilesToVisit;
-    [SerializeField] UIFadeable screenCurtain; 
+    [SerializeField] UIFadeable screenCurtain;
+    [SerializeField] private TileHighlight tileHighlight;
 
-    Camera cam;
+	Camera cam;
     int curTile;
     int endTile;
     int riggedTileIndex;
@@ -86,6 +87,7 @@ public class SugorokuManager : MonoBehaviour {
         cam = Camera.main;
         popup.RegisterOnExit(OnPopupExit);
         defaultCamState = new CameraData(cam);
+        EventPopup.extraEventHasEnded = EndExtraEvent;
 		Init();
     }
 
@@ -131,7 +133,6 @@ public class SugorokuManager : MonoBehaviour {
             yield return new WaitForSeconds(1.0f);
             Tile tile = tiles[curTile];
             yield return StartCoroutine(TileZoomProcess(tile));
-            Debug.Log("Finished zooming level 1 into tile");
             StartEvent(tile);
 		}
 
@@ -221,7 +222,8 @@ public class SugorokuManager : MonoBehaviour {
         yield return StartCoroutine(CamZoomTile(tile, 0.5f));
 
 		// Fade out the game pieces on the current tile
-		player.GetComponent<Fadeable>().FadeOut();
+        if (gameState != GameState.EventOccuring)
+		    player.GetComponent<Fadeable>().FadeOut();
 
         // Offset the camera to allow for the pop-up
         yield return StartCoroutine(CamPanTilePercent(tile, 50));
@@ -232,13 +234,34 @@ public class SugorokuManager : MonoBehaviour {
 
     void StartEvent(Tile tile) {
         gameState = GameState.EventOccuring;
-		tile.Event(this, TileContentType.Narrative);
+		tile.Event(this, TileContentType.Narrative, tileHighlight);
     }
 
     public void StartExtraEvent(Tile tile)
     {
-		StartCoroutine(CamZoomTile(tile));
+		// Notes: gameState == GameState.EventOccuring
+		StartCoroutine(ProcessExtraEvent(tile, false));
 	}
+	public void EndExtraEvent(Tile tile) {
+		StartCoroutine(ProcessExtraEvent(tile, true));
+	}
+
+	IEnumerator ProcessExtraEvent(Tile tile, bool exiting) {
+        if (exiting) {
+            yield return StartCoroutine(TileZoomProcess(tile));
+            popup.Show(tile);
+        }
+        else {
+            popup.Hide();
+            yield return StartCoroutine(CamPanTilePercent(tile, -50));
+            yield return StartCoroutine(CamZoomTile(tile));
+			tile.Event(this, TileContentType.Extra, tileHighlight);
+		}
+    }
+
+    public void ShowExtraPopup(in string text) {
+        popup.BeginExtraPopup();
+    }
 
 	void ShowRollText(string text) {
         rollText.text = text;
@@ -249,6 +272,10 @@ public class SugorokuManager : MonoBehaviour {
         rollText.gameObject.SetActive(false);
     }
 
+    public Vector3 GetScreenPosition(in Vector3 worldPosition) {
+        return cam.WorldToScreenPoint(worldPosition);
+    }
+    
 	IEnumerator CamZoomTile(Tile tile, float scale = 1.0f) {
         Vector3 tileExtentsSize = tile.GetComponent<SpriteRenderer>().bounds.extents;
 		bool isSideways = tile.orientation == Orientation.Right || tile.orientation == Orientation.Left;
@@ -420,14 +447,16 @@ public class SugorokuManager : MonoBehaviour {
     }
 
     public void ShowPopup(in string text, in Vector2 scale, in Vector2 offsetScale, in Tile currTile) {
-        popup.SetText(text);
-        popup.SetScale(scale);
-        popup.ApplyOffsetScale(offsetScale);
+		popup.SetText(text);
+		popup.SetScale(scale);
+		popup.ApplyOffsetScale(offsetScale);
         popup.Show(currTile);
+        tileHighlight.StartHightlight();
     }
 
     public void OnPopupExit() {
         StartCoroutine(OnEventEnd());
+        tileHighlight.EndHighlight();
     }
 
     IEnumerator ReturnFromEvent() {
@@ -448,7 +477,12 @@ public class SugorokuManager : MonoBehaviour {
         }
     }
 
-    public void BackToMenu() {
+	private float currTimeScale = 0.0f;
+
+	public void BackToMenu() {
+        if (Time.timeScale == 0.0f) {
+            Time.timeScale = currTimeScale;
+        }
         StartCoroutine(BackToMenuHelper());
     }
 
@@ -457,4 +491,13 @@ public class SugorokuManager : MonoBehaviour {
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void PauseGame() {
+        if (Time.timeScale > 0.0f) {
+			currTimeScale = Time.timeScale;
+            Time.timeScale = 0.0f;
+        } 
+        else if (Time.timeScale == 0.0f) {
+            Time.timeScale = currTimeScale;
+        }
+    }
 }

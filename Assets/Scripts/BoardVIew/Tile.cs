@@ -37,15 +37,18 @@ public class Tile : MonoBehaviour {
         isPortrait = ratio <= 1; // Square is considered a portrait
 	}
 
-    public void Event(SugorokuManager man, TileContentType type) {
+    public void Event(SugorokuManager man, TileContentType type, TileHighlight tileHighlight) {
+		// Set up the tile highlight and run it
+		tileHighlight.SetHighlight(this);
+
+		// Start the event pop-up and send information about this tile
 		switch (type) {
 			case TileContentType.Narrative:
                 Vector2 values = isPortrait ? new Vector2(0.5f, 1.0f) : new Vector2(1.0f, 0.5f);
 				man.ShowPopup(parsedNarrative, values, values, this);
 				break;
 			case TileContentType.Extra:
-                // TODO
-				man.ShowPopup(parsedExtraContent, Vector2.one, Vector2.one, this);
+				man.ShowExtraPopup(parsedExtraContent);
 				break;
 
 			default:
@@ -56,12 +59,10 @@ public class Tile : MonoBehaviour {
     }
 
 	public void OnMouseDown() {
-        Debug.Log("A tile was clicked");
         activeClick = true;
 	}
 
-	// TODO
-	// Signal to EventPopup that a tile was clicked via Sugoroku Manager
+	// Signal to Sugoroku Manager that this tile was clicked
 	public void OnMouseUp() {
 		if (activeClick) {
 			clicked.Invoke();

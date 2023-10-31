@@ -11,8 +11,6 @@ public class ExtraPopup : MonoBehaviour {
     [SerializeField] private GameObject transitionUI; // Buttons to exit and show the text
     [SerializeField] private GameObject informationUI; // Information
 
-    private UnityEvent onExit;
-
     // Initialization
     public void Init() {
         transitionUI.SetActive(false);
@@ -21,10 +19,10 @@ public class ExtraPopup : MonoBehaviour {
     }
 
     // Begin and show the pop-up interface
-    public IEnumerator Begin() {
+    public void Begin() {
         Debug.Log("Extra: begin");
-        yield return null;
-        gameObject.SetActive(true);
+		// TODO: add some animation here before showing UI
+		gameObject.SetActive(true);
 		transitionUI.SetActive(true);
 	}
 
@@ -45,9 +43,13 @@ public class ExtraPopup : MonoBehaviour {
     // Close the extra pop-up
     public void Exit() {
         Debug.Log("Extra: exiting");
+        StartCoroutine(ExitRoutine());
     }
 
     IEnumerator ExitRoutine() {
         yield return null;
-    }
+		transitionUI.SetActive(false);
+		informationUI.SetActive(false);
+		gameObject.SetActive(false);
+	}
 }
