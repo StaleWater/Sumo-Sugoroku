@@ -4,26 +4,40 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using System;
 
 public class EventPopup : MonoBehaviour {
     
     [SerializeField] TMP_Text eventText;
     [SerializeField] TMP_Text termText;
+    [SerializeField] GameObject eventPanel;
     [SerializeField] TMP_Text descriptionText;
     [SerializeField] GameObject definitionPanel;
     [SerializeField] TermDictionary dictionary;
     [SerializeField] UIEventChecker uiChecker;
     [SerializeField] Vector2 definitionOffset;
 
-    UnityAction onExit;
-    UIFadeable fader;
+	UnityAction onExit;
+	UIFadeable fader;
+
+	[SerializeField] ExtraPopup extraPopup;
+    private Tile currTile;
+
+    private Vector3 originalEventPanelPosition;
+    private Vector2 originalEventPanelSizeDelta;
+
+    public static Action<Tile> extraEventHasEnded;
 
     public void Init() {
         fader = GetComponent<UIFadeable>();
         fader.Init();
         definitionPanel.SetActive(false);
         gameObject.SetActive(false);
-    }
+		originalEventPanelPosition = eventPanel.GetComponent<RectTransform>().position;
+		originalEventPanelSizeDelta = eventPanel.GetComponent<RectTransform>().sizeDelta;
+        extraPopup.Init();
+	}
 
     void Update() {
         if(Input.GetMouseButtonDown(0)) {
@@ -55,20 +69,36 @@ public class EventPopup : MonoBehaviour {
         definitionPanel.SetActive(false);
     }
 
+    public void ApplyOffsetScale(in Vector2 offsetScale) {
+        eventPanel.GetComponent<RectTransform>().position *= offsetScale;
+	}
 
-    public void SetText(string text) {
+	public void SetScale(in Vector2 scale)
+	{
+		eventPanel.GetComponent<RectTransform>().sizeDelta *= scale;
+	}
+
+	public void SetText(in string text) {
         eventText.text = text;
-    }
+	}
 
-    public void Show() {
+    public void Show(Tile tile) {
+		currTile = tile;
         gameObject.SetActive(true);
         StartCoroutine(fader.FadeIn());
-    }
+		tile.GetComponent<BoxCollider2D>().enabled = true; // Tile now clickable since event is occuring
+	}
 
     public void Hide() {
-        StartCoroutine(OnExit());
-    }
+        StartCoroutine(HideProcess());
+	}
 
+    private IEnumerator HideProcess() {
+		currTile.GetComponent<BoxCollider2D>().enabled = false; // Disable the tile
+		yield return StartCoroutine(fader.FadeOut());
+		Debug.Log("Hiding popup");
+		gameObject.SetActive(false);
+	}
 
     public void RegisterOnExit(UnityAction e) {
         onExit += e;
@@ -79,10 +109,24 @@ public class EventPopup : MonoBehaviour {
     }
 
     IEnumerator OnExit() {
-        yield return StartCoroutine(fader.FadeOut());
+		currTile.GetComponent<BoxCollider2D>().enabled = false; // Disable the tile
+		yield return StartCoroutine(fader.FadeOut());
         onExit?.Invoke();
         gameObject.SetActive(false);
-    }
+		eventPanel.GetComponent<RectTransform>().position = originalEventPanelPosition;
+		eventPanel.GetComponent<RectTransform>().sizeDelta = originalEventPanelSizeDelta;
+        Debug.Log("Pop up exited and resetted transformations");
+	}
 
+    public void BeginExtraPopup()
+    {
+        Debug.Log("Showing extra pop-up");
+        // Run the extra event
+        extraPopup.Begin();
+	}
 
+    public void EndExtraPopup()
+    {
+        extraEventHasEnded?.Invoke(currTile);
+	}
 }
