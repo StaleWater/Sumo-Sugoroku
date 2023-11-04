@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SumoFight.unity
     guid: 2d3eb6a8a7325974d8853d8d61689a1c
+  - enabled: 1
+    path: Assets/Scenes/ChankoGame.unity
+    guid: 1efa90a1e4d4034418b686d93fd01598
+  - enabled: 1
+    path: Assets/Scenes/RhythmGame.unity
+    guid: af2ac81c699400547a9d81f11a9ba148
   m_configObjects: {}

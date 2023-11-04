@@ -181,6 +181,7 @@ MonoBehaviour:
   pushBackDistance: 2
   enduranceBarSpr: {fileID: 180541370771082606}
   actionStunTimeSEC: 0.5
+  moveSpeed: 3
   endurance: 100
   facingRight: 0
   pushRange: 0.75
@@ -213,7 +214,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionCooldownSEC: 0.4
-  moveSpeed: 1
   weights:
   - action: 0
     weight: 5

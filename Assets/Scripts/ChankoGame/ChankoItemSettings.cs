@@ -8,6 +8,7 @@ public class ChankoItemSettings : ScriptableObject
     public AnimationCurve scaleCurve;
     public AnimationCurve xMoveCurve;
     public AnimationCurve yMoveCurve;
+    public AnimationCurve zMoveCurve;
     public float flyNumRotations;
     public float flyDurationSEC;
     public float endScalePercentage;

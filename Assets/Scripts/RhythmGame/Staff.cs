@@ -16,8 +16,8 @@ public class Staff : MonoBehaviour
     float noteVelocityUPB;
     float tempoBPS; 
     float startDelayBEATS;
-    float noteAcceptPosX;
-    float noteStartPosX;
+    float noteAcceptPosY;
+    float noteStartPosY;
     float hitToleranceBEATS;
     float missToleranceBEATS;
 
@@ -45,9 +45,9 @@ public class Staff : MonoBehaviour
         this.missToleranceBEATS = missToleranceBEATS;
         this.key = key;
 
-        noteStartPosX = spr.bounds.min.x + spr.bounds.size.x * 0.9f; 
-        noteAcceptPosX = spr.bounds.min.x + spr.bounds.size.x * 0.1f;
-        noteVelocityUPB = (noteStartPosX - noteAcceptPosX) / reactionTimeBEATS;
+        noteStartPosY = spr.bounds.min.y + spr.bounds.size.y * 0.9f; 
+        noteAcceptPosY = spr.bounds.min.y + spr.bounds.size.y * 0.1f;
+        noteVelocityUPB = (noteStartPosY - noteAcceptPosY) / reactionTimeBEATS;
 
         offscreenValue = -1.0f;
         reading = false;
@@ -95,7 +95,7 @@ public class Staff : MonoBehaviour
     void SpawnAcceptGuideSprite() {
         acceptGuide = Instantiate(acceptGuidePrefab, transform, true);
         var pos = transform.position;
-        pos.x = noteAcceptPosX;
+        pos.y = noteAcceptPosY;
         acceptGuide.position = pos;
     }
 
@@ -103,7 +103,7 @@ public class Staff : MonoBehaviour
     Transform SpawnNote() {
         Transform note = Instantiate(notePrefab, transform, true);
         var pos = transform.position;
-        pos.x = noteStartPosX;
+        pos.y = noteStartPosY;
         note.position = pos;
 
         // do a fade in animation or something
@@ -133,12 +133,12 @@ public class Staff : MonoBehaviour
         Destroy(note.gameObject);
     }
 
-    public void StartReading() {
-        StartCoroutine(Read());
+    public void StartReading(UnityAction onComplete = null) {
+        StartCoroutine(Read(onComplete));
     }
 
 
-    IEnumerator Read() {
+    public IEnumerator Read(UnityAction onComplete = null) {
         notesHit = 0;
         missedIndex = -1;
         onScreenStart = 0;
@@ -163,7 +163,7 @@ public class Staff : MonoBehaviour
                 notes[i] -= beatsPassed;
 
                 var pos = sprites[i].position;
-                pos.x -= beatsPassed * noteVelocityUPB;
+                pos.y -= beatsPassed * noteVelocityUPB;
                 sprites[i].position = pos;
             }
 
@@ -188,6 +188,7 @@ public class Staff : MonoBehaviour
         }
 
         reading = false;
+        onComplete?.Invoke();
     }
 
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ChankoManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class ChankoManager : MonoBehaviour
     [SerializeField] float betweenItemsTime;
     [SerializeField] Transform pot;
     [SerializeField] int numRounds;
+    [SerializeField] UIFadeable screenCurtain;
 
     Fadeable[] itemImages;
     bool selectTime;
@@ -26,10 +28,22 @@ public class ChankoManager : MonoBehaviour
         selectTime = false;
         showWaiter = new WaitForSeconds(showTime);
         betweenWaiter = new WaitForSeconds(betweenItemsTime);
+
+        screenCurtain.Init();
+        screenCurtain.gameObject.SetActive(true);
+
         for(int i=0; i < items.Length; i++) {
             items[i].Init(i, this);
         }
         SpawnImages();
+
+        StartCoroutine(Prep());
+    }
+
+    IEnumerator Prep() {
+        screenCurtain.Show();
+        yield return StartCoroutine(screenCurtain.FadeOut());
+        yield return new WaitForSeconds(1.0f);
     }
 
 
@@ -144,7 +158,9 @@ public class ChankoManager : MonoBehaviour
             orderIndex++;
             if(orderIndex >= order.Length) StartCoroutine(RoundEnd(true));
 
-            yield return StartCoroutine(item.FlyTo(pot.position));
+            var newItemPos = pot.position;
+            newItemPos.z = 1.0f;
+            yield return StartCoroutine(item.FlyTo(newItemPos));
             items[itemId].fade.FadeOut();
         }
     }
@@ -166,6 +182,13 @@ public class ChankoManager : MonoBehaviour
 
     void GameEnd() {
         Debug.Log("GAME DONE");
+        StartCoroutine(BackToBoard());
+    }
+
+    IEnumerator BackToBoard() {
+        yield return new WaitForSeconds(5.0f);
+        yield return StartCoroutine(screenCurtain.FadeIn());
+        SceneManager.LoadScene("TheBoard");
     }
 
 }

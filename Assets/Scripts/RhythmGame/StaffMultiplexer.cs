@@ -10,8 +10,15 @@ public class StaffMultiplexer {
         this.staves = staves;
     }
 
-    public void StartReading() {
-        foreach(Staff staff in staves) staff.StartReading();
+    public IEnumerator Read() {
+        int done = 0;
+        foreach(Staff staff in staves) {
+            staff.StartReading(() => {
+                done++;
+            });
+        }
+
+        yield return new WaitUntil(() => done == staves.Count);
     }
 
     public void SetSheetMusic(List<(float, int)> notes, float startDelayBEATS) {

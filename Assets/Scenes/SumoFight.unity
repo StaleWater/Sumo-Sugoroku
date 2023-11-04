@@ -832,7 +832,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba762f18c6ad0743974f87fe0368407, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
 --- !u!61 &1214933958
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -923,6 +922,7 @@ MonoBehaviour:
   pushBackDistance: 1
   enduranceBarSpr: {fileID: 979035417}
   actionStunTimeSEC: 0.25
+  moveSpeed: 3
   endurance: 100
   facingRight: 1
   pushRange: 0.75

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    [Range(1.0f, 20.0f)]
-    [SerializeField] float moveSpeed;
     SumoGuy sumo;
 
     void Start() {
@@ -17,7 +15,8 @@ public class PlayerController : MonoBehaviour {
 
     void HandleInput() {
         float mov = Input.GetAxis("Horizontal");
-        if(Mathf.Abs(mov) > 0.1f) sumo.Move(mov * moveSpeed * Time.deltaTime);
+        if(Mathf.Abs(mov) > 0.1f) sumo.Move(mov);
+        else sumo.Idle();
         if(Input.GetButtonDown("Fire1")) sumo.PushAttack();
         if(Input.GetButtonDown("Fire2")) sumo.Block();
         if(Input.GetButtonUp("Fire2")) sumo.EndBlock();

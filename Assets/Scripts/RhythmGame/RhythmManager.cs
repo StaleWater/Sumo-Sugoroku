@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 
 public class RhythmManager : MonoBehaviour
@@ -17,6 +18,7 @@ public class RhythmManager : MonoBehaviour
     [SerializeField] Staff staff4;
     [SerializeField] Animator sumoAni;
     [SerializeField] float pushAniDurationSEC;
+    [SerializeField] UIFadeable screenCurtain;
 
     // note values in units of beats.
     // internally, a beat is considered a 16th note to avoid floating point error issues.
@@ -43,16 +45,19 @@ public class RhythmManager : MonoBehaviour
         reactionTimeBEATS = reactionTimeSEC * tempoBPS;
         startDelayBEATS = startDelaySEC * tempoBPS;
 
-        staff1.Init(KeyCode.UpArrow, reactionTimeBEATS, tempoBPS, 
+        screenCurtain.Init();
+        screenCurtain.gameObject.SetActive(true);
+
+        staff1.Init(KeyCode.LeftArrow, reactionTimeBEATS, tempoBPS, 
                 hitToleranceBEATS, missToleranceBEATS);
 
-        staff2.Init(KeyCode.RightArrow, reactionTimeBEATS, tempoBPS, 
+        staff2.Init(KeyCode.DownArrow, reactionTimeBEATS, tempoBPS, 
                 hitToleranceBEATS, missToleranceBEATS);
 
-        staff3.Init(KeyCode.LeftArrow, reactionTimeBEATS, tempoBPS, 
+        staff3.Init(KeyCode.UpArrow, reactionTimeBEATS, tempoBPS, 
                 hitToleranceBEATS, missToleranceBEATS);
 
-        staff4.Init(KeyCode.DownArrow, reactionTimeBEATS, tempoBPS, 
+        staff4.Init(KeyCode.RightArrow, reactionTimeBEATS, tempoBPS, 
                 hitToleranceBEATS, missToleranceBEATS);
 
         UnityAction<bool, bool> onHitAttempt = OnHitAttempt;
@@ -69,6 +74,14 @@ public class RhythmManager : MonoBehaviour
         var notes = GetSheetMusic();
 
         smp.SetSheetMusic(notes, startDelayBEATS);
+
+        StartCoroutine(Prep());
+    }
+
+    IEnumerator Prep() {
+        screenCurtain.Show();
+        yield return StartCoroutine(screenCurtain.FadeOut());
+        yield return new WaitForSeconds(1.0f);
     }
 
     List<(float, int)> GetSheetMusic() {
@@ -129,8 +142,19 @@ public class RhythmManager : MonoBehaviour
 
     }
 
-    public void StartGame() {
-        smp.StartReading();
+    void StartGame() {
+        StartCoroutine(Game());
+    }
+
+    IEnumerator Game() {
+        yield return StartCoroutine(smp.Read());
+        yield return StartCoroutine(BackToBoard());
+    }
+
+    IEnumerator BackToBoard() {
+        yield return new WaitForSeconds(5.0f);
+        yield return StartCoroutine(screenCurtain.FadeIn());
+        SceneManager.LoadScene("TheBoard");
     }
 
     // an attempt can both not hit and not miss if there are no notes nearby

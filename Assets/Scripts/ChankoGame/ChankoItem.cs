@@ -53,7 +53,8 @@ public class ChankoItem : MonoBehaviour {
             float curveX = timePassed / settings.flyDurationSEC;
             float newX = Mathf.Lerp(startPos.x, endPos.x, settings.xMoveCurve.Evaluate(curveX));
             float newY = Mathf.LerpUnclamped(startPos.y, endPos.y, settings.yMoveCurve.Evaluate(curveX));
-            var newPos = new Vector3(newX, newY, startPos.z);
+            float newZ = Mathf.Lerp(startPos.z, endPos.z, settings.zMoveCurve.Evaluate(curveX));
+            var newPos = new Vector3(newX, newY, newZ);
             var newScale = Vector3.Lerp(startScale, endScale, settings.scaleCurve.Evaluate(curveX));
             Quaternion rotDist = Quaternion.Euler(0.0f, 0.0f, degPerSec * timePassed);
             Quaternion newRot = startRot * rotDist;

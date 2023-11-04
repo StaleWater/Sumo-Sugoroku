@@ -11,7 +11,7 @@ public class SumoGuy : MonoBehaviour {
     [SerializeField] float pushBackDistance;
     [SerializeField] SpriteRenderer enduranceBarSpr;
     [SerializeField] float actionStunTimeSEC;
-
+    public float moveSpeed;
     public int endurance;
     public bool facingRight;
     public float pushRange;
@@ -48,8 +48,17 @@ public class SumoGuy : MonoBehaviour {
         onDeath = ond;
     }
 
-    public void Move(float delta) {
-        if(duringAction) return;
+    public void Idle() {
+        ani.SetFloat("Movement", 0.0f);
+    }
+
+    public void Move(float inputDelta) {
+        if(duringAction) {
+            Idle();
+            return;
+        }
+
+        float delta = inputDelta * moveSpeed * Time.deltaTime;
 
         var pos = transform.position;
         pos.x += delta;
@@ -66,6 +75,10 @@ public class SumoGuy : MonoBehaviour {
                 }
             }
         }
+
+        float trueDelta = Mathf.Abs(transform.position.x - pos.x);
+        if(trueDelta < 0.001f) inputDelta = 0.0f;
+        ani.SetFloat("Movement", inputDelta);
 
         transform.position = pos;
     }

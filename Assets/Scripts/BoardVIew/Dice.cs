@@ -16,7 +16,7 @@ public class Dice : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         box = GetComponent<BoxCollider>();
         InitRiggedDice();
-        Reset(); 
+        DiceReset(); 
     }
 
     void InitRiggedDice() {
@@ -47,7 +47,7 @@ public class Dice : MonoBehaviour {
         StartCoroutine(WaitToFinishRoll(onRoll));
     }
 
-    public void Reset() {
+    public void DiceReset() {
         StopAllCoroutines();
         rb.isKinematic = true;
         transform.position = startPos;

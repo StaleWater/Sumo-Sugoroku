@@ -6,7 +6,6 @@ using System;
 public class SumoEnemy : MonoBehaviour {
 
     [SerializeField] float actionCooldownSEC;
-    [SerializeField] float moveSpeed;
     [SerializeField] ActionWeights[] weights;
     public SumoAction state;
     public bool active;
@@ -49,6 +48,7 @@ public class SumoEnemy : MonoBehaviour {
     public void StopActionLoop() {
         if(actionLoop != null) StopCoroutine(actionLoop);
         state = SumoAction.Idle;
+        guy.Idle();
     }
 
     IEnumerator ActionLoop() {
@@ -65,10 +65,13 @@ public class SumoEnemy : MonoBehaviour {
         int dir = guy.facingRight ? 0 : -1;
         switch(state) {
             case SumoAction.MoveForward:
-                guy.Move(dir * moveSpeed * Time.deltaTime);
+                guy.Move(dir);
                 break;
             case SumoAction.MoveBack:
-                guy.Move( dir * -moveSpeed * Time.deltaTime);
+                guy.Move(dir);
+                break;
+            default:
+                guy.Idle();
                 break;
         }
     }
@@ -98,7 +101,7 @@ public class SumoEnemy : MonoBehaviour {
         possible.Add(SumoAction.Idle);
         if(distToPlayer <= guy.pushRange) possible.Add(SumoAction.Push);
         if(distToPlayer > guy.pushRange / 2.0f) possible.Add(SumoAction.MoveForward);
-        if(distToRingEdge > moveSpeed * actionCooldownSEC) possible.Add(SumoAction.MoveBack);
+        if(distToRingEdge > guy.moveSpeed * actionCooldownSEC) possible.Add(SumoAction.MoveBack);
         if(distToPlayer <= guy.pushRange * 2.0f) possible.Add(SumoAction.Block);
 
         int numActions = possible.Count;

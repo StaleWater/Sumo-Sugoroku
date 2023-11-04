@@ -17,6 +17,8 @@ public struct BoardStateData {
     public int tilesTillNextFight;
     public Vector3 playerPos;
     public int curFightLevel;
+    public int curChankoLevel;
+    public int curTeppoLevel;
     public CameraData camData;
     public int riggedTileIndex;
 }
@@ -62,6 +64,7 @@ public class SugorokuManager : MonoBehaviour {
     [SerializeField] float cameraZoomDurationSEC;
     [SerializeField] AnimationCurve cameraZoomCurve;
     [SerializeField] Dice dice;
+    [SerializeField] Dice minigameDice;
     [SerializeField] int tilesBetweenFights;
     [SerializeField] int[] tilesToVisit;
     [SerializeField] UIFadeable screenCurtain; 
@@ -74,6 +77,9 @@ public class SugorokuManager : MonoBehaviour {
     TermDictionary dictionary;
     int tilesTillNextFight;
     public int curFightLevel;
+    public int curChankoLevel;
+    public int curTeppoLevel;
+    int chosenMinigame;
 
     string rollPhaseText = "Roll the dice!";
 
@@ -92,6 +98,7 @@ public class SugorokuManager : MonoBehaviour {
         StopAllCoroutines();
 
         gameState = GameState.Transitioning;
+        chosenMinigame = -1;
 
         dictionary = GetComponent<TermDictionary>();
         dictionary.Init();
@@ -99,6 +106,7 @@ public class SugorokuManager : MonoBehaviour {
         
         popup.Init();
         dice.Init();
+        minigameDice.Init();
         rollTextContainer.Init();
         screenCurtain.Init();
 
@@ -138,6 +146,8 @@ public class SugorokuManager : MonoBehaviour {
     void StartGameState() {
             tilesTillNextFight = tilesBetweenFights;
             curFightLevel = 0;
+            curChankoLevel = 0;
+            curTeppoLevel = 0;
             PlayerTeleport(0);
             defaultCamState.Apply(cam);
             riggedTileIndex = 0;
@@ -184,14 +194,34 @@ public class SugorokuManager : MonoBehaviour {
     public void OnRollButton() {
         if(gameState != GameState.RollPhase) return;
 
+        StartCoroutine(RollDice());
+    }
+
+    IEnumerator RollDice() {
         gameState = GameState.Transitioning;
 
-        int moves = RiggedNumMoves();
+        int moves = -1;
+        chosenMinigame = -1;
 
 
-        dice.RiggedRoll((int x) => {
-            StartCoroutine(Move(x));
-        }, moves);
+        dice.Roll((int x) => {
+            moves = x;
+        });
+
+        minigameDice.Roll((int x) => {
+            chosenMinigame = x;
+        });
+
+        yield return new WaitUntil(() => {
+            return moves != -1 && chosenMinigame != -1;
+        });
+
+        StartCoroutine(Move(moves));
+
+    }
+
+    void NumToMinigame(int n) {
+
     }
 
     IEnumerator Move(int numMoves) {
@@ -202,14 +232,15 @@ public class SugorokuManager : MonoBehaviour {
 
         HideRollText();
 
-        dice.Reset();
-        tilesTillNextFight -= numMoves;
+        dice.DiceReset();
+        minigameDice.DiceReset();
+
         // curTile should be updated after the above coroutine
         Tile tile = tiles[curTile];
 
         yield return StartCoroutine(TileZoomProcess(tile));
 
-        if(curTile == endTile) StartCoroutine(StartFight());
+        if(curTile == endTile) StartCoroutine(StartMinigame("SumoFight"));
         else StartEvent(tile);
     }
 
@@ -300,21 +331,12 @@ public class SugorokuManager : MonoBehaviour {
 
     }
 
-    bool CheckForFight() {
-        if(tilesTillNextFight <= 0) {
-            tilesTillNextFight += tilesBetweenFights;
-            StartCoroutine(StartFight());
-            return true;
-        }
-        return false;
-    }
 
-    IEnumerator StartFight() {
-            curFightLevel++;
+    IEnumerator StartMinigame(string gameName) {
             SaveState();
             yield return new WaitForSeconds(1.0f);
             yield return StartCoroutine(screenCurtain.FadeIn());
-            SceneManager.LoadScene("SumoFight");
+            SceneManager.LoadScene(gameName);
     }
 
     void GameEnd() {
@@ -325,6 +347,8 @@ public class SugorokuManager : MonoBehaviour {
     void SaveState() {
         stateData.curTile = curTile;
         stateData.curFightLevel = curFightLevel;
+        stateData.curChankoLevel = curChankoLevel;
+        stateData.curTeppoLevel = curTeppoLevel;
         stateData.playerPos = player.transform.position;
         stateData.tilesTillNextFight = tilesTillNextFight;
         stateData.camData = new CameraData(cam);
@@ -336,6 +360,8 @@ public class SugorokuManager : MonoBehaviour {
         if(!stateData.usingState) Debug.Log("WARNING: Loading from a state that is not intended to be used");
         curTile = stateData.curTile;
         curFightLevel = stateData.curFightLevel;
+        curChankoLevel = stateData.curChankoLevel;
+        curTeppoLevel = stateData.curTeppoLevel;
         player.transform.position = stateData.playerPos;
         player.transform.localRotation = stateData.camData.rotation;
         tilesTillNextFight = stateData.tilesTillNextFight;
@@ -369,8 +395,29 @@ public class SugorokuManager : MonoBehaviour {
     }
 
     IEnumerator OnEventEnd() {
-        if(!CheckForFight()) {
-            yield return StartCoroutine(ReturnFromEvent());
+        if(chosenMinigame == -1) {
+            StartCoroutine(ReturnFromEvent());
+            yield break;
+        }
+        switch(chosenMinigame) {
+            case 1:
+            case 6:
+                curFightLevel++;
+                yield return StartCoroutine(StartMinigame("SumoFight"));
+                break;
+            case 3:
+            case 4:
+                curChankoLevel++;
+                yield return StartCoroutine(StartMinigame("ChankoGame"));
+                break;
+            case 2:
+            case 5:
+                curTeppoLevel++;
+                yield return StartCoroutine(StartMinigame("RhythmGame"));
+                break;
+            default:
+                Debug.Log($"SOMETHING WENT BAD IN MINIGAME SELECT: {chosenMinigame}");
+                break;
         }
     }
 
