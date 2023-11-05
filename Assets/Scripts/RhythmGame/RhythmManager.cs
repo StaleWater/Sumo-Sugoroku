@@ -19,6 +19,9 @@ public class RhythmManager : MonoBehaviour
     [SerializeField] Animator sumoAni;
     [SerializeField] float pushAniDurationSEC;
     [SerializeField] UIFadeable screenCurtain;
+    [SerializeField] float hitPercentToWin;
+    [SerializeField] UIFadeable instructionsPanel;
+    [SerializeField] UIFadeable infoTextContainer;
 
     // note values in units of beats.
     // internally, a beat is considered a 16th note to avoid floating point error issues.
@@ -47,6 +50,14 @@ public class RhythmManager : MonoBehaviour
 
         screenCurtain.Init();
         screenCurtain.gameObject.SetActive(true);
+
+        infoTextContainer.Init();
+        infoTextContainer.gameObject.SetActive(true);
+        infoTextContainer.Show();
+
+        instructionsPanel.Init();
+        instructionsPanel.gameObject.SetActive(true);
+        instructionsPanel.Show();
 
         staff1.Init(KeyCode.LeftArrow, reactionTimeBEATS, tempoBPS, 
                 hitToleranceBEATS, missToleranceBEATS);
@@ -78,6 +89,19 @@ public class RhythmManager : MonoBehaviour
         StartCoroutine(Prep());
     }
 
+    IEnumerator WaitToStart() {
+        yield return StartCoroutine(instructionsPanel.FadeOut());
+        instructionsPanel.gameObject.SetActive(false);
+
+        while(!Input.GetKeyDown(KeyCode.Space)) yield return null;
+        yield return StartCoroutine(infoTextContainer.FadeOut());
+        StartGame();
+    }
+
+    public void OnInstructionsClose() {
+        StartCoroutine(WaitToStart());
+    }
+
     IEnumerator Prep() {
         screenCurtain.Show();
         yield return StartCoroutine(screenCurtain.FadeOut());
@@ -85,6 +109,122 @@ public class RhythmManager : MonoBehaviour
     }
 
     List<(float, int)> GetSheetMusic() {
+        int difficulty = Mathf.Min(Mathf.Max(1, SugorokuManager.stateData.curTeppoLevel), 5);
+
+        switch(difficulty) {
+            case 1:
+                return SheetMusic1();
+            case 2:
+                return SheetMusic2();
+            case 3:
+                return SheetMusic3();
+            case 4:
+                return SheetMusic4();
+            case 5:
+            default:
+                return SheetMusic5();
+        }
+
+    }
+
+
+    void StartGame() {
+        StartCoroutine(Game());
+    }
+
+    IEnumerator Game() {
+        yield return StartCoroutine(smp.Read());
+
+        (int notesHit, int totalNotes) = smp.GetHitRate();
+
+        bool win = (notesHit / (float)totalNotes) >= hitPercentToWin;
+
+        if(win) Debug.Log("YOU WIN");
+        else Debug.Log("YOU LOSE");
+
+        SugorokuManager.stateData.wonMinigame = win;
+
+        yield return StartCoroutine(BackToBoard());
+    }
+
+    IEnumerator BackToBoard() {
+        yield return new WaitForSeconds(3.0f);
+        yield return StartCoroutine(screenCurtain.FadeIn());
+        SceneManager.LoadScene("TheBoard");
+    }
+
+    // an attempt can both not hit and not miss if there are no notes nearby
+    void OnHitAttempt(bool hit, bool miss) {
+        if(hit || !miss) {
+            if(pushAniRoutine != null) StopCoroutine(pushAniRoutine);
+            pushAniRoutine = StartCoroutine(PushAnimation());
+        }
+    }
+
+    IEnumerator PushAnimation() {
+        sumoAni.SetBool("Pushing", true);
+        yield return pushWaiter;
+        sumoAni.SetBool("Pushing", false);
+    }
+
+    List<(float, int)> SheetMusic1() {
+        float h = HALF_NOTE;
+        float q = QUARTER_NOTE;
+        float e = EIGHTH_NOTE;
+        float s = SIXTEENTH_NOTE;
+
+        // use bit masks to assign a note to multiple staves 
+        int l = 1;
+        int d = 2;
+        int u = 4;
+        int r = 8;
+
+        List<(float, int)> notes = new List<(float, int)>() {
+            (h, l),
+            (h, r),
+            (q, l),
+            (q, l),
+            (h, r),
+
+            (h, u),
+            (h, d),
+            (q, u),
+            (q, u),
+            (h, d),
+
+            (q, l),
+            (q, d),
+            (q, u),
+            (q, r),
+
+            (q, r),
+            (q, u),
+            (q, d),
+            (q, l),
+
+            (h, u),
+            (h, d),
+            (q, u),
+            (q, u),
+            (h, d),
+        };
+
+        return notes;
+    }
+
+    List<(float, int)> SheetMusic2() {
+        return SheetMusic1();
+    }
+
+    List<(float, int)> SheetMusic3() {
+        return SheetMusic1();
+    }
+
+    List<(float, int)> SheetMusic4() {
+        return SheetMusic1();
+    }
+
+    List<(float, int)> SheetMusic5() {
         float h = HALF_NOTE;
         float q = QUARTER_NOTE;
         float e = EIGHTH_NOTE;
@@ -141,34 +281,4 @@ public class RhythmManager : MonoBehaviour
         return notes;
 
     }
-
-    void StartGame() {
-        StartCoroutine(Game());
-    }
-
-    IEnumerator Game() {
-        yield return StartCoroutine(smp.Read());
-        yield return StartCoroutine(BackToBoard());
-    }
-
-    IEnumerator BackToBoard() {
-        yield return new WaitForSeconds(5.0f);
-        yield return StartCoroutine(screenCurtain.FadeIn());
-        SceneManager.LoadScene("TheBoard");
-    }
-
-    // an attempt can both not hit and not miss if there are no notes nearby
-    void OnHitAttempt(bool hit, bool miss) {
-        if(hit || !miss) {
-            if(pushAniRoutine != null) StopCoroutine(pushAniRoutine);
-            pushAniRoutine = StartCoroutine(PushAnimation());
-        }
-    }
-
-    IEnumerator PushAnimation() {
-        sumoAni.SetBool("Pushing", true);
-        yield return pushWaiter;
-        sumoAni.SetBool("Pushing", false);
-    }
-
 }

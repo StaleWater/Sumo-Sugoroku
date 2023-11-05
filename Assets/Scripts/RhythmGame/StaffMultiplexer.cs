@@ -21,6 +21,18 @@ public class StaffMultiplexer {
         yield return new WaitUntil(() => done == staves.Count);
     }
 
+    public (int, int) GetHitRate() {
+        int notesHit = 0;
+        int totalNotes = 0;
+        foreach(Staff staff in staves) {
+            (int h, int t) = staff.GetHitRate();
+            notesHit += h;
+            totalNotes += t;
+        }
+
+        return (notesHit, totalNotes);
+    }
+
     public void SetSheetMusic(List<(float, int)> notes, float startDelayBEATS) {
 
         List<float>[] sheets = new List<float>[staves.Count];

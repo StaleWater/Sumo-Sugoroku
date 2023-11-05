@@ -4,36 +4,38 @@ using UnityEngine;
 
 public class ChankoItem : MonoBehaviour {
 
-    int id;
+    int typeID;
     ChankoManager man;
-    Vector3 originPos;
-    Vector3 originScale;
-    Quaternion originRot;
+    bool clicked;
+    bool clickable;
     public bool moving;
     public Fadeable fade;
 
     [SerializeField] ChankoItemSettings settings;
 
-    public void Init(int id, ChankoManager man) {
-        this.id = id;
+    public void Init(int id, ChankoManager man, bool clickable) {
+        this.typeID = id;
         this.man = man; 
-        originPos = transform.position;
-        originScale = transform.localScale;
-        originRot = transform.localRotation;
+        this.clickable = clickable;
         moving = false;
+        clicked = false;
         fade = GetComponent<Fadeable>();
     }
 
-    public void ResetState() {
-       StopAllCoroutines();
-       transform.position = originPos; 
-       transform.localScale = originScale;
-       transform.localRotation = originRot;
-       moving = false;
+    public int Type() {
+        return typeID;
     }
 
     void OnMouseDown() {
-        StartCoroutine(man.OnItemClick(id));
+        if(clickable && !clicked) {
+            clicked = true;
+            StartCoroutine(man.OnItemClick(this));
+        }
+    }
+
+    public void DestroyThis() {
+        StopAllCoroutines();
+        Destroy(gameObject);
     }
 
     public IEnumerator FlyTo(Vector3 endPos) {

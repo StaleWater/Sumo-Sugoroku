@@ -87,6 +87,10 @@ public class Staff : MonoBehaviour
 
     }
 
+    public (int, int) GetHitRate() {
+        return (notesHit, notes.Count);
+    }
+
     public void SetSheetMusic(List<float> notes, float startDelayBEATS) {
         this.notesCopy = new List<float>(notes);
         this.startDelayBEATS = startDelayBEATS;

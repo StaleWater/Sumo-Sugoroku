@@ -2,23 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class ChankoManager : MonoBehaviour
 {
-    [SerializeField] ChankoItem[] items;
+    [SerializeField] ChankoItem[] itemTypes;
     [SerializeField] float showTime;
     [SerializeField] float betweenItemsTime;
     [SerializeField] Transform pot;
     [SerializeField] int numRounds;
     [SerializeField] UIFadeable screenCurtain;
+    [SerializeField] UIFadeable infoTextContainer;
+    [SerializeField] TMP_Text infoText;
+    [SerializeField] UIFadeable instructionsPanel;
+    [SerializeField] float itemsPosYOffset;
+    [SerializeField] float itemsSpreadWidth;
+    [SerializeField] ClickCollider clickOverlay;
 
     Fadeable[] itemImages;
     bool selectTime;
+    bool lastChance;
     WaitForSeconds showWaiter;
     WaitForSeconds betweenWaiter;
-    int[] order;
+    WaitUntil noneFading;
+    List<int> order;
+    List<ChankoItem> items;
     int orderIndex;
+    int[] counts;
     int curRound;
+    int numItemTypes;
+    int numTypesUsed;
+
 
     void Start() {
         Init();    
@@ -26,18 +40,49 @@ public class ChankoManager : MonoBehaviour
 
     public void Init() {
         selectTime = false;
+        lastChance = false;
         showWaiter = new WaitForSeconds(showTime);
         betweenWaiter = new WaitForSeconds(betweenItemsTime);
+        noneFading = new WaitUntil(() => NoItemsFading());
 
         screenCurtain.Init();
         screenCurtain.gameObject.SetActive(true);
 
-        for(int i=0; i < items.Length; i++) {
-            items[i].Init(i, this);
-        }
+        infoTextContainer.Init();
+        infoTextContainer.gameObject.SetActive(true);
+        infoTextContainer.Show();
+
+        instructionsPanel.Init();
+        instructionsPanel.gameObject.SetActive(true);
+        instructionsPanel.Show();
+
+        clickOverlay.gameObject.SetActive(false);
+
+        numItemTypes = itemTypes.Length;
+
+        items = new List<ChankoItem>();
+        order = new List<int>();
+        counts = new int[numItemTypes];
+
         SpawnImages();
 
         StartCoroutine(Prep());
+    }
+
+    public void OnClickToStart() {
+        clickOverlay.gameObject.SetActive(false);
+        StartGame();
+    }
+    
+    public void OnInstructionsClose() {
+        StartCoroutine(InstructionsCloseHelper());
+    }
+
+    IEnumerator InstructionsCloseHelper() {
+        yield return StartCoroutine(instructionsPanel.FadeOut());
+        instructionsPanel.gameObject.SetActive(false);
+
+        clickOverlay.gameObject.SetActive(true);
     }
 
     IEnumerator Prep() {
@@ -46,21 +91,53 @@ public class ChankoManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
     }
 
-
     void SpawnImages() {
-        itemImages = new Fadeable[items.Length];
-        for(int i=0; i < items.Length; i++) {
-            Fadeable img = Instantiate(items[i].fade);
+        itemImages = new Fadeable[numItemTypes];
+
+        for(int i=0; i < numItemTypes; i++) {
+            ChankoItem item = Instantiate(itemTypes[i]);
+
+            // init as non-clickable item
+            item.Init(-1, this, false);
+
+            Fadeable img = item.GetComponent<Fadeable>();
             img.transform.position = transform.position;
             img.Hide();
             itemImages[i] = img;
         }
     }
 
-    void HideItems() {
-        foreach(var item in items) {
-            item.fade.Hide();
+    IEnumerator SpawnItems() {
+        float gapWidth = itemsSpreadWidth / numTypesUsed;
+        float xOffset = transform.position.x - gapWidth * (numTypesUsed / 2);
+        if(numTypesUsed % 2 == 0) xOffset += gapWidth / 2.0f;
+
+        for(int i=0; i < numItemTypes; i++) {
+            for(int j=0; j < counts[i]; j++) {
+                var item = Instantiate(itemTypes[i]);
+
+                var pos = transform.position;
+                pos.y += itemsPosYOffset;
+                pos.x += xOffset;
+                item.transform.position = pos;
+
+                item.Init(i, this, true);
+                items.Add(item);
+                item.fade.FadeIn();
+            }
+            if(counts[i] > 0) xOffset += gapWidth;
         }
+
+        yield return noneFading;
+
+    }
+
+    void DestroyAllItems() {
+        foreach(ChankoItem item in items) {
+            item.DestroyThis();
+        }
+
+        items.Clear();
     }
 
     bool AllItemsGone() {
@@ -69,6 +146,28 @@ public class ChankoManager : MonoBehaviour
         }
         return true;
     }
+
+    bool NoItemsFading() {
+        foreach(var item in items) {
+            if(item.fade.IsFading()) return false;
+        }
+        return true;
+    }
+
+    void HideItems() {
+        foreach(var item in items) {
+            item.fade.Hide();
+        }
+    }
+
+    IEnumerator FadeOutAllItems() {
+        foreach(var item in items) {
+            item.fade.FadeOut();
+        }
+
+        yield return noneFading;
+    }
+
 
     public void StartGame() {
         curRound = 0;
@@ -79,62 +178,49 @@ public class ChankoManager : MonoBehaviour
     IEnumerator NextRound() {
         curRound++;
         if(curRound > numRounds) {
-            GameEnd();
+            StartCoroutine(GameEnd(true));
             yield break;
         }
 
-        Debug.Log($"ROUND {curRound}");
+        infoText.text = $"Round {curRound}";
 
-        order = RandomItemOrder();
+        int len = SugorokuManager.stateData.curChankoLevel + numItemTypes + curRound - 3;
+        len = Mathf.Min(len, 8);
+
+        RandomItemOrder(len);
 
         yield return StartCoroutine(Showtime());
 
-        yield return StartCoroutine(ResetItems());
+        yield return StartCoroutine(SpawnItems());
 
         selectTime = true;
         orderIndex = 0;
     }
 
-    IEnumerator ResetItems() {
-        foreach(var item in items) {
-            item.ResetState();
-            item.fade.FadeIn();
-        }
-
-        yield return new WaitUntil(() => {
-            bool done = true;
-            foreach(var item in items) {
-                if(item.fade.IsFading()) {
-                    done = false;
-                    break;
-                }
-            }
-            return done;
-        });
-    }
-
     IEnumerator Showtime() {
-        for(int i=0; i < order.Length; i++) {
+        for(int i=0; i < order.Count; i++) {
             yield return StartCoroutine(ShowItem(order[i]));
             yield return betweenWaiter;
         }
 
     }
 
-    int[] RandomItemOrder() {
-        int size = items.Length;
-        int[] arr = new int[size];
-        for(int i=0; i < size; i++) {
-            arr[i] = i;
-        }
-        for(int i=0; i < size - 1; i++) {
-            int r = Random.Range(i, size);
-            int temp = arr[i];
-            arr[i] = arr[r];
-            arr[r] = temp;
+
+    void RandomItemOrder(int length) {
+        order.Clear();
+        numTypesUsed = 0;
+
+        for(int i=0; i < numItemTypes; i++) {
+            counts[i] = 0;
         }
 
-        return arr;
+        for(int i=0; i < length; i++) {
+            int n = Random.Range(0, numItemTypes);
+            order.Add(n);
+            if(counts[n] == 0) numTypesUsed++;
+            counts[n]++;
+        }
+        
     }
 
     public IEnumerator ShowItem(int id) {
@@ -145,44 +231,58 @@ public class ChankoManager : MonoBehaviour
         img.FadeOut();
     }
 
-    public IEnumerator OnItemClick(int itemId) {
+    public IEnumerator OnItemClick(ChankoItem clicked) {
         if(!selectTime) yield break;
 
+        int itemId = clicked.Type();
+
         if(itemId != order[orderIndex]) {
-            HideItems();
-            RoundEnd(false);
+            StartCoroutine(RoundEnd(false));
         }
         else {
-            var item = items[itemId];
+            // correct item was selected
 
             orderIndex++;
-            if(orderIndex >= order.Length) StartCoroutine(RoundEnd(true));
+            if(orderIndex >= order.Count) StartCoroutine(RoundEnd(true));
 
             var newItemPos = pot.position;
             newItemPos.z = 1.0f;
-            yield return StartCoroutine(item.FlyTo(newItemPos));
-            items[itemId].fade.FadeOut();
+            yield return StartCoroutine(clicked.FlyTo(newItemPos));
+            clicked.fade.Hide();
         }
     }
 
     IEnumerator RoundEnd(bool win) {
         selectTime = false;
 
-        if(win) Debug.Log("GOOD JOB");
+        if(win) {
+            lastChance = false;
+        }
+        else if(!lastChance) {
+            infoText.text = "Wrong! One more chance!";
+            lastChance = true;
+            curRound--;
+
+            yield return StartCoroutine(FadeOutAllItems());
+            yield return new WaitForSeconds(2.0f);
+        }
         else {
-            Debug.Log("IDIOT YOU SUCK YOU LOSE");
-            GameEnd();
+            StartCoroutine(GameEnd(false));
             yield break;
         }
 
         yield return new WaitUntil(() => AllItemsGone());
+        DestroyAllItems();
 
         StartCoroutine(NextRound());
     }
 
-    void GameEnd() {
-        Debug.Log("GAME DONE");
-        StartCoroutine(BackToBoard());
+    IEnumerator GameEnd(bool win) {
+        if(win) infoText.text = "You Win!";
+        else infoText.text = "You Lose!";
+        SugorokuManager.stateData.wonMinigame = win;
+
+        yield return StartCoroutine(BackToBoard());
     }
 
     IEnumerator BackToBoard() {

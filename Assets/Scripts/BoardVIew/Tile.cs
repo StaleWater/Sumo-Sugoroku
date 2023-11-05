@@ -13,11 +13,12 @@ public enum TileContentType {
 
 public class Tile : MonoBehaviour {
 
-    [SerializeField] private UnityEvent clicked;
+	UnityAction<Tile> onClick;
 
     public Orientation orientation;
     [TextArea(15,20)]
     [SerializeField] string narrative;
+    [TextArea(15,20)]
     [SerializeField] string extraContent;
     private string parsedNarrative;
     private string parsedExtraContent;
@@ -25,8 +26,10 @@ public class Tile : MonoBehaviour {
 
     private bool activeClick = false;
 
-    public void Init(TermDictionary dict) {
+    public void Init(TermDictionary dict, UnityAction<Tile> onClick) {
 		GetComponent<BoxCollider2D>().enabled = false;
+
+		this.onClick = onClick;
 
 		parsedNarrative = dict.TagTermsInString(narrative);
 		parsedExtraContent = dict.TagTermsInString(extraContent);
@@ -65,7 +68,7 @@ public class Tile : MonoBehaviour {
 	// Signal to Sugoroku Manager that this tile was clicked
 	public void OnMouseUp() {
 		if (activeClick) {
-			clicked.Invoke();
+			onClick?.Invoke(this);
             activeClick = false;
 		}
 	}

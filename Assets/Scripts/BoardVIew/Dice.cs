@@ -79,4 +79,12 @@ public class Dice : MonoBehaviour {
         return minI + 1;
     }
 
+    public void Hide() {
+        gameObject.SetActive(false);
+    }
+
+    public void Show() {
+        gameObject.SetActive(true);
+    }
+
 }

@@ -12,6 +12,12 @@ public enum GameState {
     EventOccuring,
 }
 
+public enum MinigameType {
+    Chanko,
+    Fight,
+    Teppo,
+}
+
 public struct BoardStateData {
     public bool usingState;
     public int curTile;
@@ -22,6 +28,8 @@ public struct BoardStateData {
     public int curTeppoLevel;
     public CameraData camData;
     public int riggedTileIndex;
+    public bool wonMinigame;
+    public MinigameType minigame;
 }
 
 public struct CameraData {
@@ -71,6 +79,7 @@ public class SugorokuManager : MonoBehaviour {
     [SerializeField] int[] tilesToVisit;
     [SerializeField] UIFadeable screenCurtain;
     [SerializeField] private TileHighlight tileHighlight;
+    [SerializeField] ClickCollider clickOverlay;
 
 	Camera cam;
     int curTile;
@@ -83,8 +92,10 @@ public class SugorokuManager : MonoBehaviour {
     public int curChankoLevel;
     public int curTeppoLevel;
     int chosenMinigame;
+    bool freeRoamMode;
+    bool paused;
 
-	string rollPhaseText = "Roll the dice!";
+	string rollPhaseText = "Click to roll!";
 
     public GameState gameState;
 
@@ -103,16 +114,20 @@ public class SugorokuManager : MonoBehaviour {
 
         gameState = GameState.Transitioning;
         chosenMinigame = -1;
+        freeRoamMode = false;
+        paused = false;
 
         dictionary = GetComponent<TermDictionary>();
         dictionary.Init();
-        foreach(var tile in tiles) tile.Init(dictionary);
+        foreach(var tile in tiles) tile.Init(dictionary, OnTileClick);
 
 		popup.Init();
         dice.Init();
         minigameDice.Init();
         rollTextContainer.Init();
         screenCurtain.Init();
+
+        clickOverlay.gameObject.SetActive(false);
 
         endTile = tiles.Length - 1;
         ShowRollText(rollPhaseText);
@@ -127,13 +142,7 @@ public class SugorokuManager : MonoBehaviour {
     // our starting state for the next roll is the same.
     IEnumerator InitSettleState() {
         if(stateData.usingState) {
-            LoadState();
-            player.GetComponent<Fadeable>().Hide();
-            yield return StartCoroutine(screenCurtain.FadeOut());
-            yield return new WaitForSeconds(1.0f);
-
-            if(curTile == endTile) StartEvent(tiles[curTile]);
-            else yield return StartCoroutine(ReturnFromEvent());
+            yield return StartCoroutine(ReturnFromMinigame());
         }
         else {
             StartGameState();
@@ -145,6 +154,43 @@ public class SugorokuManager : MonoBehaviour {
 		}
 
 
+    }
+
+    IEnumerator ReturnFromMinigame() {
+        LoadState();
+        player.GetComponent<Fadeable>().Hide();
+        yield return StartCoroutine(screenCurtain.FadeOut());
+        yield return new WaitForSeconds(1.0f);
+
+        if(!stateData.wonMinigame) {
+            switch(stateData.minigame) {
+                case MinigameType.Fight:
+                    curFightLevel--;
+                    break;
+                case MinigameType.Chanko:
+                    curChankoLevel--;
+                    break;
+                case MinigameType.Teppo:
+                    curTeppoLevel--;
+                    break;
+            }
+
+            // so the backwards move doesn't trigger a minigame
+            chosenMinigame = -1;
+
+            player.GetComponent<Fadeable>().FadeIn();
+            yield return StartCoroutine(CamZoomReset());
+            StartCoroutine(Move(-2));
+            yield break;
+        }
+
+        if(curTile == endTile) {
+            // minigame happens before event for the last tile
+            Tile tile = tiles[curTile];
+            yield return StartCoroutine(TileZoomProcess(tile));
+            StartEvent(tile);
+        }
+        else yield return StartCoroutine(ReturnFromEvent());
     }
 
     void StartGameState() {
@@ -198,6 +244,7 @@ public class SugorokuManager : MonoBehaviour {
     public void OnRollButton() {
         if(gameState != GameState.RollPhase) return;
 
+        clickOverlay.gameObject.SetActive(false);
         StartCoroutine(RollDice());
     }
 
@@ -224,40 +271,47 @@ public class SugorokuManager : MonoBehaviour {
 
     }
 
-    void NumToMinigame(int n) {
-
-    }
 
     IEnumerator Move(int numMoves) {
         ShowRollText($"You rolled a {numMoves}");
 
         int nextTileIndex = Mathf.Min(curTile + numMoves, tiles.Length - 1);
+        nextTileIndex = Mathf.Max(0, nextTileIndex);
         yield return StartCoroutine(PlayerToTile(nextTileIndex));
 
         HideRollText();
 
-        dice.DiceReset();
-        minigameDice.DiceReset();
+        dice.Hide();
+        minigameDice.Hide();
 
         // curTile should be updated after the above coroutine
         Tile tile = tiles[curTile];
 
-        yield return StartCoroutine(TileZoomProcess(tile));
+        if(curTile == endTile) {
+            // zoom in with no offset and start the final fight
+            yield return StartCoroutine(TileZoomProcess(tile, false));
+            StartCoroutine(StartMinigame(MinigameType.Fight));
+        }
+        else {
+            yield return StartCoroutine(TileZoomProcess(tile));
+            StartEvent(tile);
+        }
 
-        if(curTile == endTile) StartCoroutine(StartMinigame("SumoFight"));
-        else StartEvent(tile);
     }
 
-    IEnumerator TileZoomProcess(Tile tile) {
+    IEnumerator TileZoomProcess(Tile tile, bool offset = true) {
         StartCoroutine(rollTextContainer.FadeOut());
         yield return StartCoroutine(CamZoomTile(tile, 0.5f));
+
+        // save this cam position to return to after the minigame ends
+        stateData.camData = new CameraData(cam);
 
 		// Fade out the game pieces on the current tile
         if (gameState != GameState.EventOccuring)
 		    player.GetComponent<Fadeable>().FadeOut();
 
         // Offset the camera to allow for the pop-up
-        yield return StartCoroutine(CamPanTilePercent(tile, 50));
+        if(offset) yield return StartCoroutine(CamPanTilePercent(tile, 50));
 
 		// Wait for some delay before introducing a pop-up done outside of this function
 		yield return new WaitForSeconds(popupDelay);
@@ -268,11 +322,27 @@ public class SugorokuManager : MonoBehaviour {
 		tile.Event(this, TileContentType.Narrative, tileHighlight);
     }
 
-    public void StartExtraEvent(Tile tile)
-    {
+    public void OnTileClick(Tile tile) {
+        if(paused) return;
+
+        Debug.Log("TILE CLICKED");
+        if(freeRoamMode && gameState == GameState.RollPhase) {
+            StartCoroutine(FreeRoamTileClick(tile));
+        }
+        else if(gameState == GameState.EventOccuring) StartExtraEvent(tile);
+    }
+
+    IEnumerator FreeRoamTileClick(Tile tile) {
+        DisableAllTileClicks();
+        yield return StartCoroutine(TileZoomProcess(tile));
+        StartEvent(tile);
+    }
+
+    public void StartExtraEvent(Tile tile) {
 		// Notes: gameState == GameState.EventOccuring
 		StartCoroutine(ProcessExtraEvent(tile, false));
 	}
+
 	public void EndExtraEvent(Tile tile) {
 		StartCoroutine(ProcessExtraEvent(tile, true));
 	}
@@ -432,28 +502,49 @@ public class SugorokuManager : MonoBehaviour {
     }
 
 
-    IEnumerator StartMinigame(string gameName) {
-            SaveState();
+    IEnumerator StartMinigame(MinigameType mg) {
+            // save the state, but don't save the cam position
+            // tile zoom cam position was already saved
+            // the camera will spawn over the tile on minigame exit instead of the dice
+            SaveState(mg, true);
+            
             yield return new WaitForSeconds(1.0f);
             yield return StartCoroutine(screenCurtain.FadeIn());
-            SceneManager.LoadScene(gameName);
+            SceneManager.LoadScene(MinigameSceneName(mg));
+    }
+
+    string MinigameSceneName(MinigameType mg) {
+        switch(mg) {
+            case MinigameType.Fight:
+                return "SumoFight";
+            case MinigameType.Chanko:
+                return "ChankoGame";
+            case MinigameType.Teppo:
+            default:
+                return "RhythmGame";
+        }
     }
 
     void GameEnd() {
-        ShowRollText("Game Finished!");
-        rollButton.interactable = false;
+        ShowRollText("Game finished! Click any tile to explore!");
+        StartFreeRoamMode();
     }
 
-    void SaveState() {
+    // pass in which minigame you'll transition to
+    void SaveState(MinigameType mg, bool ignoreCam = false) {
         stateData.curTile = curTile;
         stateData.curFightLevel = curFightLevel;
         stateData.curChankoLevel = curChankoLevel;
         stateData.curTeppoLevel = curTeppoLevel;
         stateData.playerPos = player.transform.position;
         stateData.tilesTillNextFight = tilesTillNextFight;
-        stateData.camData = new CameraData(cam);
-        stateData.usingState = true;
         stateData.riggedTileIndex = riggedTileIndex;
+        stateData.wonMinigame = false;
+        stateData.minigame = mg;
+
+        if(!ignoreCam) stateData.camData = new CameraData(cam);
+
+        stateData.usingState = true;
     }
 
     void LoadState() {
@@ -489,40 +580,83 @@ public class SugorokuManager : MonoBehaviour {
     IEnumerator ReturnFromEvent() {
         gameState = GameState.Transitioning;
         player.GetComponent<Fadeable>().FadeIn();
+        dice.DiceReset();
+        minigameDice.DiceReset();
         yield return StartCoroutine(CamZoomReset());
 
         gameState = GameState.RollPhase;
         ShowRollText(rollPhaseText);
         StartCoroutine(rollTextContainer.FadeIn());
 
-        if(curTile == endTile) GameEnd();
+        if(freeRoamMode) {
+            EnableAllTileClicks();
+        }
+        else if(curTile == endTile) GameEnd();
+        else clickOverlay.gameObject.SetActive(true);
     }
 
     IEnumerator OnEventEnd() {
+        dice.Show();
+        minigameDice.Show();
+
         if(chosenMinigame == -1) {
             StartCoroutine(ReturnFromEvent());
             yield break;
         }
-        switch(chosenMinigame) {
-            case 1:
-            case 6:
+
+
+
+        yield return ZoomOnMinigameDice();
+        yield return new WaitForSeconds(1.0f);
+
+        MinigameType mg = DiceNumToMinigame(chosenMinigame);
+
+        switch(mg) {
+            case MinigameType.Fight:
                 curFightLevel++;
-                yield return StartCoroutine(StartMinigame("SumoFight"));
                 break;
-            case 3:
-            case 4:
+
+            case MinigameType.Chanko:
                 curChankoLevel++;
-                yield return StartCoroutine(StartMinigame("ChankoGame"));
                 break;
-            case 2:
-            case 5:
+
+            case MinigameType.Teppo:
                 curTeppoLevel++;
-                yield return StartCoroutine(StartMinigame("RhythmGame"));
                 break;
+
             default:
                 Debug.Log($"SOMETHING WENT BAD IN MINIGAME SELECT: {chosenMinigame}");
                 break;
         }
+
+        yield return StartCoroutine(StartMinigame(mg));
+    }
+
+    MinigameType DiceNumToMinigame(int n) {
+        switch(n) {
+            case 1:
+            case 6:
+                return MinigameType.Fight;
+            case 3:
+            case 4:
+                return MinigameType.Chanko;
+            case 2:
+            case 5:
+            default:
+                return MinigameType.Teppo;
+        }
+    }
+
+    IEnumerator ZoomOnMinigameDice() {
+        var pos = minigameDice.transform.position;
+
+        float camSize = minigameDice.GetComponent<BoxCollider>().bounds.size.x;
+
+        var diceRot = minigameDice.transform.rotation.eulerAngles;
+        var rot = Quaternion.Euler(0.0f, 0.0f, diceRot.z);
+        CameraData cd = new CameraData(pos, camSize, rot);
+
+        yield return StartCoroutine(CamZoom(cd));
     }
 
 	private float currTimeScale = 0.0f;
@@ -543,9 +677,29 @@ public class SugorokuManager : MonoBehaviour {
         if (Time.timeScale > 0.0f) {
 			currTimeScale = Time.timeScale;
             Time.timeScale = 0.0f;
+            paused = true;
         } 
         else if (Time.timeScale == 0.0f) {
             Time.timeScale = currTimeScale;
+            paused = false;
         }
     }
+
+    void StartFreeRoamMode() {
+        freeRoamMode = true;
+        EnableAllTileClicks();
+    }
+
+    void EnableAllTileClicks() {
+        foreach(Tile tile in tiles) {
+            tile.GetComponent<BoxCollider2D>().enabled = true;
+        }
+    }
+
+    void DisableAllTileClicks() {
+        foreach(Tile tile in tiles) {
+            tile.GetComponent<BoxCollider2D>().enabled = false;
+        }
+    }
+    
 }
