@@ -109,7 +109,9 @@ public class RhythmManager : MonoBehaviour
     }
 
     List<(float, int)> GetSheetMusic() {
-        int difficulty = Mathf.Min(Mathf.Max(1, SugorokuManager.stateData.curTeppoLevel), 5);
+        int pi = SugorokuManager.stateData.curPlayer;
+        int difficulty = SugorokuManager.stateData.players[pi].teppoLevel;
+        difficulty = Mathf.Min(Mathf.Max(1, difficulty), 5);
 
         switch(difficulty) {
             case 1:

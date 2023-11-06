@@ -887,21 +887,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 282361991}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 1
   narrative: 
   extraContent: 
@@ -1048,21 +1033,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 289909412}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 0
   narrative: 
   extraContent: 
@@ -1343,21 +1313,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 319386463}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 2
   narrative: 
   extraContent: 
@@ -1504,21 +1459,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 329387913}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 3
   narrative: 
   extraContent: 
@@ -1717,21 +1657,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 345828245}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 0
   narrative: 
   extraContent: 
@@ -1878,21 +1803,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 467741864}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 2
   narrative: 
   extraContent: 
@@ -2075,90 +1985,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 477339558}
   m_CullTransparentMesh: 1
---- !u!1 &482482360
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 482482361}
-  - component: {fileID: 482482362}
-  m_Layer: 0
-  m_Name: Icon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &482482361
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 482482360}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.029, y: 0.021, z: -1}
-  m_LocalScale: {x: 0.03409, y: 0.03409, z: 0.6818}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1044835411}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &482482362
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 482482360}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 45a3340ccc9f6b841964c150e4b21ba1, type: 3}
-  m_Color: {r: 0.9339623, g: 0.7500274, b: 0.7004717, a: 0.56078434}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1 &510308952
 GameObject:
   m_ObjectHideFlags: 0
@@ -2257,21 +2083,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 510308955}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 0
   narrative: 
   extraContent: 
@@ -2555,21 +2366,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 571682095}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 2
   narrative: 
   extraContent: 
@@ -2849,21 +2645,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 631496244}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 0
   narrative: 
   extraContent: 
@@ -3144,21 +2925,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 658391179}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 1
   narrative: 
   extraContent: 
@@ -3339,12 +3105,11 @@ MonoBehaviour:
   - {fileID: 762015541}
   - {fileID: 329387913}
   - {fileID: 950853157}
-  player: {fileID: 1044835413}
+  playerPrefab: {fileID: 1903790598512749228, guid: 7b595c65edf576c40a38c84902ec9aef, type: 3}
   diceMinMax: {x: 1, y: 6}
   popup: {fileID: 607299768}
   rollText: {fileID: 2089420919}
   rollTextContainer: {fileID: 1660501198}
-  rollButton: {fileID: 0}
   popupDelay: 0
   cameraZoomPadding: 0.25
   cameraZoomDurationSEC: 1
@@ -3404,9 +3169,7 @@ MonoBehaviour:
   screenCurtain: {fileID: 68293533}
   tileHighlight: {fileID: 1839743854}
   clickOverlay: {fileID: 1357384035}
-  curFightLevel: 0
-  curChankoLevel: 0
-  curTeppoLevel: 0
+  numPlayers: 2
   gameState: 0
 --- !u!114 &667063888
 MonoBehaviour:
@@ -3745,21 +3508,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 711322042}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 2
   narrative: 
   extraContent: 
@@ -4012,21 +3760,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 762015541}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 3
   narrative: 
   extraContent: 
@@ -4603,7 +4336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPos: {x: -2, y: -6, z: -1}
-  rollForce: {x: -10, y: 45, z: 0}
+  rollForce: {x: -10, y: 35, z: 10}
   appliedPosOnCube: {x: 0, y: 0, z: -0.8}
 --- !u!65 &860286597
 BoxCollider:
@@ -5094,21 +4827,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 891868369}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 1
   narrative: 
   extraContent: 
@@ -5255,21 +4973,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 943744231}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 0
   narrative: 
   extraContent: 
@@ -5349,21 +5052,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 950853157}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 0
   narrative: 
   extraContent: 
@@ -5756,147 +5444,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPos: {x: 2, y: -6, z: -1}
-  rollForce: {x: 10, y: 40, z: 0}
+  rollForce: {x: 10, y: 30, z: 10}
   appliedPosOnCube: {x: 0, y: 0, z: -0.8}
---- !u!1 &1044835410
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1044835411}
-  - component: {fileID: 1044835412}
-  - component: {fileID: 1044835413}
-  - component: {fileID: 1044835414}
-  m_Layer: 0
-  m_Name: Player
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1044835411
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1044835410}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.00000008511548, y: 0.00000006391167, z: -0.010431764, w: 0.9999456}
-  m_LocalPosition: {x: 0.463, y: -2.934, z: -0}
-  m_LocalScale: {x: 0.6934, y: 0.6934, z: 0.6934}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 482482361}
-  - {fileID: 1870097490}
-  - {fileID: 1899883641}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -1.195}
---- !u!212 &1044835412
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1044835410}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!114 &1044835413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1044835410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2967c28fc0752ac42ba09a6e81f3a000, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementDurationSEC: 0.5
-  movementCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &1044835414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1044835410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 910ca4ba4ff390e409307278d4a604a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultSettings: {fileID: 11400000, guid: 31546e53c5180ce4a8b47fdc109d98c7, type: 2}
 --- !u!1 &1047361734
 GameObject:
   m_ObjectHideFlags: 0
@@ -6344,21 +5893,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1158005408}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 0
   narrative: 
   extraContent: 
@@ -6505,21 +6039,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1258652083}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 1
   narrative: 
   extraContent: 
@@ -6703,21 +6222,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1292552490}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 2
   narrative: 
   extraContent: 
@@ -6864,21 +6368,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1328652333}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 3
   narrative: 
   extraContent: 
@@ -7371,21 +6860,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1483084582}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 3
   narrative: 
   extraContent: 
@@ -7878,21 +7352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1596942944}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 0
   narrative: 
   extraContent: 
@@ -8285,21 +7744,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1714454358}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 1
   narrative: 
   extraContent: 
@@ -8580,21 +8024,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1754739842}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 3
   narrative: 
   extraContent: 
@@ -9144,21 +8573,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1838652418}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 0
   narrative: 
   extraContent: 
@@ -9281,90 +8695,6 @@ MonoBehaviour:
   maxDimLevel: 0.8
   highlight: {fileID: 1340449127}
   shade: {fileID: 38794804}
---- !u!1 &1870097489
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1870097490}
-  - component: {fileID: 1870097491}
-  m_Layer: 0
-  m_Name: Inner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1870097490
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1870097489}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.5}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 0.7599}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1044835411}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1870097491
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1870097489}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.9056604, g: 0.65624815, b: 0.508366, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1 &1883551961
 GameObject:
   m_ObjectHideFlags: 0
@@ -9463,21 +8793,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1883551964}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 1
   narrative: 
   extraContent: 
@@ -9526,90 +8841,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!1 &1899883640
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1899883641}
-  - component: {fileID: 1899883642}
-  m_Layer: 0
-  m_Name: Outer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1899883641
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899883640}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.25}
-  m_LocalScale: {x: 0.97, y: 0.97, z: 0.7599}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1044835411}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1899883642
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899883640}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.9433962, g: 0.41749555, b: 0.30704877, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1 &1926020656
 GameObject:
   m_ObjectHideFlags: 0
@@ -9853,21 +9084,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1937165300}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 2
   narrative: 
   extraContent: 
@@ -10052,21 +9268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1951968686}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 3
   narrative: 
   extraContent: 
@@ -10213,21 +9414,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1953006912}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 0
   narrative: 
   extraContent: 
@@ -10544,21 +9730,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476fefac3563a0d498180b71486e4433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 667063887}
-        m_TargetAssemblyTypeName: SugorokuManager, Assembly-CSharp
-        m_MethodName: StartExtraEvent
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2112405830}
-          m_ObjectArgumentAssemblyTypeName: Tile, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   orientation: 0
   narrative: 
   extraContent: 
@@ -10757,7 +9928,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
-  - {fileID: 1044835411}
   - {fileID: 667063886}
   - {fileID: 818384743}
   - {fileID: 698817951}

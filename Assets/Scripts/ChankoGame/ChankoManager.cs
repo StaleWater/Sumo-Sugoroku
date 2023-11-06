@@ -184,8 +184,11 @@ public class ChankoManager : MonoBehaviour
 
         infoText.text = $"Round {curRound}";
 
-        int len = SugorokuManager.stateData.curChankoLevel + numItemTypes + curRound - 3;
-        len = Mathf.Min(len, 8);
+        int pi = SugorokuManager.stateData.curPlayer;
+        int difficulty = SugorokuManager.stateData.players[pi].chankoLevel;
+        difficulty = Mathf.Min(Mathf.Max(1, difficulty), 5);
+
+        int len = difficulty + numItemTypes + curRound - 4;
 
         RandomItemOrder(len);
 

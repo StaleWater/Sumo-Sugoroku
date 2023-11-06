@@ -60,7 +60,10 @@ public class SumoFightManager : MonoBehaviour {
     }
 
     SumoEnemy ChooseEnemy() {
-        int i = Mathf.Max(0, SugorokuManager.stateData.curFightLevel - 1);
+
+        int pi = SugorokuManager.stateData.curPlayer;
+        int difficulty = SugorokuManager.stateData.players[pi].chankoLevel;
+        int i = Mathf.Min(Mathf.Max(0, difficulty-1), 4);
 
         var prefab = enemyList[i];
         SumoEnemy e = Instantiate(prefab, transform);
