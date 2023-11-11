@@ -202,7 +202,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 141.6005, y: 108.98622, z: 7.256837}
+  m_LocalScale: {x: 180.30415, y: 138.77542, z: 9.240348}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1839743853}
@@ -3105,7 +3105,6 @@ MonoBehaviour:
   - {fileID: 762015541}
   - {fileID: 329387913}
   - {fileID: 950853157}
-  playerPrefab: {fileID: 1903790598512749228, guid: 7b595c65edf576c40a38c84902ec9aef, type: 3}
   diceMinMax: {x: 1, y: 6}
   popup: {fileID: 607299768}
   rollText: {fileID: 2089420919}
@@ -3170,6 +3169,9 @@ MonoBehaviour:
   tileHighlight: {fileID: 1839743854}
   clickOverlay: {fileID: 1357384035}
   numPlayers: 2
+  playerPrefabs:
+  - {fileID: 1903790598512749228, guid: 7b595c65edf576c40a38c84902ec9aef, type: 3}
+  - {fileID: 1903790598512749228, guid: a1570f8b3fe5e114c8c6cfdef27fc46c, type: 3}
   gameState: 0
 --- !u!114 &667063888
 MonoBehaviour:

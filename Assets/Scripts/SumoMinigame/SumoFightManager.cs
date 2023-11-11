@@ -41,7 +41,7 @@ public class SumoFightManager : MonoBehaviour {
 
         instructionsPanel.Init();
         instructionsPanel.gameObject.SetActive(true);
-        instructionsPanel.Show();
+        instructionsPanel.Hide();
 
         topText.text = startText;
 
@@ -54,6 +54,11 @@ public class SumoFightManager : MonoBehaviour {
         });
 
         player.GetComponent<PlayerController>().enabled = false;
+
+        if(SugorokuManager.stateData.players[SugorokuManager.stateData.curPlayer].fightLevel == 1) {
+            instructionsPanel.Show();
+        }
+        else StartCoroutine(WaitToStart());
 
         screenCurtain.Show();
         StartCoroutine(screenCurtain.FadeOut());

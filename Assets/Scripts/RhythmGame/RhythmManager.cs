@@ -57,7 +57,8 @@ public class RhythmManager : MonoBehaviour
 
         instructionsPanel.Init();
         instructionsPanel.gameObject.SetActive(true);
-        instructionsPanel.Show();
+        instructionsPanel.Hide();
+
 
         staff1.Init(KeyCode.LeftArrow, reactionTimeBEATS, tempoBPS, 
                 hitToleranceBEATS, missToleranceBEATS);
@@ -85,6 +86,11 @@ public class RhythmManager : MonoBehaviour
         var notes = GetSheetMusic();
 
         smp.SetSheetMusic(notes, startDelayBEATS);
+
+        if(SugorokuManager.stateData.players[SugorokuManager.stateData.curPlayer].teppoLevel == 1) {
+            instructionsPanel.Show();
+        }
+        else StartCoroutine(WaitToStart());
 
         StartCoroutine(Prep());
     }
@@ -215,11 +221,105 @@ public class RhythmManager : MonoBehaviour
     }
 
     List<(float, int)> SheetMusic2() {
-        return SheetMusic1();
+        float h = HALF_NOTE;
+        float q = QUARTER_NOTE;
+        float e = EIGHTH_NOTE;
+        float s = SIXTEENTH_NOTE;
+
+        // use bit masks to assign a note to multiple staves 
+        int l = 1;
+        int d = 2;
+        int u = 4;
+        int r = 8;
+
+        List<(float, int)> notes = new List<(float, int)>() {
+            (q, l),
+            (q, l),
+            (q, l),
+            (q, u),
+            (q, l),
+            (q, l),
+            (q, l),
+            (q, d),
+
+
+            (q, r),
+            (q, r),
+            (q, r),
+            (q, u),
+            (q, r),
+            (q, r),
+            (q, r),
+            (q, d),
+
+
+            (q, l),
+            (q, u),
+            (q, d),
+            (q, r),
+            (q, d),
+            (q, u),
+            (q, l),
+            (q, r),
+
+            (h, r|l),
+            (h, r|l),
+            (h, r|l),
+        };
+
+        return notes;
     }
 
     List<(float, int)> SheetMusic3() {
-        return SheetMusic1();
+        float h = HALF_NOTE;
+        float q = QUARTER_NOTE;
+        float e = EIGHTH_NOTE;
+        float s = SIXTEENTH_NOTE;
+
+        // use bit masks to assign a note to multiple staves 
+        int l = 1;
+        int d = 2;
+        int u = 4;
+        int r = 8;
+
+        List<(float, int)> notes = new List<(float, int)>() {
+            (q, u),
+            (e, u),
+            (e, u),
+            (q, u),
+            (q, u),
+
+            (q, d),
+            (e, d),
+            (e, d),
+            (q, d),
+
+
+            (q, l),
+            (e, r),
+            (e, r),
+            (q, l),
+            (q, r),
+            (h, l|r),
+            (h, l|r),
+
+
+            (q, l|u),
+            (q, l),
+            (q, d),
+            (q, u),
+            (q, u|r),
+            (q, r),
+            (q, d),
+            (q, u),
+
+            (h, l|r),
+            (q, l|d),
+            (q, l|d),
+            (h, l|r),
+        };
+
+        return notes;
     }
 
     List<(float, int)> SheetMusic4() {

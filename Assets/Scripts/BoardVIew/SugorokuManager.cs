@@ -99,7 +99,6 @@ public class SugorokuManager : MonoBehaviour {
     public static BoardStateData stateData;
 
     [SerializeField] Tile[] tiles;
-    [SerializeField] Player playerPrefab;
     [SerializeField] Vector2Int diceMinMax;
     [SerializeField] EventPopup popup;
     [SerializeField] TMP_Text rollText;
@@ -118,6 +117,7 @@ public class SugorokuManager : MonoBehaviour {
     [SerializeField] private TileHighlight tileHighlight;
     [SerializeField] ClickCollider clickOverlay;
     [SerializeField] int numPlayers;
+    [SerializeField] Player[] playerPrefabs;
 
 	Camera cam;
     CameraData defaultCamState;
@@ -190,8 +190,7 @@ public class SugorokuManager : MonoBehaviour {
     }
 
     public Player SpawnPlayer(int playerIndex) {
-        Player p = Instantiate(playerPrefab);
-        // later, change the color depedning on the index
+        Player p = Instantiate(playerPrefabs[playerIndex]);
         return p;
     }
 
@@ -272,6 +271,19 @@ public class SugorokuManager : MonoBehaviour {
         }
     }
 
+    Vector3 GetPlayerPosOnTile(int pi, Tile tile) {
+        Player player = players[pi].player;
+        SpriteRenderer spr = tile.GetComponent<SpriteRenderer>();
+
+        var pos = tile.transform.position;
+        if (numPlayers == 2) {
+            pos.x -= spr.bounds.extents.x / 2.0f;
+            pos.x += spr.bounds.extents.x * pi;
+        }
+
+        return pos;
+    }
+
     IEnumerator PlayerToTile(int pi, int tileIndex, bool stayOnPath = true) {
         Tile tile = tiles[tileIndex];
 
@@ -279,15 +291,19 @@ public class SugorokuManager : MonoBehaviour {
             int delta = tileIndex > players[pi].curTile ? 1 : -1;
             while(players[pi].curTile != tileIndex) {
                 players[pi].curTile += delta;
-                yield return StartCoroutine(players[pi].player.MoveTo(tiles[players[pi].curTile].transform.position));
+                var pos = GetPlayerPosOnTile(pi, tiles[players[pi].curTile]);
+                yield return StartCoroutine(players[pi].player.MoveTo(pos));
             }
         }
-        else yield return StartCoroutine(players[pi].player.MoveTo(tile.transform.position));
+        else {
+            var pos = GetPlayerPosOnTile(pi, tile);
+            yield return StartCoroutine(players[pi].player.MoveTo(pos));
+        }
     }
 
     void PlayerTeleport(int pi, int tileIndex) {
         players[pi].curTile = tileIndex;
-        players[pi].player.transform.position = tiles[tileIndex].transform.position;
+        players[pi].player.transform.position = GetPlayerPosOnTile(pi, tiles[tileIndex]);
     }
 
     public void OnRollButton() {
