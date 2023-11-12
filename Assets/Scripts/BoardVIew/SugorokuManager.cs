@@ -477,9 +477,9 @@ public class SugorokuManager : MonoBehaviour {
         }
     }
 
-	private float currTimeScale = 0.0f;
-
-	public void BackToMenu() {
+// TODO:
+/*    
+    public void BackToMenu() {
         if (Time.timeScale == 0.0f) {
             Time.timeScale = currTimeScale;
         }
@@ -490,14 +490,5 @@ public class SugorokuManager : MonoBehaviour {
         yield return StartCoroutine(screenCurtain.FadeIn());
         SceneManager.LoadScene("MainMenu");
     }
-
-    public void PauseGame() {
-        if (Time.timeScale > 0.0f) {
-			currTimeScale = Time.timeScale;
-            Time.timeScale = 0.0f;
-        } 
-        else if (Time.timeScale == 0.0f) {
-            Time.timeScale = currTimeScale;
-        }
-    }
+*/
 }
