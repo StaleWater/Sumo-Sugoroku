@@ -16,12 +16,14 @@ public class RhythmManager : MonoBehaviour
     [SerializeField] Staff staff2;
     [SerializeField] Staff staff3;
     [SerializeField] Staff staff4;
-    [SerializeField] Animator sumoAni;
     [SerializeField] float pushAniDurationSEC;
     [SerializeField] UIFadeable screenCurtain;
     [SerializeField] float hitPercentToWin;
     [SerializeField] UIFadeable instructionsPanel;
     [SerializeField] UIFadeable infoTextContainer;
+    [SerializeField] Vector3 playerSpritePos;
+    [SerializeField] Vector3 playerSpriteScale;
+    [SerializeField] SumoGuy defaultPlayerPrefab;
 
     // note values in units of beats.
     // internally, a beat is considered a 16th note to avoid floating point error issues.
@@ -38,12 +40,15 @@ public class RhythmManager : MonoBehaviour
     WaitForSeconds pushWaiter;
     Coroutine pushAniRoutine;
     StaffMultiplexer smp;
+    Animator playerSprite;
 
     void Start() {
         Init();
     }
 
     public void Init() {
+        playerSprite = SpawnPlayerSprite();
+
         tempoBPS = (tempoQBPM * QUARTER_NOTE) / 60.0f;
         reactionTimeBEATS = reactionTimeSEC * tempoBPS;
         startDelayBEATS = startDelaySEC * tempoBPS;
@@ -87,7 +92,7 @@ public class RhythmManager : MonoBehaviour
 
         smp.SetSheetMusic(notes, startDelayBEATS);
 
-        if(SugorokuManager.stateData.players[SugorokuManager.stateData.curPlayer].teppoLevel == 1) {
+        if(Level() == 1) {
             instructionsPanel.Show();
         }
         else StartCoroutine(WaitToStart());
@@ -104,6 +109,25 @@ public class RhythmManager : MonoBehaviour
         StartGame();
     }
 
+    Animator SpawnPlayerSprite() {
+        SumoGuy prefab = defaultPlayerPrefab;
+        if(SugorokuManager.stateData.usingState) {
+            int pi = SugorokuManager.stateData.curPlayer;
+            prefab = SugorokuManager.stateData.players[pi].data.spritePrefab;
+        }
+
+        var guy = Instantiate(prefab, transform);
+        guy.transform.localPosition = playerSpritePos;
+        guy.transform.localScale = playerSpriteScale;
+        guy.GetComponent<PlayerController>().enabled = false;
+
+        foreach(Transform child in guy.transform) {
+            Destroy(child.gameObject);
+        }
+
+        return guy.GetComponent<Animator>();
+    }
+
     public void OnInstructionsClose() {
         StartCoroutine(WaitToStart());
     }
@@ -114,9 +138,15 @@ public class RhythmManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
     }
 
+    int Level() {
+        if(SugorokuManager.stateData.usingState) {
+            return SugorokuManager.stateData.players[SugorokuManager.stateData.curPlayer].data.teppoLevel;
+        }
+        else return 1;
+    } 
+
     List<(float, int)> GetSheetMusic() {
-        int pi = SugorokuManager.stateData.curPlayer;
-        int difficulty = SugorokuManager.stateData.players[pi].teppoLevel;
+        int difficulty = Level();
         difficulty = Mathf.Min(Mathf.Max(1, difficulty), 5);
 
         switch(difficulty) {
@@ -170,9 +200,9 @@ public class RhythmManager : MonoBehaviour
     }
 
     IEnumerator PushAnimation() {
-        sumoAni.SetBool("Pushing", true);
+        playerSprite.SetBool("Pushing", true);
         yield return pushWaiter;
-        sumoAni.SetBool("Pushing", false);
+        playerSprite.SetBool("Pushing", false);
     }
 
     List<(float, int)> SheetMusic1() {

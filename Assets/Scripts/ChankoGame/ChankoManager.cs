@@ -69,13 +69,20 @@ public class ChankoManager : MonoBehaviour
 
         SpawnImages();
 
-        if(SugorokuManager.stateData.players[SugorokuManager.stateData.curPlayer].chankoLevel == 1) {
+        if(Level() == 1) {
             instructionsPanel.Show();
         }
         else StartCoroutine(InstructionsCloseHelper());
 
         StartCoroutine(Prep());
     }
+
+    int Level() {
+        if(SugorokuManager.stateData.usingState) {
+            return SugorokuManager.stateData.players[SugorokuManager.stateData.curPlayer].data.chankoLevel;
+        }
+        else return 1;
+    } 
 
     public void OnClickToStart() {
         clickOverlay.gameObject.SetActive(false);
@@ -196,12 +203,8 @@ public class ChankoManager : MonoBehaviour
 
         infoText.text = $"Round {curRound}";
 
-        int difficulty = 3;
-        if(SugorokuManager.stateData.usingState) {
-            int pi = SugorokuManager.stateData.curPlayer;
-            difficulty = SugorokuManager.stateData.players[pi].chankoLevel;
-            difficulty = Mathf.Min(Mathf.Max(1, difficulty), 5);
-        }
+        int difficulty = Level();
+        difficulty = Mathf.Min(Mathf.Max(1, difficulty), 5);
 
         int len = difficulty + numItemTypes + curRound - 4;
 
