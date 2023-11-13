@@ -53,42 +53,42 @@ public struct CameraData {
 
 public struct PlayerData {
     public int id; 
+    public bool ai;
     public int curTile;
     public int fightLevel;
     public int chankoLevel;
     public int teppoLevel;
+    public int turnSkips;
+    public SumoGuy spritePrefab;
     public Player player;
 
-    public PlayerData(int id, SugorokuManager man) {
-        this.id = id; curTile = 0; fightLevel = 0; chankoLevel = 0; teppoLevel = 0;
+    public PlayerData(int id, bool ai, SugorokuManager man) {
+        this.id = id; this.ai = ai; 
+        curTile = 0; fightLevel = 0; chankoLevel = 0; teppoLevel = 0;
+        turnSkips = 0;
         player = man.SpawnPlayer(id);
+        spritePrefab = man.GetSumoSize(0);
     }
 }
 
 public struct PlayerSavedData {
-    public int id;
-    public int curTile;
-    public int fightLevel;
-    public int chankoLevel;
-    public int teppoLevel;
+    public PlayerData data;
     public Vector3 pos;
 
     public PlayerSavedData(PlayerData pd) {
-        id = pd.id;
-        curTile = pd.curTile;
-        fightLevel = pd.fightLevel;
-        chankoLevel = pd.chankoLevel;
-        teppoLevel = pd.teppoLevel;
+        data = pd;
         pos = pd.player.transform.position;
     }
 
     public PlayerData Load(SugorokuManager man) {
-        PlayerData pd = new PlayerData(id, man);
-        pd.curTile = curTile;
-        pd.fightLevel = fightLevel;
-        pd.chankoLevel = chankoLevel;
-        pd.teppoLevel = teppoLevel;
+        PlayerData pd = new PlayerData(data.id, data.ai, man);
+        pd.curTile = data.curTile;
+        pd.fightLevel = data.fightLevel;
+        pd.chankoLevel = data.chankoLevel;
+        pd.teppoLevel = data.teppoLevel;
+        pd.turnSkips = data.turnSkips;
         pd.player.transform.position = pos;
+        pd.spritePrefab = man.GetSumoSize(pd.curTile);
 
         return pd;
     }
@@ -99,8 +99,6 @@ public class SugorokuManager : MonoBehaviour {
     public static BoardStateData stateData;
 
     [SerializeField] Tile[] tiles;
-    [SerializeField] Player playerPrefab;
-    [SerializeField] Vector2Int diceMinMax;
     [SerializeField] EventPopup popup;
     [SerializeField] TMP_Text rollText;
     [SerializeField] UIFadeable rollTextContainer; 
@@ -112,12 +110,14 @@ public class SugorokuManager : MonoBehaviour {
 	[SerializeField] float cameraPanDurationSEC;
 	[SerializeField] AnimationCurve cameraPanCurve;
 	[SerializeField] Dice dice;
-    [SerializeField] int tilesBetweenFights;
-    [SerializeField] int[] tilesToVisit;
     [SerializeField] UIFadeable screenCurtain;
     [SerializeField] private TileHighlight tileHighlight;
     [SerializeField] ClickCollider clickOverlay;
-    [SerializeField] int numPlayers;
+    [SerializeField] int numRealPlayers;
+    [SerializeField] int numAI;
+    [SerializeField] Player[] playerPrefabs;
+    [SerializeField] float AIMinigameWinRate;
+    [SerializeField] SumoGuy[] sumoSizePrefabs;
 
 	Camera cam;
     CameraData defaultCamState;
@@ -127,6 +127,7 @@ public class SugorokuManager : MonoBehaviour {
     bool freeRoamMode;
     bool paused;
     int curPlayer;
+    int numPlayers;
     PlayerData[] players; 
 
 
@@ -145,6 +146,7 @@ public class SugorokuManager : MonoBehaviour {
         // For when the Restart button is hit; may remove later, but useful for debugging right now
         StopAllCoroutines();
 
+        numPlayers = numRealPlayers + numAI;
         gameState = GameState.Transitioning;
         chosenMinigame = -1;
         curPlayer = -1;
@@ -176,6 +178,7 @@ public class SugorokuManager : MonoBehaviour {
     // our starting state for the next roll is the same.
     IEnumerator InitSettleState() {
         if(stateData.usingState) {
+            LoadState();
             yield return StartCoroutine(ReturnFromMinigame());
         }
         else {
@@ -190,13 +193,11 @@ public class SugorokuManager : MonoBehaviour {
     }
 
     public Player SpawnPlayer(int playerIndex) {
-        Player p = Instantiate(playerPrefab);
-        // later, change the color depedning on the index
+        Player p = Instantiate(playerPrefabs[playerIndex]);
         return p;
     }
 
     IEnumerator ReturnFromMinigame() {
-        LoadState();
         HidePlayers();
         yield return StartCoroutine(screenCurtain.FadeOut());
         yield return new WaitForSeconds(1.0f);
@@ -249,7 +250,8 @@ public class SugorokuManager : MonoBehaviour {
         players = new PlayerData[numPlayers];
 
         for(int i=0; i < numPlayers; i++) {
-            players[i] = new PlayerData(i, this);
+            bool isAI = i >= numRealPlayers;
+            players[i] = new PlayerData(i, isAI, this);
             PlayerTeleport(i, 0);
         }
     }
@@ -272,6 +274,30 @@ public class SugorokuManager : MonoBehaviour {
         }
     }
 
+    public SumoGuy GetSumoSize(int curTile) {
+        int i = curTile / 9;
+        i = Mathf.Min(Mathf.Max(0, i), sumoSizePrefabs.Length - 1);
+
+        return sumoSizePrefabs[i];
+    }
+
+    void UpdateSumoSize(int pi) {
+        players[pi].spritePrefab = GetSumoSize(players[pi].curTile);
+    }
+
+    Vector3 GetPlayerPosOnTile(int pi, Tile tile) {
+        Player player = players[pi].player;
+        SpriteRenderer spr = tile.GetComponent<SpriteRenderer>();
+
+        var pos = tile.transform.position;
+        if (numPlayers == 2) {
+            pos.x -= spr.bounds.extents.x / 2.0f;
+            pos.x += spr.bounds.extents.x * pi;
+        }
+
+        return pos;
+    }
+
     IEnumerator PlayerToTile(int pi, int tileIndex, bool stayOnPath = true) {
         Tile tile = tiles[tileIndex];
 
@@ -279,15 +305,19 @@ public class SugorokuManager : MonoBehaviour {
             int delta = tileIndex > players[pi].curTile ? 1 : -1;
             while(players[pi].curTile != tileIndex) {
                 players[pi].curTile += delta;
-                yield return StartCoroutine(players[pi].player.MoveTo(tiles[players[pi].curTile].transform.position));
+                var pos = GetPlayerPosOnTile(pi, tiles[players[pi].curTile]);
+                yield return StartCoroutine(players[pi].player.MoveTo(pos));
             }
         }
-        else yield return StartCoroutine(players[pi].player.MoveTo(tile.transform.position));
+        else {
+            var pos = GetPlayerPosOnTile(pi, tile);
+            yield return StartCoroutine(players[pi].player.MoveTo(pos));
+        }
     }
 
     void PlayerTeleport(int pi, int tileIndex) {
         players[pi].curTile = tileIndex;
-        players[pi].player.transform.position = tiles[tileIndex].transform.position;
+        players[pi].player.transform.position = GetPlayerPosOnTile(pi, tiles[tileIndex]);
     }
 
     public void OnRollButton() {
@@ -321,7 +351,7 @@ public class SugorokuManager : MonoBehaviour {
     }
 
     IEnumerator Move(int pi, int numMoves) {
-        ShowRollText($"You rolled a {numMoves}");
+        //ShowRollText($"You rolled a {numMoves}");
 
         int nextTileIndex = Mathf.Min(players[pi].curTile + numMoves, tiles.Length - 1);
         nextTileIndex = Mathf.Max(0, nextTileIndex);
@@ -331,6 +361,8 @@ public class SugorokuManager : MonoBehaviour {
 
         dice.Hide();
         minigameDice.Hide();
+
+        UpdateSumoSize(pi);
 
         // curTile should be updated after the above coroutine
         Tile tile = tiles[players[pi].curTile];
@@ -367,6 +399,39 @@ public class SugorokuManager : MonoBehaviour {
     void StartEvent(Tile tile) {
         gameState = GameState.EventOccuring;
 		tile.Event(this, TileContentType.Narrative, tileHighlight);
+    }
+
+    bool HasBonusMove(int pi) {
+        if(pi == -1) return false;
+
+        int curTile = players[pi].curTile;
+        return (curTile == 10 || curTile == 17 || curTile == 19 || curTile == 21);
+    }
+
+    void CheckBonusStall(int pi) {
+        if(pi == -1) return;
+        if(players[pi].curTile == 14) players[pi].turnSkips++;
+    }
+
+    // returns whether or not the bonus event will move the player to a different tile
+    void BonusTileMove(int pi) {
+        if(pi == -1) return;
+
+        switch(players[pi].curTile) {
+            case 10:
+                int toStart = -1 * players[pi].curTile;
+                StartCoroutine(Move(pi, toStart));
+                break;
+            case 17:
+                StartCoroutine(Move(pi, -2));
+                break;
+            case 19:
+                StartCoroutine(Move(pi, 3));
+                break;
+            case 21:
+                StartCoroutine(Move(pi, -3));
+                break;
+        }
     }
 
     public void OnTileClick(Tile tile) {
@@ -550,8 +615,13 @@ public class SugorokuManager : MonoBehaviour {
 		cam.transform.position = endCamPos;
     }
 
-
     IEnumerator StartMinigame(MinigameType mg) {
+            if(players[curPlayer].ai) {
+                stateData.wonMinigame = Random.value < AIMinigameWinRate;
+                StartCoroutine(ReturnFromMinigame());
+                yield break;
+            }
+
             // save the state, but don't save the cam position
             // tile zoom cam position was already saved
             // the camera will spawn over the tile on minigame exit instead of the dice
@@ -631,31 +701,63 @@ public class SugorokuManager : MonoBehaviour {
     IEnumerator ReturnFromEvent() {
         gameState = GameState.Transitioning;
         FadeInPlayers();
+
+        if(HasBonusMove(curPlayer)) {
+            yield return StartCoroutine(CamZoomReset());
+
+            BonusTileMove(curPlayer);
+            yield break;
+        }
+
         dice.DiceReset();
         minigameDice.DiceReset();
 
         yield return StartCoroutine(CamZoomReset());
 
-        if(freeRoamMode) EnableAllTileClicks();
-        else if(curPlayer >= 0 && players[curPlayer].curTile == endTile) GameEnd(curPlayer);
-        else StartNextTurn();
 
         gameState = GameState.RollPhase;
         StartCoroutine(rollTextContainer.FadeIn());
+
+        if(freeRoamMode) EnableAllTileClicks();
+        else if(curPlayer >= 0 && players[curPlayer].curTile == endTile) GameEnd(curPlayer);
+        else StartCoroutine(StartNextTurn());
     }
 
-    void StartNextTurn() {
+    IEnumerator StartNextTurn() {
         curPlayer = (curPlayer + 1) % numPlayers;
+
+        while (players[curPlayer].turnSkips > 0) {
+            ShowRollText($"Player {curPlayer+1} Turn Skipped!");
+            players[curPlayer].turnSkips--;
+            curPlayer = (curPlayer + 1) % numPlayers;
+
+            yield return new WaitForSeconds(1.0f);
+        }
+
         ShowRollText($"Player {curPlayer+1} Turn");
 
-        clickOverlay.gameObject.SetActive(true);
+        if(players[curPlayer].ai) {
+            StartCoroutine(AITakeTurn());
+        }
+        else {
+            clickOverlay.gameObject.SetActive(true);
+        }
+    }
+
+    IEnumerator AITakeTurn() {
+        yield return new WaitForSeconds(1.0f);
+        OnRollButton();
     }
 
     IEnumerator OnEventEnd() {
         dice.Show();
         minigameDice.Show();
 
-        if(chosenMinigame == -1) {
+        CheckBonusStall(curPlayer);
+
+        if(curPlayer == -1 || players[curPlayer].curTile == endTile || 
+           HasBonusMove(curPlayer) || chosenMinigame == -1) {
+
             StartCoroutine(ReturnFromEvent());
             yield break;
         }

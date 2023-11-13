@@ -17,6 +17,9 @@ public class ChankoManager : MonoBehaviour
     [SerializeField] UIFadeable instructionsPanel;
     [SerializeField] float itemsPosYOffset;
     [SerializeField] float itemsSpreadWidth;
+    [SerializeField] float itemScaleDown;
+    [SerializeField] Vector2 itemDuplicateOffset;
+    [SerializeField] float itemDuplicateScaleDown;
     [SerializeField] ClickCollider clickOverlay;
 
     Fadeable[] itemImages;
@@ -54,7 +57,7 @@ public class ChankoManager : MonoBehaviour
 
         instructionsPanel.Init();
         instructionsPanel.gameObject.SetActive(true);
-        instructionsPanel.Show();
+        instructionsPanel.Hide();
 
         clickOverlay.gameObject.SetActive(false);
 
@@ -66,8 +69,20 @@ public class ChankoManager : MonoBehaviour
 
         SpawnImages();
 
+        if(Level() == 1) {
+            instructionsPanel.Show();
+        }
+        else StartCoroutine(InstructionsCloseHelper());
+
         StartCoroutine(Prep());
     }
+
+    int Level() {
+        if(SugorokuManager.stateData.usingState) {
+            return SugorokuManager.stateData.players[SugorokuManager.stateData.curPlayer].data.chankoLevel;
+        }
+        else return 1;
+    } 
 
     public void OnClickToStart() {
         clickOverlay.gameObject.SetActive(false);
@@ -81,7 +96,6 @@ public class ChankoManager : MonoBehaviour
     IEnumerator InstructionsCloseHelper() {
         yield return StartCoroutine(instructionsPanel.FadeOut());
         instructionsPanel.gameObject.SetActive(false);
-
         clickOverlay.gameObject.SetActive(true);
     }
 
@@ -117,9 +131,14 @@ public class ChankoManager : MonoBehaviour
                 var item = Instantiate(itemTypes[i]);
 
                 var pos = transform.position;
-                pos.y += itemsPosYOffset;
-                pos.x += xOffset;
+                pos.y += itemsPosYOffset + itemDuplicateOffset.y * j;
+                pos.x += xOffset + itemDuplicateOffset.x * j;
+                pos.z = pos.z - counts[i] + j;
                 item.transform.position = pos;
+
+                var scale = item.transform.localScale;
+                scale *= itemScaleDown * (1 - itemDuplicateScaleDown * j);  
+                item.transform.localScale = scale;
 
                 item.Init(i, this, true);
                 items.Add(item);
@@ -184,8 +203,7 @@ public class ChankoManager : MonoBehaviour
 
         infoText.text = $"Round {curRound}";
 
-        int pi = SugorokuManager.stateData.curPlayer;
-        int difficulty = SugorokuManager.stateData.players[pi].chankoLevel;
+        int difficulty = Level();
         difficulty = Mathf.Min(Mathf.Max(1, difficulty), 5);
 
         int len = difficulty + numItemTypes + curRound - 4;
@@ -249,7 +267,7 @@ public class ChankoManager : MonoBehaviour
             if(orderIndex >= order.Count) StartCoroutine(RoundEnd(true));
 
             var newItemPos = pot.position;
-            newItemPos.z = 1.0f;
+            newItemPos.z = (pot.position.z - clicked.transform.position.z) * 2;
             yield return StartCoroutine(clicked.FlyTo(newItemPos));
             clicked.fade.Hide();
         }

@@ -16,12 +16,14 @@ public class RhythmManager : MonoBehaviour
     [SerializeField] Staff staff2;
     [SerializeField] Staff staff3;
     [SerializeField] Staff staff4;
-    [SerializeField] Animator sumoAni;
     [SerializeField] float pushAniDurationSEC;
     [SerializeField] UIFadeable screenCurtain;
     [SerializeField] float hitPercentToWin;
     [SerializeField] UIFadeable instructionsPanel;
     [SerializeField] UIFadeable infoTextContainer;
+    [SerializeField] Vector3 playerSpritePos;
+    [SerializeField] Vector3 playerSpriteScale;
+    [SerializeField] SumoGuy defaultPlayerPrefab;
 
     // note values in units of beats.
     // internally, a beat is considered a 16th note to avoid floating point error issues.
@@ -38,12 +40,15 @@ public class RhythmManager : MonoBehaviour
     WaitForSeconds pushWaiter;
     Coroutine pushAniRoutine;
     StaffMultiplexer smp;
+    Animator playerSprite;
 
     void Start() {
         Init();
     }
 
     public void Init() {
+        playerSprite = SpawnPlayerSprite();
+
         tempoBPS = (tempoQBPM * QUARTER_NOTE) / 60.0f;
         reactionTimeBEATS = reactionTimeSEC * tempoBPS;
         startDelayBEATS = startDelaySEC * tempoBPS;
@@ -57,7 +62,8 @@ public class RhythmManager : MonoBehaviour
 
         instructionsPanel.Init();
         instructionsPanel.gameObject.SetActive(true);
-        instructionsPanel.Show();
+        instructionsPanel.Hide();
+
 
         staff1.Init(KeyCode.LeftArrow, reactionTimeBEATS, tempoBPS, 
                 hitToleranceBEATS, missToleranceBEATS);
@@ -86,6 +92,11 @@ public class RhythmManager : MonoBehaviour
 
         smp.SetSheetMusic(notes, startDelayBEATS);
 
+        if(Level() == 1) {
+            instructionsPanel.Show();
+        }
+        else StartCoroutine(WaitToStart());
+
         StartCoroutine(Prep());
     }
 
@@ -98,6 +109,25 @@ public class RhythmManager : MonoBehaviour
         StartGame();
     }
 
+    Animator SpawnPlayerSprite() {
+        SumoGuy prefab = defaultPlayerPrefab;
+        if(SugorokuManager.stateData.usingState) {
+            int pi = SugorokuManager.stateData.curPlayer;
+            prefab = SugorokuManager.stateData.players[pi].data.spritePrefab;
+        }
+
+        var guy = Instantiate(prefab, transform);
+        guy.transform.localPosition = playerSpritePos;
+        guy.transform.localScale = playerSpriteScale;
+        guy.GetComponent<PlayerController>().enabled = false;
+
+        foreach(Transform child in guy.transform) {
+            Destroy(child.gameObject);
+        }
+
+        return guy.GetComponent<Animator>();
+    }
+
     public void OnInstructionsClose() {
         StartCoroutine(WaitToStart());
     }
@@ -108,9 +138,15 @@ public class RhythmManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
     }
 
+    int Level() {
+        if(SugorokuManager.stateData.usingState) {
+            return SugorokuManager.stateData.players[SugorokuManager.stateData.curPlayer].data.teppoLevel;
+        }
+        else return 1;
+    } 
+
     List<(float, int)> GetSheetMusic() {
-        int pi = SugorokuManager.stateData.curPlayer;
-        int difficulty = SugorokuManager.stateData.players[pi].teppoLevel;
+        int difficulty = Level();
         difficulty = Mathf.Min(Mathf.Max(1, difficulty), 5);
 
         switch(difficulty) {
@@ -164,9 +200,9 @@ public class RhythmManager : MonoBehaviour
     }
 
     IEnumerator PushAnimation() {
-        sumoAni.SetBool("Pushing", true);
+        playerSprite.SetBool("Pushing", true);
         yield return pushWaiter;
-        sumoAni.SetBool("Pushing", false);
+        playerSprite.SetBool("Pushing", false);
     }
 
     List<(float, int)> SheetMusic1() {
@@ -215,11 +251,105 @@ public class RhythmManager : MonoBehaviour
     }
 
     List<(float, int)> SheetMusic2() {
-        return SheetMusic1();
+        float h = HALF_NOTE;
+        float q = QUARTER_NOTE;
+        float e = EIGHTH_NOTE;
+        float s = SIXTEENTH_NOTE;
+
+        // use bit masks to assign a note to multiple staves 
+        int l = 1;
+        int d = 2;
+        int u = 4;
+        int r = 8;
+
+        List<(float, int)> notes = new List<(float, int)>() {
+            (q, l),
+            (q, l),
+            (q, l),
+            (q, u),
+            (q, l),
+            (q, l),
+            (q, l),
+            (q, d),
+
+
+            (q, r),
+            (q, r),
+            (q, r),
+            (q, u),
+            (q, r),
+            (q, r),
+            (q, r),
+            (q, d),
+
+
+            (q, l),
+            (q, u),
+            (q, d),
+            (q, r),
+            (q, d),
+            (q, u),
+            (q, l),
+            (q, r),
+
+            (h, r|l),
+            (h, r|l),
+            (h, r|l),
+        };
+
+        return notes;
     }
 
     List<(float, int)> SheetMusic3() {
-        return SheetMusic1();
+        float h = HALF_NOTE;
+        float q = QUARTER_NOTE;
+        float e = EIGHTH_NOTE;
+        float s = SIXTEENTH_NOTE;
+
+        // use bit masks to assign a note to multiple staves 
+        int l = 1;
+        int d = 2;
+        int u = 4;
+        int r = 8;
+
+        List<(float, int)> notes = new List<(float, int)>() {
+            (q, u),
+            (e, u),
+            (e, u),
+            (q, u),
+            (q, u),
+
+            (q, d),
+            (e, d),
+            (e, d),
+            (q, d),
+
+
+            (q, l),
+            (e, r),
+            (e, r),
+            (q, l),
+            (q, r),
+            (h, l|r),
+            (h, l|r),
+
+
+            (q, l|u),
+            (q, l),
+            (q, d),
+            (q, u),
+            (q, u|r),
+            (q, r),
+            (q, d),
+            (q, u),
+
+            (h, l|r),
+            (q, l|d),
+            (q, l|d),
+            (h, l|r),
+        };
+
+        return notes;
     }
 
     List<(float, int)> SheetMusic4() {

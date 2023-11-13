@@ -119,6 +119,7 @@ public class SumoGuy : MonoBehaviour {
     public void Block() {
         if(duringAction) return;
 
+        ani.SetBool("Blocking", true);
         blocking = true;
         duringAction = true;
         var pos = transform.position;
@@ -127,6 +128,7 @@ public class SumoGuy : MonoBehaviour {
     }
 
     public void EndBlock() {
+        ani.SetBool("Blocking", false);
         blocking = false;
         duringAction = false;
         var pos = transform.position;

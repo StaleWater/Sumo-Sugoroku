@@ -1286,12 +1286,14 @@ MonoBehaviour:
   staff2: {fileID: 2100868924}
   staff3: {fileID: 612243762}
   staff4: {fileID: 1700458957}
-  sumoAni: {fileID: 2081965175}
   pushAniDurationSEC: 0.15
   screenCurtain: {fileID: 102950709}
   hitPercentToWin: 0.5
   instructionsPanel: {fileID: 1722044545}
   infoTextContainer: {fileID: 457714415}
+  playerSpritePos: {x: 2.36, y: -3.51, z: -2}
+  playerSpriteScale: {x: 0.21624352, y: 0.21624352, z: 0.21624352}
+  defaultPlayerPrefab: {fileID: 3371178985632388413, guid: c65c2b200e50e894b91a9923dd8a5716, type: 3}
 --- !u!4 &1041202032
 Transform:
   m_ObjectHideFlags: 0
@@ -2436,7 +2438,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &2081965173
 SpriteRenderer:
   m_ObjectHideFlags: 0

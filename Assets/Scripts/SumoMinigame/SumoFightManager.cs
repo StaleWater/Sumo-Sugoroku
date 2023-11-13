@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 public class SumoFightManager : MonoBehaviour {
-    [SerializeField] SumoGuy player;
+    [SerializeField] SumoGuy defaultPlayerPrefab;
     [SerializeField] SumoEnemy[] enemyList;
     [SerializeField] Vector3 playerStartPos;
     [SerializeField] Vector3 enemyStartPos;
@@ -18,6 +18,7 @@ public class SumoFightManager : MonoBehaviour {
     
     SumoGuy enemyGuy;
     SumoEnemy enemy;
+    SumoGuy player;
 
     string helpText = "Move:  A-D or Arrow Keys      Push: Space	     Block: Shift";
     string startText = "- Press Space to Start -";
@@ -27,6 +28,7 @@ public class SumoFightManager : MonoBehaviour {
     }
 
     public void Init() {
+        player = SpawnPlayer();
         player.Init();
 
         enemy = ChooseEnemy();
@@ -41,7 +43,7 @@ public class SumoFightManager : MonoBehaviour {
 
         instructionsPanel.Init();
         instructionsPanel.gameObject.SetActive(true);
-        instructionsPanel.Show();
+        instructionsPanel.Hide();
 
         topText.text = startText;
 
@@ -55,15 +57,39 @@ public class SumoFightManager : MonoBehaviour {
 
         player.GetComponent<PlayerController>().enabled = false;
 
+        if(Level() == 1) {
+            instructionsPanel.Show();
+        }
+        else StartCoroutine(WaitToStart());
+
         screenCurtain.Show();
         StartCoroutine(screenCurtain.FadeOut());
     }
 
+    int Level() {
+        if(SugorokuManager.stateData.usingState) {
+            return SugorokuManager.stateData.players[SugorokuManager.stateData.curPlayer].data.fightLevel;
+        }
+        else return 1;
+    } 
+
+    SumoGuy SpawnPlayer() {
+        SumoGuy prefab = defaultPlayerPrefab;
+        if(SugorokuManager.stateData.usingState) {
+            int pi = SugorokuManager.stateData.curPlayer;
+            prefab = SugorokuManager.stateData.players[pi].data.spritePrefab;
+        }
+
+        return Instantiate(prefab, transform);
+    }
+
     SumoEnemy ChooseEnemy() {
 
-        int pi = SugorokuManager.stateData.curPlayer;
-        int difficulty = SugorokuManager.stateData.players[pi].chankoLevel;
-        int i = Mathf.Min(Mathf.Max(0, difficulty-1), 4);
+        int i = 0;
+        if(SugorokuManager.stateData.usingState) {
+            int difficulty = Level();
+            i = Mathf.Min(Mathf.Max(0, difficulty-1), 4);
+        }
 
         var prefab = enemyList[i];
         SumoEnemy e = Instantiate(prefab, transform);
