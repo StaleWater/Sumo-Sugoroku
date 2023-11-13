@@ -351,6 +351,10 @@ public class SugorokuManager : MonoBehaviour {
     }
 
     IEnumerator Move(int pi, int numMoves) {
+        if(numMoves == 0) {
+            StartCoroutine(ReturnFromEvent());
+            yield break;
+        }
         //ShowRollText($"You rolled a {numMoves}");
 
         int nextTileIndex = Mathf.Min(players[pi].curTile + numMoves, tiles.Length - 1);
@@ -813,8 +817,7 @@ public class SugorokuManager : MonoBehaviour {
 
         float camSize = minigameDice.GetComponent<BoxCollider>().bounds.size.x;
 
-        var diceRot = minigameDice.transform.rotation.eulerAngles;
-        var rot = Quaternion.Euler(0.0f, 0.0f, diceRot.z);
+        var rot = minigameDice.GetUpDirRotation();
         CameraData cd = new CameraData(pos, camSize, rot);
 
         yield return StartCoroutine(CamZoom(cd));

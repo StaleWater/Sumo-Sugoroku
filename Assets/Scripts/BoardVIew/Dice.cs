@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+public enum DiceDir {
+    XPos,
+    XNeg,
+    YPos,
+    YNeg,
+    ZPos,
+    ZNeg
+}
+
 public class Dice : MonoBehaviour {
     [SerializeField] Vector3 startPos;
     [SerializeField] Vector3 rollForce;
@@ -62,11 +71,12 @@ public class Dice : MonoBehaviour {
         onRoll?.Invoke(GetDiceNum());
     }
 
-    int GetDiceNum() {
+    int GetUpDirIndex() {
         var up = transform.up;
         var right = transform.right;
         var zp = Vector3.Cross(up, right);
         var realUp = new Vector3(0.0f, 0.0f, -1.0f);
+
         Vector3[] dirs = {-right, -zp, up, -up, zp, right};
         float[] diffs = new float[6];
 
@@ -76,7 +86,43 @@ public class Dice : MonoBehaviour {
             if(diffs[i] < diffs[minI]) minI = i;
         }
 
-        return minI + 1;
+        return minI;
+    }
+
+    public DiceDir GetUpAxis() {
+        DiceDir[] dds = {DiceDir.XNeg, DiceDir.ZNeg, DiceDir.YPos, DiceDir.YNeg, DiceDir.ZPos, DiceDir.XPos};
+        int i = GetUpDirIndex(); 
+        return dds[i];
+    }
+
+    public Quaternion GetUpDirRotation() {
+        DiceDir dd = GetUpAxis();
+        var diceRot = transform.rotation.eulerAngles;
+
+        Quaternion output;
+        switch(dd) {
+            case DiceDir.XPos:
+            case DiceDir.XNeg:
+                output = Quaternion.Euler(0.0f, 0.0f, diceRot.x);
+                break;
+            case DiceDir.YPos:
+            case DiceDir.YNeg:
+                output = Quaternion.Euler(0.0f, 0.0f, diceRot.y);
+                break;
+            case DiceDir.ZPos:
+            case DiceDir.ZNeg:
+                output = Quaternion.Euler(0.0f, 0.0f, diceRot.z);
+                break;
+            default:
+                output = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+                break;
+        }
+
+        return output;
+    }
+
+    int GetDiceNum() {
+        return GetUpDirIndex() + 1;
     }
 
     public void Hide() {
