@@ -97,6 +97,7 @@ public struct PlayerSavedData {
 public class SugorokuManager : MonoBehaviour {
 
     public static BoardStateData stateData;
+    static float currTimeScale;
 
     [SerializeField] Tile[] tiles;
     [SerializeField] EventPopup popup;
@@ -394,7 +395,8 @@ public class SugorokuManager : MonoBehaviour {
         StartCoroutine(rollTextContainer.FadeOut());
 
         audioman.Play("zoom");
-        yield return StartCoroutine(CamZoomTile(tile, 0.5f));
+        float tileZoom = tile.IsPortrait ? 0.8f : 0.5f;
+        yield return StartCoroutine(CamZoomTile(tile, tileZoom));
 
         // save this cam position to return to after the minigame ends
         stateData.camData = new CameraData(cam);
@@ -596,7 +598,7 @@ public class SugorokuManager : MonoBehaviour {
 		Vector3 offset;
         float oneFourthCamHeight = cam.orthographicSize * (percent / 100.0f);
         float oneFourthCamWidth = oneFourthCamHeight * cam.aspect;
-		if (!tile.isPortrait) {
+		if (!tile.IsPortrait) {
             // Landscape
             offset = -cam.transform.up;
             offset *= isSideways ? oneFourthCamHeight : oneFourthCamHeight;
@@ -836,9 +838,7 @@ public class SugorokuManager : MonoBehaviour {
         yield return StartCoroutine(CamZoom(cd));
     }
 
-	private float currTimeScale = 0.0f;
-
-	public void BackToMenu() {
+    public void BackToMenu() {
         if (Time.timeScale == 0.0f) {
             Time.timeScale = currTimeScale;
         }
