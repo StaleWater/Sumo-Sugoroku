@@ -219,7 +219,8 @@ public class SugorokuManager : MonoBehaviour {
 
     IEnumerator TileZoomProcess(Tile tile) {
         StartCoroutine(rollTextContainer.FadeOut());
-        yield return StartCoroutine(CamZoomTile(tile, 0.5f));
+        float tileZoom = tile.IsPortrait ? 0.8f : 0.5f;
+        yield return StartCoroutine(CamZoomTile(tile, tileZoom));
 
 		// Fade out the game pieces on the current tile
         if (gameState != GameState.EventOccuring)
