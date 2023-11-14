@@ -934,6 +934,69 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 153594419}
   m_CullTransparentMesh: 1
+--- !u!1 &175068310
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 175068312}
+  - component: {fileID: 175068311}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: audioman
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &175068311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175068310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f540cdd9b5454b04489cf74cbfd47d57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: start-turn
+    clip: {fileID: 8300000, guid: dec9a188e83dd5e4cb00aa16fccc6a5d, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 0.5
+    source: {fileID: 0}
+  - name: click
+    clip: {fileID: 8300000, guid: 9e379901acb11254fa62392b38f47e25, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 0.616
+    source: {fileID: 0}
+  - name: zoom
+    clip: {fileID: 8300000, guid: 1dc7cc18c9a963647a1e58e3431dd502, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 0.277
+    source: {fileID: 0}
+--- !u!4 &175068312
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175068310}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.6352515, y: -0.08113986, z: -0.98057306}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &282361988
 GameObject:
   m_ObjectHideFlags: 0
@@ -4866,7 +4929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 62b83068f99983c49a58f5a24df2a477, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2
+      value: -0.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 62b83068f99983c49a58f5a24df2a477, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4931,9 +4994,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76a3132796ede94c879da9a129329c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPos: {x: -2, y: -6, z: -1}
-  rollForce: {x: -10, y: 35, z: 10}
+  startPos: {x: -2, y: -6, z: -0.5}
+  rollForce: {x: -20, y: 45, z: 10}
   appliedPosOnCube: {x: 0, y: 0, z: -0.8}
+  soundVelocityThreshold: 0.5
 --- !u!65 &860286597
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5926,7 +5990,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d5fa04115498c0b488e2811ef224eef0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2
+      value: -0.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d5fa04115498c0b488e2811ef224eef0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6039,9 +6103,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76a3132796ede94c879da9a129329c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPos: {x: 2, y: -6, z: -1}
-  rollForce: {x: 10, y: 30, z: 10}
+  startPos: {x: 2, y: -6, z: -0.5}
+  rollForce: {x: 20, y: 50, z: 10}
   appliedPosOnCube: {x: 0, y: 0, z: -0.8}
+  soundVelocityThreshold: 0.5
 --- !u!1 &1047361734
 GameObject:
   m_ObjectHideFlags: 0
@@ -10842,3 +10907,4 @@ SceneRoots:
   - {fileID: 1013567294}
   - {fileID: 860286591}
   - {fileID: 1357384038}
+  - {fileID: 175068312}

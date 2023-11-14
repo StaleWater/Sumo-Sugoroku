@@ -118,7 +118,9 @@ public class SugorokuManager : MonoBehaviour {
     [SerializeField] Player[] playerPrefabs;
     [SerializeField] float AIMinigameWinRate;
     [SerializeField] SumoGuy[] sumoSizePrefabs;
+    [SerializeField] float playerTileMovementTimeGap;
 
+    AudioManager audioman;
 	Camera cam;
     CameraData defaultCamState;
     TermDictionary dictionary;
@@ -139,12 +141,14 @@ public class SugorokuManager : MonoBehaviour {
         popup.RegisterOnExit(OnPopupExit);
         defaultCamState = new CameraData(cam);
         EventPopup.extraEventHasEnded = EndExtraEvent;
+        audioman = GameObject.FindWithTag("audioman").GetComponent<AudioManager>();
 		Init();
     }
 
     public void Init() {
         // For when the Restart button is hit; may remove later, but useful for debugging right now
         StopAllCoroutines();
+
 
         numPlayers = numRealPlayers + numAI;
         gameState = GameState.Transitioning;
@@ -223,6 +227,7 @@ public class SugorokuManager : MonoBehaviour {
             chosenMinigame = -1;
 
             FadeInPlayers();
+            gameState = GameState.Transitioning;
             yield return StartCoroutine(CamZoomReset());
             StartCoroutine(Move(curPlayer, -2));
             yield break;
@@ -307,6 +312,8 @@ public class SugorokuManager : MonoBehaviour {
                 players[pi].curTile += delta;
                 var pos = GetPlayerPosOnTile(pi, tiles[players[pi].curTile]);
                 yield return StartCoroutine(players[pi].player.MoveTo(pos));
+                audioman.Play("tap");
+                yield return new WaitForSeconds(playerTileMovementTimeGap);
             }
         }
         else {
@@ -385,6 +392,8 @@ public class SugorokuManager : MonoBehaviour {
 
     IEnumerator TileZoomProcess(Tile tile, bool offset = true) {
         StartCoroutine(rollTextContainer.FadeOut());
+
+        audioman.Play("zoom");
         yield return StartCoroutine(CamZoomTile(tile, 0.5f));
 
         // save this cam position to return to after the minigame ends
@@ -494,6 +503,7 @@ public class SugorokuManager : MonoBehaviour {
     }
     
 	IEnumerator CamZoomTile(Tile tile, float scale = 1.0f) {
+
         Vector3 tileExtentsSize = tile.GetComponent<SpriteRenderer>().bounds.extents;
 		bool isSideways = tile.orientation == Orientation.Right || tile.orientation == Orientation.Left;
         float tileRatio = isSideways ? tileExtentsSize.y / tileExtentsSize.x : tileExtentsSize.x / tileExtentsSize.y;
@@ -535,10 +545,13 @@ public class SugorokuManager : MonoBehaviour {
 	}
 
     IEnumerator CamZoomReset() {
+        audioman.Play("zoom");
         yield return StartCoroutine(CamZoom(defaultCamState));
     }
 
     IEnumerator CamZoom(CameraData cd) {
+
+
         Vector3 endCamPos = cd.position;
         float endCamSize = cd.size;
         Quaternion endCamRotation = cd.rotation; 
@@ -739,6 +752,7 @@ public class SugorokuManager : MonoBehaviour {
         }
 
         ShowRollText($"Player {curPlayer+1} Turn");
+        audioman.Play("start-turn");
 
         if(players[curPlayer].ai) {
             StartCoroutine(AITakeTurn());
@@ -814,12 +828,11 @@ public class SugorokuManager : MonoBehaviour {
 
     IEnumerator ZoomOnMinigameDice() {
         var pos = minigameDice.transform.position;
-
         float camSize = minigameDice.GetComponent<BoxCollider>().bounds.size.x;
-
         var rot = minigameDice.GetUpDirRotation();
         CameraData cd = new CameraData(pos, camSize, rot);
 
+        audioman.Play("zoom");
         yield return StartCoroutine(CamZoom(cd));
     }
 

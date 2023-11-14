@@ -16,12 +16,16 @@ public class Dice : MonoBehaviour {
     [SerializeField] Vector3 startPos;
     [SerializeField] Vector3 rollForce;
     [SerializeField] Vector3 appliedPosOnCube;
+    [SerializeField] float soundVelocityThreshold;
+    [SerializeField] float rollSoundDelay;
 
+    AudioManager audioman;
     Rigidbody rb;
     BoxCollider box;
     Quaternion[] rollNumbers;
 
     public void Init() {
+        audioman = GameObject.FindWithTag("audioman").GetComponent<AudioManager>();
         rb = GetComponent<Rigidbody>();
         box = GetComponent<BoxCollider>();
         InitRiggedDice();
@@ -43,6 +47,8 @@ public class Dice : MonoBehaviour {
         Vector3 appliedPos = startPos + Vector3.Scale(box.bounds.extents, appliedPosOnCube);
         rb.rotation = Random.rotation;
         rb.AddForceAtPosition(rollForce, appliedPos);
+
+        StartCoroutine(RollSound());
         StartCoroutine(WaitToFinishRoll(onRoll));
     }
 
@@ -131,6 +137,20 @@ public class Dice : MonoBehaviour {
 
     public void Show() {
         gameObject.SetActive(true);
+    }
+
+    IEnumerator RollSound() {
+        yield return new WaitForSeconds(rollSoundDelay);
+        audioman.Play("diceroll");
+    }
+
+    void OnCollisionEnter(Collision collision) {
+        float v = collision.relativeVelocity.magnitude;
+        Debug.Log($"V: {v}");
+        if(v > soundVelocityThreshold) {
+            float volume = Mathf.Min(v / 10.0f, 1.0f);
+            audioman.Play("dicehit", volume);
+        }
     }
 
 }
