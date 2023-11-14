@@ -388,10 +388,10 @@ public class SugorokuManager : MonoBehaviour {
 
     }
 
-    IEnumerator TileZoomProcess(Tile tile, bool offset = true) {
+    IEnumerator TileZoomProcess(Tile tile, bool offset = true, bool sound = true) {
         StartCoroutine(rollTextContainer.FadeOut());
 
-        audioman.Play("zoom");
+        if(sound) audioman.Play("zoom");
         float tileZoom = tile.IsPortrait ? 0.8f : 0.5f;
         yield return StartCoroutine(CamZoomTile(tile, tileZoom));
 
@@ -473,7 +473,7 @@ public class SugorokuManager : MonoBehaviour {
 
 	IEnumerator ProcessExtraEvent(Tile tile, bool exiting) {
         if (exiting) {
-            yield return StartCoroutine(TileZoomProcess(tile));
+            yield return StartCoroutine(TileZoomProcess(tile, true, false));
             popup.Show(tile);
         }
         else {

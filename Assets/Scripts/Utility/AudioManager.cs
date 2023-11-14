@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.Audio;
+
+public enum SoundGroup {
+    Music,
+    SFX,
+}
 
 [Serializable]
 public class Sound {
@@ -11,12 +17,15 @@ public class Sound {
     public bool playOnAwake;
     [Range(0.0f, 1.0f)]
     public float volume = 0.5f;
+    public SoundGroup type;
     [HideInInspector] public AudioSource source;
 }
 
 public class AudioManager : MonoBehaviour {
 
     [SerializeField] Sound[] sounds;
+    [SerializeField] AudioMixerGroup musicGroup;
+    [SerializeField] AudioMixerGroup sfxGroup;
 
     void Awake() {
         foreach(Sound s in sounds) {
@@ -26,6 +35,15 @@ public class AudioManager : MonoBehaviour {
             s.source.clip = s.clip;
 
             if(s.playOnAwake) Play(s.name);
+
+            switch(s.type) {
+                case SoundGroup.Music:
+                    s.source.outputAudioMixerGroup = musicGroup;
+                    break;
+                case SoundGroup.SFX:
+                    s.source.outputAudioMixerGroup = sfxGroup;
+                    break;
+            }
         }
     }
 

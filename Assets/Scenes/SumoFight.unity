@@ -1140,6 +1140,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 223668377}
     m_Modifications:
+    - target: {fileID: 394663577586428558, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 394663577586428558, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 394663577586428558, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 394663577586428558, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791335562266108470, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791335562266108470, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2135149607680042028, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2135149607680042028, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2135149607680042028, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2135149607680042028, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2962503947508365138, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1220,9 +1260,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3741235711674690642, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741235711674690642, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741235711674690642, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3741235711674690642, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4676860534794471200, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
       propertyPath: m_Name
       value: Pause
+      objectReference: {fileID: 0}
+    - target: {fileID: 8142041805704311467, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8142041805704311467, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8142041805704311467, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8142041805704311467, guid: fcf05e1211267c74e8c1ccec55454d43, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1637,32 +1709,39 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 6d93261b5ec278a4b88f0dd619afb6bb, type: 3}
     loop: 1
     playOnAwake: 1
-    volume: 0.2
+    volume: 0.1
+    type: 0
     source: {fileID: 0}
   - name: push
     clip: {fileID: 8300000, guid: b75e400abc536b04799a22aa018a17ce, type: 3}
     loop: 0
     playOnAwake: 0
     volume: 0.4
+    type: 1
     source: {fileID: 0}
   - name: push-blocked
     clip: {fileID: 8300000, guid: 018c1b85741c84c4db25da6270080222, type: 3}
     loop: 0
     playOnAwake: 0
     volume: 0.4
+    type: 1
     source: {fileID: 0}
   - name: match-start
     clip: {fileID: 8300000, guid: dec9a188e83dd5e4cb00aa16fccc6a5d, type: 3}
     loop: 0
     playOnAwake: 0
     volume: 0.5
+    type: 1
     source: {fileID: 0}
   - name: match-end
     clip: {fileID: 8300000, guid: d8d7f2f0eb673fb42b1dfebb5e01284a, type: 3}
     loop: 0
     playOnAwake: 0
     volume: 0.5
+    type: 1
     source: {fileID: 0}
+  musicGroup: {fileID: -1701979925849485410, guid: 73112c2b288666e42b437851c8a7b5c6, type: 2}
+  sfxGroup: {fileID: 4503922837233493757, guid: 73112c2b288666e42b437851c8a7b5c6, type: 2}
 --- !u!4 &1357515141
 Transform:
   m_ObjectHideFlags: 0
