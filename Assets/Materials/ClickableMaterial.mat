@@ -54,11 +54,20 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Brightness: 0
+    - _Disable_Float: 0
+    - _Disable_Pulse: 0
+    - _Disable_Pulse_Float: 1
+    - _Elapsed_Time: 0
+    - _Enable_Pulse: 0
+    - _Float: 0
     - _Focus: 0.5
     - _Focus_Blur: 2
+    - _Is_Selected: 0
     - _OutlineThickness: 1
     - _PulseSpeed: 5.46
     - _Pulse_Speed: 2
+    - _isHoveredOver: 0
     m_Colors:
     - _BrightnessRange: {r: 0, g: 0.2, b: 0, a: 0}
     - _ColorIntensityRange: {r: 0, g: 0, b: 0, a: 0}
@@ -66,6 +75,7 @@ Material:
     - _HighlightColor: {r: 1, g: 1, b: 1, a: 0}
     - _HighlightIntensityRange: {r: 0, g: 0, b: 0, a: 0}
     - _Highlight_Colo: {r: 1, g: 1, b: 1, a: 0}
-    - _Highlight_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Highlight_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
     - _OutlineColor: {r: 1, g: 0.7809751, b: 0, a: 1}
+    - _Pulse_Color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
