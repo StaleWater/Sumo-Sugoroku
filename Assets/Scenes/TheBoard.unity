@@ -982,6 +982,30 @@ MonoBehaviour:
     playOnAwake: 0
     volume: 0.277
     source: {fileID: 0}
+  - name: diceroll
+    clip: {fileID: 8300000, guid: ad32512c90ff91f44b9b32d01287698a, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 0.5
+    source: {fileID: 0}
+  - name: dicehit
+    clip: {fileID: 8300000, guid: e48eb5a8c7ec18c4b97b50bc47774fe9, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 0.5
+    source: {fileID: 0}
+  - name: tap
+    clip: {fileID: 8300000, guid: 8f2a84b42de86694ca5e093828dc88cb, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 0.5
+    source: {fileID: 0}
+  - name: bgm
+    clip: {fileID: 8300000, guid: 463acab5ec095604d899a8f2238383e2, type: 3}
+    loop: 1
+    playOnAwake: 1
+    volume: 0.1
+    source: {fileID: 0}
 --- !u!4 &175068312
 Transform:
   m_ObjectHideFlags: 0
@@ -3558,6 +3582,7 @@ MonoBehaviour:
   - {fileID: 8397613959355733716, guid: 964d8269a2eea9546ac587568db83b57, type: 3}
   - {fileID: 2610528220988202399, guid: 1d8a79ec70259754e9997d1d82d6761f, type: 3}
   - {fileID: 3371178985632388413, guid: c65c2b200e50e894b91a9923dd8a5716, type: 3}
+  playerTileMovementTimeGap: 0.1
   gameState: 0
 --- !u!114 &667063888
 MonoBehaviour:
@@ -4998,6 +5023,7 @@ MonoBehaviour:
   rollForce: {x: -20, y: 45, z: 10}
   appliedPosOnCube: {x: 0, y: 0, z: -0.8}
   soundVelocityThreshold: 0.5
+  rollSoundDelay: 0
 --- !u!65 &860286597
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6107,6 +6133,7 @@ MonoBehaviour:
   rollForce: {x: 20, y: 50, z: 10}
   appliedPosOnCube: {x: 0, y: 0, z: -0.8}
   soundVelocityThreshold: 0.5
+  rollSoundDelay: 0
 --- !u!1 &1047361734
 GameObject:
   m_ObjectHideFlags: 0

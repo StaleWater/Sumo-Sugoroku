@@ -27,9 +27,11 @@ public class SumoGuy : MonoBehaviour {
     UnityAction onDeath;
     WaitForSeconds actionStunWaiter;
     Animator ani;
+    AudioManager audioman;
 
 
     public void Init() {
+        audioman = GameObject.FindWithTag("audioman").GetComponent<AudioManager>();
         box = GetComponent<BoxCollider2D>();
         mov = GetComponent<Movable>();
         ani = GetComponent<Animator>();
@@ -100,7 +102,9 @@ public class SumoGuy : MonoBehaviour {
             if(other.blocking) {
                 dmg /= 4;
                 pushDist *= 0.1f;
+                audioman.Play("push-blocked");
             }
+            else audioman.Play("push");
 
             other.TakeDamage(dmg);
             other.ShiftBack(pushDist);

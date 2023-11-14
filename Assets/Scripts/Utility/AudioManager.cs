@@ -24,8 +24,8 @@ public class AudioManager : MonoBehaviour {
             s.source.volume = s.volume;
             s.source.loop = s.loop;
             s.source.clip = s.clip;
-            s.source.playOnAwake = s.playOnAwake;
 
+            if(s.playOnAwake) Play(s.name);
         }
     }
 

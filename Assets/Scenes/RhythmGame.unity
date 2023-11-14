@@ -2236,6 +2236,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754088753}
   m_CullTransparentMesh: 1
+--- !u!1 &1811892167
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1811892169}
+  - component: {fileID: 1811892168}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: audioman
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1811892168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811892167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f540cdd9b5454b04489cf74cbfd47d57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: up
+    clip: {fileID: 8300000, guid: d8d7f2f0eb673fb42b1dfebb5e01284a, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 0.5
+    source: {fileID: 0}
+  - name: down
+    clip: {fileID: 8300000, guid: d8d7f2f0eb673fb42b1dfebb5e01284a, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 0.5
+    source: {fileID: 0}
+  - name: left
+    clip: {fileID: 8300000, guid: f40014ea749b359478058e5fbdcd6d0a, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 0.5
+    source: {fileID: 0}
+  - name: right
+    clip: {fileID: 8300000, guid: f40014ea749b359478058e5fbdcd6d0a, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 0.5
+    source: {fileID: 0}
+  - name: game-start
+    clip: {fileID: 8300000, guid: dec9a188e83dd5e4cb00aa16fccc6a5d, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 0.5
+    source: {fileID: 0}
+--- !u!4 &1811892169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811892167}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.0256578, y: -0.008825749, z: -7.547965}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1889105224
 GameObject:
   m_ObjectHideFlags: 0
@@ -2973,3 +3048,4 @@ SceneRoots:
   - {fileID: 1177622308}
   - {fileID: 1225946802}
   - {fileID: 938596627}
+  - {fileID: 1811892169}

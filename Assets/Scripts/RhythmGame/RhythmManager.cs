@@ -37,12 +37,14 @@ public class RhythmManager : MonoBehaviour
     float startDelayBEATS;
     float tempoBPS; // 16th note based beats per second
 
+    AudioManager audioman;
     WaitForSeconds pushWaiter;
     Coroutine pushAniRoutine;
     StaffMultiplexer smp;
     Animator playerSprite;
 
     void Start() {
+        audioman = GameObject.FindWithTag("audioman").GetComponent<AudioManager>();
         Init();
     }
 
@@ -77,7 +79,7 @@ public class RhythmManager : MonoBehaviour
         staff4.Init(KeyCode.RightArrow, reactionTimeBEATS, tempoBPS, 
                 hitToleranceBEATS, missToleranceBEATS);
 
-        UnityAction<bool, bool> onHitAttempt = OnHitAttempt;
+        UnityAction<bool, bool, KeyCode> onHitAttempt = OnHitAttempt;
 
         staff1.RegisterOnHitAttempt(onHitAttempt);
         staff2.RegisterOnHitAttempt(onHitAttempt);
@@ -167,6 +169,7 @@ public class RhythmManager : MonoBehaviour
 
 
     void StartGame() {
+        audioman.Play("game-start");
         StartCoroutine(Game());
     }
 
@@ -192,10 +195,25 @@ public class RhythmManager : MonoBehaviour
     }
 
     // an attempt can both not hit and not miss if there are no notes nearby
-    void OnHitAttempt(bool hit, bool miss) {
+    void OnHitAttempt(bool hit, bool miss, KeyCode key) {
         if(hit || !miss) {
             if(pushAniRoutine != null) StopCoroutine(pushAniRoutine);
             pushAniRoutine = StartCoroutine(PushAnimation());
+
+            switch(key) {
+                case KeyCode.UpArrow:
+                    audioman.Play("up");
+                    break;
+                case KeyCode.DownArrow:
+                    audioman.Play("down");
+                    break;
+                case KeyCode.LeftArrow:
+                    audioman.Play("left");
+                    break;
+                case KeyCode.RightArrow:
+                    audioman.Play("right");
+                    break;
+            }
         }
     }
 

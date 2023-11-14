@@ -22,6 +22,7 @@ public class ChankoManager : MonoBehaviour
     [SerializeField] float itemDuplicateScaleDown;
     [SerializeField] ClickCollider clickOverlay;
 
+    AudioManager audioman;
     Fadeable[] itemImages;
     bool selectTime;
     bool lastChance;
@@ -38,6 +39,7 @@ public class ChankoManager : MonoBehaviour
 
 
     void Start() {
+        audioman = GameObject.FindWithTag("audioman").GetComponent<AudioManager>();
         Init();    
     }
 
@@ -202,6 +204,7 @@ public class ChankoManager : MonoBehaviour
         }
 
         infoText.text = $"Round {curRound}";
+        audioman.Play("round-start");
 
         int difficulty = Level();
         difficulty = Mathf.Min(Mathf.Max(1, difficulty), 5);
@@ -248,6 +251,7 @@ public class ChankoManager : MonoBehaviour
         Fadeable img = itemImages[id];
 
         img.FadeIn();
+        audioman.Play("item-show");
         yield return showWaiter;
         img.FadeOut();
     }
@@ -258,10 +262,12 @@ public class ChankoManager : MonoBehaviour
         int itemId = clicked.Type();
 
         if(itemId != order[orderIndex]) {
+            audioman.Play("item-wrong");
             StartCoroutine(RoundEnd(false));
         }
         else {
             // correct item was selected
+            audioman.Play("item-correct");
 
             orderIndex++;
             if(orderIndex >= order.Count) StartCoroutine(RoundEnd(true));
