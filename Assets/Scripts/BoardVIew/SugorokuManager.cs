@@ -140,15 +140,15 @@ public class SugorokuManager : MonoBehaviour {
     }
 
     void StartGameState() {
-            tilesTillNextFight = tilesBetweenFights;
-            curFightLevel = 0;
-            PlayerTeleport(0);
-            defaultCamState.Apply(cam);
-            riggedTileIndex = 0;
-            rollTextContainer.Show();
-            gameState = GameState.RollPhase;
-            curTile = 0;
-            rollTextContainer.Hide();
+        tilesTillNextFight = tilesBetweenFights;
+        curFightLevel = 0;
+        PlayerTeleport(0);
+        defaultCamState.Apply(cam);
+        riggedTileIndex = 0;
+        rollTextContainer.Show();
+        gameState = GameState.RollPhase;
+        curTile = 0;
+        rollTextContainer.Hide();
     }
 
     IEnumerator PlayerToTile(int tileIndex, bool stayOnPath = true) {
@@ -363,7 +363,7 @@ public class SugorokuManager : MonoBehaviour {
 		Vector3 offset;
         float oneFourthCamHeight = cam.orthographicSize * (percent / 100.0f);
         float oneFourthCamWidth = oneFourthCamHeight * cam.aspect;
-		if (!tile.isPortrait) {
+		if (!tile.IsPortrait) {
             // Landscape
             offset = -cam.transform.up;
             offset *= isSideways ? oneFourthCamHeight : oneFourthCamHeight;

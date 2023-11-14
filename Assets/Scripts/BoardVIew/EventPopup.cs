@@ -86,7 +86,7 @@ public class EventPopup : MonoBehaviour {
 		currTile = tile;
         gameObject.SetActive(true);
         StartCoroutine(fader.FadeIn());
-		tile.GetComponent<BoxCollider2D>().enabled = true; // Tile now clickable since event is occuring
+		currTile.SetIsClickable(true); // Tile now clickable since event is occuring
 	}
 
     public void Hide() {
@@ -94,7 +94,7 @@ public class EventPopup : MonoBehaviour {
 	}
 
     private IEnumerator HideProcess() {
-		currTile.GetComponent<BoxCollider2D>().enabled = false; // Disable the tile
+		currTile.SetIsClickable(false); // Disable the tile
 		yield return StartCoroutine(fader.FadeOut());
 		Debug.Log("Hiding popup");
 		gameObject.SetActive(false);
@@ -109,7 +109,7 @@ public class EventPopup : MonoBehaviour {
     }
 
     IEnumerator OnExit() {
-		currTile.GetComponent<BoxCollider2D>().enabled = false; // Disable the tile
+        currTile.SetIsClickable(false); // Disable the tile
 		yield return StartCoroutine(fader.FadeOut());
         onExit?.Invoke();
         gameObject.SetActive(false);
