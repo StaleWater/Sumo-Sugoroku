@@ -146,7 +146,6 @@ public class Dice : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision) {
         float v = collision.relativeVelocity.magnitude;
-        Debug.Log($"V: {v}");
         if(v > soundVelocityThreshold) {
             float volume = Mathf.Min(v / 10.0f, 1.0f);
             audioman.Play("dicehit", volume);

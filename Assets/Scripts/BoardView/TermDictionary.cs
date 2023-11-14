@@ -8,7 +8,7 @@ public class TermDictionary : MonoBehaviour {
     [SerializeField] DictUnit[] dictEditor;
     SortedDictionary<string, string> dict;
 
-    public void Init() {
+    void Awake() {
         BuildDictionary();
     }
 
@@ -28,6 +28,8 @@ public class TermDictionary : MonoBehaviour {
     }
 
     public string TagTermsInString(string text) {
+        if(text.Length < 1) return text;
+
         string ltext = text.ToLower();
         foreach(var u in dictEditor) {
             string term = u.term.ToLower();

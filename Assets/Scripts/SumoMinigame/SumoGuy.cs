@@ -126,18 +126,12 @@ public class SumoGuy : MonoBehaviour {
         ani.SetBool("Blocking", true);
         blocking = true;
         duringAction = true;
-        var pos = transform.position;
-        pos.y -= 0.1f;
-        transform.position = pos;
     }
 
     public void EndBlock() {
         ani.SetBool("Blocking", false);
         blocking = false;
         duringAction = false;
-        var pos = transform.position;
-        pos.y = groundLevel;
-        transform.position = pos;
     }
 
     SumoGuy FindSumoInFront(float distance) {

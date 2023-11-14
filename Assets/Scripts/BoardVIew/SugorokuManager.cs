@@ -97,7 +97,6 @@ public struct PlayerSavedData {
 public class SugorokuManager : MonoBehaviour {
 
     public static BoardStateData stateData;
-    static float currTimeScale;
 
     [SerializeField] Tile[] tiles;
     [SerializeField] EventPopup popup;
@@ -120,11 +119,11 @@ public class SugorokuManager : MonoBehaviour {
     [SerializeField] float AIMinigameWinRate;
     [SerializeField] SumoGuy[] sumoSizePrefabs;
     [SerializeField] float playerTileMovementTimeGap;
+    [SerializeField] TermDictionary dictionary;
 
     AudioManager audioman;
 	Camera cam;
     CameraData defaultCamState;
-    TermDictionary dictionary;
     int endTile;
     int chosenMinigame;
     bool freeRoamMode;
@@ -158,8 +157,6 @@ public class SugorokuManager : MonoBehaviour {
         freeRoamMode = false;
         paused = false;
 
-        dictionary = GetComponent<TermDictionary>();
-        dictionary.Init();
         foreach(var tile in tiles) tile.Init(dictionary, OnTileClick);
 
 		popup.Init();
@@ -838,29 +835,8 @@ public class SugorokuManager : MonoBehaviour {
         yield return StartCoroutine(CamZoom(cd));
     }
 
-    public void BackToMenu() {
-        if (Time.timeScale == 0.0f) {
-            Time.timeScale = currTimeScale;
-        }
-        StartCoroutine(BackToMenuHelper());
-    }
 
-    IEnumerator BackToMenuHelper() {
-        yield return StartCoroutine(screenCurtain.FadeIn());
-        SceneManager.LoadScene("MainMenu");
-    }
 
-    public void PauseGame() {
-        if (Time.timeScale > 0.0f) {
-			currTimeScale = Time.timeScale;
-            Time.timeScale = 0.0f;
-            paused = true;
-        } 
-        else if (Time.timeScale == 0.0f) {
-            Time.timeScale = currTimeScale;
-            paused = false;
-        }
-    }
 
     void StartFreeRoamMode() {
         freeRoamMode = true;
