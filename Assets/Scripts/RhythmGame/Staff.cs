@@ -28,7 +28,7 @@ public class Staff : MonoBehaviour
     int missedIndex;
     KeyCode key;
 
-    UnityAction<bool, bool> onHitAttempt;
+    UnityAction<bool, bool, KeyCode> onHitAttempt;
 
     // measured in beats; when notes are X beats behind the accept area, fade their sprites
     float offscreenValue;
@@ -55,7 +55,7 @@ public class Staff : MonoBehaviour
         SpawnAcceptGuideSprite();
     }
 
-    public void RegisterOnHitAttempt(UnityAction<bool, bool> a) {
+    public void RegisterOnHitAttempt(UnityAction<bool, bool, KeyCode> a) {
         onHitAttempt += a;
     }
 
@@ -83,7 +83,7 @@ public class Staff : MonoBehaviour
             missedIndex = onScreenStart;
         }
 
-        onHitAttempt(hit, miss);
+        onHitAttempt(hit, miss, key);
 
     }
 

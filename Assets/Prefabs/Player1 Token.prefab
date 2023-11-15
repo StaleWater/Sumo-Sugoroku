@@ -269,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2967c28fc0752ac42ba09a6e81f3a000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementDurationSEC: 0.5
+  movementDurationSEC: 0.4
   movementCurve:
     serializedVersion: 2
     m_Curve:

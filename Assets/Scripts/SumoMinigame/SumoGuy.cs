@@ -27,9 +27,11 @@ public class SumoGuy : MonoBehaviour {
     UnityAction onDeath;
     WaitForSeconds actionStunWaiter;
     Animator ani;
+    AudioManager audioman;
 
 
     public void Init() {
+        audioman = GameObject.FindWithTag("audioman").GetComponent<AudioManager>();
         box = GetComponent<BoxCollider2D>();
         mov = GetComponent<Movable>();
         ani = GetComponent<Animator>();
@@ -100,7 +102,9 @@ public class SumoGuy : MonoBehaviour {
             if(other.blocking) {
                 dmg /= 4;
                 pushDist *= 0.1f;
+                audioman.Play("push-blocked");
             }
+            else audioman.Play("push");
 
             other.TakeDamage(dmg);
             other.ShiftBack(pushDist);
@@ -122,18 +126,12 @@ public class SumoGuy : MonoBehaviour {
         ani.SetBool("Blocking", true);
         blocking = true;
         duringAction = true;
-        var pos = transform.position;
-        pos.y -= 0.1f;
-        transform.position = pos;
     }
 
     public void EndBlock() {
         ani.SetBool("Blocking", false);
         blocking = false;
         duringAction = false;
-        var pos = transform.position;
-        pos.y = groundLevel;
-        transform.position = pos;
     }
 
     SumoGuy FindSumoInFront(float distance) {

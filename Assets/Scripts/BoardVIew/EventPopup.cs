@@ -18,6 +18,7 @@ public class EventPopup : MonoBehaviour {
     [SerializeField] UIEventChecker uiChecker;
     [SerializeField] Vector2 definitionOffset;
 
+    AudioManager audioman;
 	UnityAction onExit;
 	UIFadeable fader;
 
@@ -30,6 +31,7 @@ public class EventPopup : MonoBehaviour {
     public static Action<Tile> extraEventHasEnded;
 
     public void Init() {
+        audioman = GameObject.FindWithTag("audioman").GetComponent<AudioManager>();
         fader = GetComponent<UIFadeable>();
         fader.Init();
         definitionPanel.SetActive(false);
@@ -50,6 +52,8 @@ public class EventPopup : MonoBehaviour {
         Vector2 screenPos = Input.mousePosition;
         int index = TMP_TextUtilities.FindIntersectingLink(eventText, screenPos, null);
         if(index == -1) return;
+
+        audioman.Play("click");
 
         TMP_LinkInfo link = eventText.textInfo.linkInfo[index];
 
@@ -86,7 +90,7 @@ public class EventPopup : MonoBehaviour {
 		currTile = tile;
         gameObject.SetActive(true);
         StartCoroutine(fader.FadeIn());
-		tile.GetComponent<BoxCollider2D>().enabled = true; // Tile now clickable since event is occuring
+		currTile.SetIsClickable(true); // Tile now clickable since event is occuring
 	}
 
     public void Hide() {
@@ -94,7 +98,7 @@ public class EventPopup : MonoBehaviour {
 	}
 
     private IEnumerator HideProcess() {
-		currTile.GetComponent<BoxCollider2D>().enabled = false; // Disable the tile
+		currTile.SetIsClickable(false); // Disable the tile
 		yield return StartCoroutine(fader.FadeOut());
 		Debug.Log("Hiding popup");
 		gameObject.SetActive(false);
@@ -109,7 +113,7 @@ public class EventPopup : MonoBehaviour {
     }
 
     IEnumerator OnExit() {
-		currTile.GetComponent<BoxCollider2D>().enabled = false; // Disable the tile
+        currTile.SetIsClickable(false); // Disable the tile
 		yield return StartCoroutine(fader.FadeOut());
         onExit?.Invoke();
         gameObject.SetActive(false);

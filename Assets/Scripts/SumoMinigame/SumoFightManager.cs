@@ -16,6 +16,7 @@ public class SumoFightManager : MonoBehaviour {
     [SerializeField] UIFadeable instructionsPanel;
     [SerializeField] TMP_Text topText;
     
+    AudioManager audioman;
     SumoGuy enemyGuy;
     SumoEnemy enemy;
     SumoGuy player;
@@ -24,6 +25,7 @@ public class SumoFightManager : MonoBehaviour {
     string startText = "- Press Space to Start -";
 
     void Start() {
+        audioman = GameObject.FindWithTag("audioman").GetComponent<AudioManager>();
         Init();
     }
 
@@ -120,6 +122,7 @@ public class SumoFightManager : MonoBehaviour {
     }
 
     void GameEnd(SumoGuy winner, SumoGuy loser) {
+        audioman.Play("match-end");
         background.color = bgEndColor;
         enemy.active = false;
         enemy.StopActionLoop();
@@ -142,6 +145,7 @@ public class SumoFightManager : MonoBehaviour {
     }
 
     void StartFight() {
+        audioman.Play("match-start");
         StartCoroutine(CheckGameEnd());
         enemy.StartActionLoop();
         player.GetComponent<PlayerController>().enabled = true;

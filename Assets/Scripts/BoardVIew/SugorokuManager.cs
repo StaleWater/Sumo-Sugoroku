@@ -118,10 +118,12 @@ public class SugorokuManager : MonoBehaviour {
     [SerializeField] Player[] playerPrefabs;
     [SerializeField] float AIMinigameWinRate;
     [SerializeField] SumoGuy[] sumoSizePrefabs;
+    [SerializeField] float playerTileMovementTimeGap;
+    [SerializeField] TermDictionary dictionary;
 
+    AudioManager audioman;
 	Camera cam;
     CameraData defaultCamState;
-    TermDictionary dictionary;
     int endTile;
     int chosenMinigame;
     bool freeRoamMode;
@@ -139,12 +141,14 @@ public class SugorokuManager : MonoBehaviour {
         popup.RegisterOnExit(OnPopupExit);
         defaultCamState = new CameraData(cam);
         EventPopup.extraEventHasEnded = EndExtraEvent;
+        audioman = GameObject.FindWithTag("audioman").GetComponent<AudioManager>();
 		Init();
     }
 
     public void Init() {
         // For when the Restart button is hit; may remove later, but useful for debugging right now
         StopAllCoroutines();
+
 
         numPlayers = numRealPlayers + numAI;
         gameState = GameState.Transitioning;
@@ -153,8 +157,6 @@ public class SugorokuManager : MonoBehaviour {
         freeRoamMode = false;
         paused = false;
 
-        dictionary = GetComponent<TermDictionary>();
-        dictionary.Init();
         foreach(var tile in tiles) tile.Init(dictionary, OnTileClick);
 
 		popup.Init();
@@ -223,6 +225,7 @@ public class SugorokuManager : MonoBehaviour {
             chosenMinigame = -1;
 
             FadeInPlayers();
+            gameState = GameState.Transitioning;
             yield return StartCoroutine(CamZoomReset());
             StartCoroutine(Move(curPlayer, -2));
             yield break;
@@ -294,6 +297,20 @@ public class SugorokuManager : MonoBehaviour {
             pos.x -= spr.bounds.extents.x / 2.0f;
             pos.x += spr.bounds.extents.x * pi;
         }
+        else if(numPlayers == 3) {
+            float d = spr.bounds.extents.x / 2.0f;
+            pos.x -= d;
+            pos.x += d * pi;
+        }
+        else if(numPlayers == 4) {
+            float dx = spr.bounds.extents.x / 2.0f;
+            float dy = spr.bounds.extents.y / 2.0f;
+
+            pos.x -= dx;
+            pos.x += dx * 2 * (pi % 2);
+            pos.y -= dy;
+            pos.y += dy * 2 * (pi / 2);
+        }
 
         return pos;
     }
@@ -307,6 +324,8 @@ public class SugorokuManager : MonoBehaviour {
                 players[pi].curTile += delta;
                 var pos = GetPlayerPosOnTile(pi, tiles[players[pi].curTile]);
                 yield return StartCoroutine(players[pi].player.MoveTo(pos));
+                audioman.Play("tap");
+                yield return new WaitForSeconds(playerTileMovementTimeGap);
             }
         }
         else {
@@ -351,6 +370,10 @@ public class SugorokuManager : MonoBehaviour {
     }
 
     IEnumerator Move(int pi, int numMoves) {
+        if(numMoves == 0) {
+            StartCoroutine(ReturnFromEvent());
+            yield break;
+        }
         //ShowRollText($"You rolled a {numMoves}");
 
         int nextTileIndex = Mathf.Min(players[pi].curTile + numMoves, tiles.Length - 1);
@@ -379,9 +402,12 @@ public class SugorokuManager : MonoBehaviour {
 
     }
 
-    IEnumerator TileZoomProcess(Tile tile, bool offset = true) {
+    IEnumerator TileZoomProcess(Tile tile, bool offset = true, bool sound = true) {
         StartCoroutine(rollTextContainer.FadeOut());
-        yield return StartCoroutine(CamZoomTile(tile, 0.5f));
+
+        if(sound) audioman.Play("zoom");
+        float tileZoom = tile.IsPortrait ? 0.8f : 0.5f;
+        yield return StartCoroutine(CamZoomTile(tile, tileZoom));
 
         // save this cam position to return to after the minigame ends
         stateData.camData = new CameraData(cam);
@@ -461,7 +487,7 @@ public class SugorokuManager : MonoBehaviour {
 
 	IEnumerator ProcessExtraEvent(Tile tile, bool exiting) {
         if (exiting) {
-            yield return StartCoroutine(TileZoomProcess(tile));
+            yield return StartCoroutine(TileZoomProcess(tile, true, false));
             popup.Show(tile);
         }
         else {
@@ -490,6 +516,7 @@ public class SugorokuManager : MonoBehaviour {
     }
     
 	IEnumerator CamZoomTile(Tile tile, float scale = 1.0f) {
+
         Vector3 tileExtentsSize = tile.GetComponent<SpriteRenderer>().bounds.extents;
 		bool isSideways = tile.orientation == Orientation.Right || tile.orientation == Orientation.Left;
         float tileRatio = isSideways ? tileExtentsSize.y / tileExtentsSize.x : tileExtentsSize.x / tileExtentsSize.y;
@@ -531,10 +558,13 @@ public class SugorokuManager : MonoBehaviour {
 	}
 
     IEnumerator CamZoomReset() {
+        audioman.Play("zoom");
         yield return StartCoroutine(CamZoom(defaultCamState));
     }
 
     IEnumerator CamZoom(CameraData cd) {
+
+
         Vector3 endCamPos = cd.position;
         float endCamSize = cd.size;
         Quaternion endCamRotation = cd.rotation; 
@@ -579,7 +609,7 @@ public class SugorokuManager : MonoBehaviour {
 		Vector3 offset;
         float oneFourthCamHeight = cam.orthographicSize * (percent / 100.0f);
         float oneFourthCamWidth = oneFourthCamHeight * cam.aspect;
-		if (!tile.isPortrait) {
+		if (!tile.IsPortrait) {
             // Landscape
             offset = -cam.transform.up;
             offset *= isSideways ? oneFourthCamHeight : oneFourthCamHeight;
@@ -735,6 +765,7 @@ public class SugorokuManager : MonoBehaviour {
         }
 
         ShowRollText($"Player {curPlayer+1} Turn");
+        audioman.Play("start-turn");
 
         if(players[curPlayer].ai) {
             StartCoroutine(AITakeTurn());
@@ -810,41 +841,16 @@ public class SugorokuManager : MonoBehaviour {
 
     IEnumerator ZoomOnMinigameDice() {
         var pos = minigameDice.transform.position;
-
         float camSize = minigameDice.GetComponent<BoxCollider>().bounds.size.x;
-
-        var diceRot = minigameDice.transform.rotation.eulerAngles;
-        var rot = Quaternion.Euler(0.0f, 0.0f, diceRot.z);
+        var rot = minigameDice.GetUpDirRotation();
         CameraData cd = new CameraData(pos, camSize, rot);
 
+        audioman.Play("zoom");
         yield return StartCoroutine(CamZoom(cd));
     }
 
-	private float currTimeScale = 0.0f;
 
-	public void BackToMenu() {
-        if (Time.timeScale == 0.0f) {
-            Time.timeScale = currTimeScale;
-        }
-        StartCoroutine(BackToMenuHelper());
-    }
 
-    IEnumerator BackToMenuHelper() {
-        yield return StartCoroutine(screenCurtain.FadeIn());
-        SceneManager.LoadScene("MainMenu");
-    }
-
-    public void PauseGame() {
-        if (Time.timeScale > 0.0f) {
-			currTimeScale = Time.timeScale;
-            Time.timeScale = 0.0f;
-            paused = true;
-        } 
-        else if (Time.timeScale == 0.0f) {
-            Time.timeScale = currTimeScale;
-            paused = false;
-        }
-    }
 
     void StartFreeRoamMode() {
         freeRoamMode = true;
