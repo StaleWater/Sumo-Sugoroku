@@ -1,10 +1,10 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 
-public class MainMenu : MonoBehaviour
-{
+public class MainMenu : MonoBehaviour {
+
 	[SerializeField] UIFadeable screenCurtain;
 	[SerializeField] private string startGameSceneName;
 
