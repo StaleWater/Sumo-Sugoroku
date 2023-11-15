@@ -480,8 +480,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 289}
-  m_SizeDelta: {x: 1670.468, y: 150.18}
+  m_AnchoredPosition: {x: 0, y: 151.87}
+  m_SizeDelta: {x: 1670.468, y: 457.55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &644802608
 MonoBehaviour:
@@ -503,7 +503,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Something explaining chanko.
+  m_text: "Chanko is the general term for dishes eaten by rikishi, while Chankonabe
+    is a \u201Cone-pot\u201D stew version of chanko that is eaten often. \n\nMeat
+    and seafood are commonly put in the pot to provide protein, while the vegetables
+    used vary based on what\u2019s available. This chankonabe will be made with dashi
+    stock, hakusai, enoki mushrooms, and fish."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1352,7 +1356,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 447}
-  m_SizeDelta: {x: 544.5275, y: 81.7692}
+  m_SizeDelta: {x: 681.2885, y: 81.7692}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1067051318
 MonoBehaviour:
@@ -1374,7 +1378,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Making Chanko
+  m_text: Making Chankonabe
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1812,7 +1816,7 @@ MonoBehaviour:
     type: 1
     source: {fileID: 0}
   - name: win
-    clip: {fileID: 8300000, guid: dec9a188e83dd5e4cb00aa16fccc6a5d, type: 3}
+    clip: {fileID: 8300000, guid: 084dc99c715187e4dafbe1f6c748fce3, type: 3}
     loop: 0
     playOnAwake: 0
     volume: 0.5
@@ -1876,7 +1880,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -210}
   m_SizeDelta: {x: 1670.468, y: 150.18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1780388890
@@ -1909,8 +1913,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 3758096384
-  m_fontColor: {r: 0, g: 0, b: 0, a: 0.8784314}
+    rgba: 3758886042
+  m_fontColor: {r: 0.6037736, g: 0.048415814, b: 0.048415814, a: 0.8784314}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

@@ -122,12 +122,19 @@ public class SumoFightManager : MonoBehaviour {
     }
 
     void GameEnd(SumoGuy winner, SumoGuy loser) {
-        audioman.Play("match-end");
         background.color = bgEndColor;
         enemy.active = false;
         enemy.StopActionLoop();
+
         bool won = winner == player;
-        topText.text = won ? "YOU WIN" : "YOU LOSE";
+        if(won) {
+            audioman.Play("win");
+            topText.text = "You Win!";
+        }
+        else {
+            audioman.Play("lose");
+            topText.text = "You Lose!";
+        }
         SugorokuManager.stateData.wonMinigame = won;
 
         StartCoroutine(BackToBoard());

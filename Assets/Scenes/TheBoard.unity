@@ -2976,7 +2976,7 @@ MonoBehaviour:
   tileHighlight: {fileID: 1839743854}
   clickOverlay: {fileID: 1911885543}
   numRealPlayers: 1
-  numAI: 3
+  numAI: 1
   playerPrefabs:
   - {fileID: 1903790598512749228, guid: 7b595c65edf576c40a38c84902ec9aef, type: 3}
   - {fileID: 1903790598512749228, guid: a1570f8b3fe5e114c8c6cfdef27fc46c, type: 3}
@@ -9174,7 +9174,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 8f2a84b42de86694ca5e093828dc88cb, type: 3}
     loop: 0
     playOnAwake: 0
-    volume: 0.5
+    volume: 0.7
     type: 1
     source: {fileID: 0}
   - name: zoom

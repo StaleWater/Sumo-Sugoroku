@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 
 public class RhythmManager : MonoBehaviour
@@ -21,6 +22,7 @@ public class RhythmManager : MonoBehaviour
     [SerializeField] float hitPercentToWin;
     [SerializeField] UIFadeable instructionsPanel;
     [SerializeField] UIFadeable infoTextContainer;
+    [SerializeField] TMP_Text infoText;
     [SerializeField] Vector3 playerSpritePos;
     [SerializeField] Vector3 playerSpriteScale;
     [SerializeField] SumoGuy defaultPlayerPrefab;
@@ -181,11 +183,20 @@ public class RhythmManager : MonoBehaviour
 
         bool win = (notesHit / (float)totalNotes) >= hitPercentToWin;
 
-        if(win) Debug.Log("YOU WIN");
-        else Debug.Log("YOU LOSE");
+        yield return new WaitForSeconds(3.0f);
+
+        if(win) {
+            infoText.text = "You win!";
+            audioman.Play("win");
+        }
+        else {
+            infoText.text = "You Lose!";
+            audioman.Play("lose");
+        }
 
         SugorokuManager.stateData.wonMinigame = win;
 
+        yield return StartCoroutine(infoTextContainer.FadeIn());
         yield return StartCoroutine(BackToBoard());
     }
 
