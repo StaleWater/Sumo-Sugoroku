@@ -1784,10 +1784,10 @@ MonoBehaviour:
     type: 1
     source: {fileID: 0}
   - name: item-correct
-    clip: {fileID: 8300000, guid: b75e400abc536b04799a22aa018a17ce, type: 3}
+    clip: {fileID: 8300000, guid: 92e61bfefd3cdd04c9f17648358b012c, type: 3}
     loop: 0
     playOnAwake: 0
-    volume: 0.5
+    volume: 0.23
     type: 1
     source: {fileID: 0}
   - name: item-wrong
@@ -1809,6 +1809,20 @@ MonoBehaviour:
     loop: 0
     playOnAwake: 0
     volume: 0.5
+    type: 1
+    source: {fileID: 0}
+  - name: win
+    clip: {fileID: 8300000, guid: dec9a188e83dd5e4cb00aa16fccc6a5d, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 0.5
+    type: 1
+    source: {fileID: 0}
+  - name: lose-round
+    clip: {fileID: 8300000, guid: 605a5f5d3f29aba48befbf4f10585c59, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 0.3
     type: 1
     source: {fileID: 0}
   musicGroup: {fileID: -1701979925849485410, guid: 73112c2b288666e42b437851c8a7b5c6, type: 2}

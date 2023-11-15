@@ -24,6 +24,7 @@ public class RhythmManager : MonoBehaviour
     [SerializeField] Vector3 playerSpritePos;
     [SerializeField] Vector3 playerSpriteScale;
     [SerializeField] SumoGuy defaultPlayerPrefab;
+    [SerializeField] int defaultLevel;
 
     // note values in units of beats.
     // internally, a beat is considered a 16th note to avoid floating point error issues.
@@ -144,7 +145,7 @@ public class RhythmManager : MonoBehaviour
         if(SugorokuManager.stateData.usingState) {
             return SugorokuManager.stateData.players[SugorokuManager.stateData.curPlayer].data.teppoLevel;
         }
-        else return 1;
+        else return defaultLevel;
     } 
 
     List<(float, int)> GetSheetMusic() {
@@ -236,33 +237,33 @@ public class RhythmManager : MonoBehaviour
         int r = 8;
 
         List<(float, int)> notes = new List<(float, int)>() {
+            (h, d),
+            (h, r),
+            (q, d),
+            (q, d),
+            (h, r),
+
+            (h, u),
             (h, l),
-            (h, r),
-            (q, l),
-            (q, l),
-            (h, r),
-
-            (h, u),
-            (h, d),
             (q, u),
             (q, u),
-            (h, d),
+            (h, l),
 
-            (q, l),
-            (q, d),
-            (q, u),
-            (q, r),
-
-            (q, r),
             (q, u),
             (q, d),
             (q, l),
+            (q, r),
+
+            (q, d),
+            (q, u),
+            (q, r),
+            (q, l),
 
             (h, u),
-            (h, d),
-            (q, u),
-            (q, u),
-            (h, d),
+            (h, r),
+            (q, d),
+            (q, d),
+            (h, l),
         };
 
         return notes;
@@ -281,34 +282,34 @@ public class RhythmManager : MonoBehaviour
         int r = 8;
 
         List<(float, int)> notes = new List<(float, int)>() {
-            (q, l),
-            (q, l),
-            (q, l),
+            (q, u),
+            (q, u),
             (q, u),
             (q, l),
+            (q, u),
+            (q, u),
+            (q, u),
             (q, l),
-            (q, l),
+
+
             (q, d),
-
-
-            (q, r),
-            (q, r),
-            (q, r),
-            (q, u),
-            (q, r),
-            (q, r),
-            (q, r),
             (q, d),
-
-
-            (q, l),
-            (q, u),
             (q, d),
             (q, r),
             (q, d),
-            (q, u),
-            (q, l),
+            (q, d),
+            (q, d),
             (q, r),
+
+
+            (q, u),
+            (q, r),
+            (q, d),
+            (q, l),
+            (q, u),
+            (q, r),
+            (q, d),
+            (q, l),
 
             (h, r|l),
             (h, r|l),
@@ -340,31 +341,31 @@ public class RhythmManager : MonoBehaviour
             (q, d),
             (e, d),
             (e, d),
-            (q, d),
+            (h, d),
 
 
-            (q, l),
+            (q, u),
             (e, r),
             (e, r),
-            (q, l),
+            (q, u),
             (q, r),
-            (h, l|r),
-            (h, l|r),
+            (h, u|d),
+            (h, u|d),
 
 
-            (q, l|u),
+            (q, u|d),
             (q, l),
             (q, d),
             (q, u),
-            (q, u|r),
+            (q, u|d),
             (q, r),
             (q, d),
             (q, u),
 
-            (h, l|r),
-            (q, l|d),
-            (q, l|d),
-            (h, l|r),
+            (h, u|d),
+            (q, l|r),
+            (q, l|r),
+            (h, u|d),
         };
 
         return notes;

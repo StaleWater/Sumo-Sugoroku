@@ -10,10 +10,14 @@ public class Glossary : MonoBehaviour
     [SerializeField] TermDictionary termDict;
     [SerializeField] UIFadeable container;
 
-
     void Start() {
+        StartCoroutine(StartupProcess());
+    }
+
+    IEnumerator StartupProcess() {
         Init();
-        StartCoroutine(ActualFuckingMagic());
+        yield return StartCoroutine(ActualFuckingMagic());
+        container.Show();
     }
 
     // I promise you the glossary stops working if you don't run this.
@@ -27,8 +31,6 @@ public class Glossary : MonoBehaviour
             layout.enabled = true;
             yield return null;
         }
-
-        container.Show();
     }
 
     void Init() {
@@ -41,12 +43,6 @@ public class Glossary : MonoBehaviour
             SpawnEntry(entry.Key, entry.Value);
         }
 
-        RectTransform ert = entryPrefab.GetComponent<RectTransform>();
-        float entryHeight = ert.sizeDelta.y;
-        int numEntries = dict.Count;
-
-        RectTransform rt = GetComponent<RectTransform>();
-        rt.sizeDelta = new Vector2(rt.sizeDelta.x, entryHeight * numEntries);
     }
 
     GlossaryEntry SpawnEntry(string term, string description) {

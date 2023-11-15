@@ -1294,6 +1294,7 @@ MonoBehaviour:
   playerSpritePos: {x: 2.36, y: -3.51, z: -2}
   playerSpriteScale: {x: 0.21624352, y: 0.21624352, z: 0.21624352}
   defaultPlayerPrefab: {fileID: 3371178985632388413, guid: c65c2b200e50e894b91a9923dd8a5716, type: 3}
+  defaultLevel: 3
 --- !u!4 &1041202032
 Transform:
   m_ObjectHideFlags: 0
@@ -2413,28 +2414,28 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d8d7f2f0eb673fb42b1dfebb5e01284a, type: 3}
     loop: 0
     playOnAwake: 0
-    volume: 0.5
+    volume: 0.4
     type: 1
     source: {fileID: 0}
   - name: down
     clip: {fileID: 8300000, guid: d8d7f2f0eb673fb42b1dfebb5e01284a, type: 3}
     loop: 0
     playOnAwake: 0
-    volume: 0.5
+    volume: 0.4
     type: 1
     source: {fileID: 0}
   - name: left
     clip: {fileID: 8300000, guid: f40014ea749b359478058e5fbdcd6d0a, type: 3}
     loop: 0
     playOnAwake: 0
-    volume: 0.5
+    volume: 0.4
     type: 1
     source: {fileID: 0}
   - name: right
     clip: {fileID: 8300000, guid: f40014ea749b359478058e5fbdcd6d0a, type: 3}
     loop: 0
     playOnAwake: 0
-    volume: 0.5
+    volume: 0.4
     type: 1
     source: {fileID: 0}
   - name: game-start
