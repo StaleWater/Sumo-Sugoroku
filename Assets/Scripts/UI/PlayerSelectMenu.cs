@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,6 +9,8 @@ static class PlayerSelectMenuConstants {
 }
 
 public class PlayerSelectMenu : MonoBehaviour {
+
+	[SerializeField] UIFadeable screenCurtain;
 
 	[SerializeField] private GameObject playerInfoBoxPrefab;
 	[SerializeField] private GameObject location;
@@ -28,6 +31,11 @@ public class PlayerSelectMenu : MonoBehaviour {
 	};
 
 	private void Start() {
+		screenCurtain.Init();
+		screenCurtain.Show();
+
+		StartCoroutine(screenCurtain.FadeOut());
+
 		locationPosition = location.transform.position;
 
 		// Start with 1 player
@@ -39,6 +47,12 @@ public class PlayerSelectMenu : MonoBehaviour {
 	}
 
 	public void StartGame() {
+		StartCoroutine(StartGameHelper());
+	}
+
+	private IEnumerator StartGameHelper() {
+		yield return new WaitForSeconds(0.5f);
+		yield return StartCoroutine(screenCurtain.FadeIn());
 		SceneManager.LoadScene(startGameSceneName);
 	}
 
