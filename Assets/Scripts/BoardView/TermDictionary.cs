@@ -30,25 +30,25 @@ public class TermDictionary : MonoBehaviour {
     public string TagTermsInString(string text) {
         if(text.Length < 1) return text;
 
-        string ltext = text.ToLower();
         foreach(var u in dictEditor) {
-            string term = u.term.ToLower();
+			string ltext = text.ToLower();
+			string term = u.term.ToLower();
             string newText = "";
             int si = 0;
             int i = ltext.IndexOf(term, si);
             while(i >= 0) {
-                int head = i - 1;
+				int head = i - 1;
                 int tail = i + term.Length;
 
                 newText += text.Substring(si, i - si);
-                if((head < 0 || !Char.IsLetter(text[head])) && (tail >= text.Length || !Char.IsLetter(text[tail]))) {
-                    string matched = text.Substring(i, term.Length);
+				if ((head < 0 || !Char.IsLetter(text[head])) && (tail >= text.Length || !Char.IsLetter(text[tail]))) {
+					string matched = text.Substring(i, term.Length);
                     newText += $"<link><color=#ce2c2f>{matched}</color></link>";
                 }
 
-                si = tail;
+				si = tail;
                 i = ltext.IndexOf(term, si);
-            }
+			}
 
             newText += text.Substring(si);
 
@@ -56,7 +56,7 @@ public class TermDictionary : MonoBehaviour {
         }
 
 
-        return text;
+		return text;
     }
 
 
