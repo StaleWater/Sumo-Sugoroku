@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using UnityEngine.Events;
 
 public enum GameState {
     Transitioning,
@@ -130,7 +131,8 @@ public class SugorokuManager : MonoBehaviour {
     bool paused;
     int curPlayer;
     int numPlayers;
-    PlayerData[] players; 
+    PlayerData[] players;
+    UnityAction<bool> endHighlight;
 
 
     public GameState gameState;
@@ -157,7 +159,10 @@ public class SugorokuManager : MonoBehaviour {
         freeRoamMode = false;
         paused = false;
 
-        foreach(var tile in tiles) tile.Init(dictionary, OnTileClick);
+        foreach (var tile in tiles) { 
+            tile.Init(dictionary, OnTileClick);
+            endHighlight += tile.showNumberMask;
+        }
 
 		popup.Init();
         dice.Init();
@@ -726,7 +731,8 @@ public class SugorokuManager : MonoBehaviour {
     public void OnPopupExit() {
         StartCoroutine(OnEventEnd());
         tileHighlight.EndHighlight();
-    }
+        endHighlight?.Invoke(false);
+	}
 
     IEnumerator ReturnFromEvent() {
         gameState = GameState.Transitioning;

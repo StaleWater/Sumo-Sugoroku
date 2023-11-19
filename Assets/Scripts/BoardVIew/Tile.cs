@@ -12,8 +12,11 @@ public enum TileContentType {
 
 public class Tile : MonoBehaviour {
 
+	[SerializeField] private GameObject numberMask;
+
 	UnityAction<Tile> onClick;
 	private bool activeClick = false;
+	private bool overTile = false;
 
 	public Orientation orientation;
     [TextArea(15,20)]
@@ -44,6 +47,7 @@ public class Tile : MonoBehaviour {
     public void Event(SugorokuManager man, TileContentType type, TileHighlight tileHighlight) {
 		// Set up the tile highlight and run it
 		tileHighlight.SetHighlight(this);
+		showNumberMask(true);
 
 		// Start the event pop-up and send information about this tile
 		switch (type) {
@@ -62,23 +66,31 @@ public class Tile : MonoBehaviour {
 		}
     }
 
+	public void showNumberMask(bool enable) {
+		if (numberMask != null) {
+			numberMask.SetActive(enable);
+		}
+	}
+
 	public void OnMouseDown() {
         activeClick = true;
 	}
 
 	// Signal to Sugoroku Manager that this tile was clicked
 	public void OnMouseUp() {
-		if (activeClick) {
+		if (activeClick && overTile) {
 			onClick?.Invoke(this);
-            activeClick = false;
 		}
+		activeClick = false;
 	}
 
 	public void OnMouseEnter() {
+		overTile = true;
 		clickableMaterial.SetFloat("_Is_Selected", 1.0f);
 	}
 
 	public void OnMouseExit() {
+		overTile = false;
 		clickableMaterial.SetFloat("_Is_Selected", 0.0f);
 	}
 
