@@ -297,6 +297,20 @@ public class SugorokuManager : MonoBehaviour {
             pos.x -= spr.bounds.extents.x / 2.0f;
             pos.x += spr.bounds.extents.x * pi;
         }
+        else if(numPlayers == 3) {
+            float d = spr.bounds.extents.x / 2.0f;
+            pos.x -= d;
+            pos.x += d * pi;
+        }
+        else if(numPlayers == 4) {
+            float dx = spr.bounds.extents.x / 2.0f;
+            float dy = spr.bounds.extents.y / 2.0f;
+
+            pos.x -= dx;
+            pos.x += dx * 2 * (pi % 2);
+            pos.y -= dy;
+            pos.y += dy * 2 * (pi / 2);
+        }
 
         return pos;
     }

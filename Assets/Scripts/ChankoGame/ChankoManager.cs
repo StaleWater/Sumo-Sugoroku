@@ -286,6 +286,7 @@ public class ChankoManager : MonoBehaviour
             lastChance = false;
         }
         else if(!lastChance) {
+            audioman.Play("lose-round");
             infoText.text = "Wrong! One more chance!";
             lastChance = true;
             curRound--;
@@ -305,6 +306,7 @@ public class ChankoManager : MonoBehaviour
     }
 
     IEnumerator GameEnd(bool win) {
+        audioman.Play("win");
         if(win) infoText.text = "You Win!";
         else infoText.text = "You Lose!";
         SugorokuManager.stateData.wonMinigame = win;

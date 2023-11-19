@@ -514,6 +514,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8453517193166124070}
   - component: {fileID: 4878371838089367828}
+  - component: {fileID: 8723229636561770343}
   m_Layer: 5
   m_Name: GlossaryContainer
   m_TagString: Untagged
@@ -539,8 +540,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1598, y: 899}
+  m_AnchoredPosition: {x: 0, y: 0.0010242}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &4878371838089367828
 CanvasGroup:
@@ -554,6 +555,67 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &8723229636561770343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725499201642372998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a708698fb86dd4e43aa7832a171d22f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDurationSEC: 0.5
+  fadeInCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fadeOutCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2279899395414501344
 GameObject:
   m_ObjectHideFlags: 0
@@ -1716,16 +1778,171 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dictEditor:
-  - term: rikishi
-    description: he reeks dude not even joking on this one
-  - term: 
-    description: 
-  - term: 'roller coaster '
-    description: yup extactly asdf
-  - term: john smith
-    description: the average man
-  - term: who am i
-    description: knock knock
+  - term: Akeni
+    description: "A lacquered paper-and-bamboo box that rikishi and gy\u014Dji use
+      to carry their possessions."
+  - term: Banzuke
+    description: "A document listing the rankings of professional rikishi that is
+      published prior to each official tournament. The rikishi are divided into East
+      on the left, and West on the right with the highest-ranking rikishi at the
+      top and the lowest at the bottom. Each rikishi\u2019s ring name, hometown,
+      and rank are listed."
+  - term: Basho
+    description: Literally means place or location, but the term also refers to a
+      sumo tournament.
+  - term: Butsukari
+    description: "A practice exercise involving two rikishi where one attempts to
+      push the other across the dohy\u014D. The one being pushed is either a larger
+      or more senior rikishi to increase the difficulty. The pusher is tasked with
+      pushing his opponent from one end of the dohy\u014D to the other multiple times
+      to force proper form and build strength and endurance. The one being pushed
+      will increase his resistance the longer he is being pushed and may throw the
+      pusher onto the ground when the rikishi\u2019s form starts to slip due to exhaustion. "
+  - term: Chanko
+    description: "The general term for dishes eaten by rikishi. Anything prepared
+      by the cook of the heya is known as chanko and there are no strict rules for
+      what goes into it. Chankonabe is a \u201Cone-pot\u201D stew version of chanko
+      that is the primary meal eaten by rikishi."
+  - term: "Dohy\u014D"
+    description: "The area or ring in which sumo matches occur. In honbasho, it is
+      a raised square platform made from clay with a white inner ring made from rice
+      straw bales. A new dohy\u014D is constructed prior to each honbasho by the
+      yobidashi, a process that takes multiple days. Official dohy\u014D, meaning
+      dohy\u014D that have received the purification ceremony known as dohy\u014D
+      matsuri, are considered sacred ground. To this day, women are still forbidden
+      to enter."
+  - term: "Dohy\u014D Matsuri"
+    description: "A purification ceremony that is held after a dohy\u014D has been
+      built. Three gy\u014Dji, acting in place of Shinto priests, consecrate the
+      dohy\u014D by placing items such as rice, salt, chestnuts, or dried squid in
+      a small hole in the center of the ring. They then pour sake in the hole and
+      around the dohy\u014D."
+  - term: Furoshiki
+    description: A traditional Japanese cloth wrapping used to wrap and transport
+      items, commonly bento boxes. The cloth is traditionally made with cotton or
+      silk, but modern materials are used as well.
+  - term: "Gy\u014Dji"
+    description: "A referee in sumo that is responsible for officiating matches,
+      from the initial pre-match rituals to the moment the winner is determined.
+      Their other duties include performing the dohy\u014D matsuri and preparing
+      the banzuke. Gy\u014Dji have a similar ranking system to rikishi, and high-ranking
+      gy\u014Dji are known for their ornate attire."
+  - term: Heya
+    description: 'The shared space where a group of  rikishi live and train. Heya
+      are often translated as stables in English. When a rikishi joins a heya, he
+      must stay with the same heya throughout his career. Lower-ranking rikishi have
+      strict restrictions on leaving the heya, including limitations on going to
+      a convenience store or restaurant. Other rikishi within the same heya are referred
+      to as stablemates rather than teammates because they are also competing against
+      each other. '
+  - term: Honbasho
+    description: 'An official sumo tournament organized by the Japan Sumo Association
+      that lasts for 15 days. The results from these tournaments determine whether
+      a rikishi is promoted or relegated.
+
+'
+  - term: Jonidan
+    description: The second lowest division in sumo, above jonokuchi and below sandanme.
+  - term: Jonokuchi
+    description: The lowest division in sumo.
+  - term: "J\u016Bry\u014D"
+    description: The second highest division in sumo, above makushita and below makuuchi.
+  - term: Kachi-koshi
+    description: A term for achieving more wins than losses in a tournament. For
+      sekitori, this equates to at least 8 wins across 15 matches; for lower-ranked
+      rikishi, it is at least 4 wins across 7 matches. Accomplishing this feat gives
+      you a significantly higher chance of promotion. The opposite of a kachi-koshi
+      is known as a make-koshi.
+  - term: Komusubi
+    description: "The fourth highest rank in sumo, above maegashira and below sekiwake.
+      It is the lowest of the san\u2019yaku ranks."
+  - term: Maegashira
+    description: "The group of \u201Crank-and-file\u201D, or untitled rikishi, in
+      the top division of sumo known as makuuchi.\r\n"
+  - term: Makushita
+    description: "The third highest division in sumo and the top of the non-salaried
+      divisions. Above sandanme and below j\u016Bry\u014D."
+  - term: Makuuchi
+    description: "The highest division in sumo. The rikishi in this division are
+      either maegashira, san\u2019yaku, or yokozuna."
+  - term: Matawari
+    description: A stretching technique in which a rikishi sits with his legs spread
+      apart as far as possible and, with his knees locked, leans forward until his
+      chest touches the ground. This exercise improves flexibility.
+  - term: Mawashi
+    description: "A loincloth worn by rikishi. There are two styles of mawashi \u2013
+      one for practice and one for competition. For practice, all rikishi wear cotton
+      or canvas mawashi, white for sekitori and black for lower-division rikishi.
+      In competition, lower-division rikishi wear their practice mawashi. Sekitori
+      wear a special mawashi for competition known as shimekomi that is made of satin
+      silk in the color of their choice."
+  - term: Moshiai
+    description: 'A king-of-the-hill-style drill where rikishi engage in practice
+      matches in which the winning rikishi remains until he loses. The winner also
+      gets to choose his next opponent.
+
+'
+  - term: "\u014Czeki"
+    description: The second highest rank a rikishi can obtain, just below Yokozuna.
+  - term: Rikishi
+    description: "A professional sumo wrestler. While they can also be called sum\u014Dtori
+      or osum\u014Dsan, rikishi is most commonly used for a sumo wrestler of any
+      rank or division until sekitori. Rikishi can come from numerous countries around
+      the world, with the most common outside of Japan being Mongolia. There is a
+      limit, however, to the number of foreign rikishi allowed.\r\n"
+  - term: Sandanme
+    description: The third lowest division in sumo, above jonidan and below makushita.
+  - term: "San\u2019yaku"
+    description: "The titled ranks at the top of professional sumo. San\u2019yaku
+      encompasses the ranks of komusubi, sekiwake, and \u014Dzeki, but the term is
+      regularly used to describe the junior ranks of komusubi and sekiwake exclusively."
+  - term: Sekitori
+    description: "A rikishi who is in one of the top two divisions of j\u016Bry\u014D
+      and makuuchi. Becoming a sekitori comes with significant benefits including
+      a salary, the ability to live outside the heya, as well as being allowed to
+      marry."
+  - term: Sekiwake
+    description: "The third highest rank in sumo, above komusubi and below \u014Dzeki.
+      It is the middle rank of san\u2019yaku."
+  - term: Shiko
+    description: An exercise in which the rikishi stands with his feet wide apart
+      and his hands on his thighs. In this position, he lifts one leg high in the
+      air and then brings it down with a powerful stomp as he squats deeply. Afterward,
+      the same motion is done for the opposite leg. This exercise is performed hundreds
+      of times in practice and is also included in the Yokozuna ring-entering ceremony.
+  - term: "Tepp\u014D"
+    description: A pushing exercise in which the rikishi starts in a shallow squat,
+      extends his arms, and strikes a wooden pole with the palm of his hand. The
+      rikishi must drive his leg in unison with his strike so that he will do the
+      same in a match.
+  - term: Tsukebito
+    description: "A rikishi from one of the lower divisions that serves as a personal
+      assistant to a sekitori. Their job is to take care of the day-to-day needs
+      of their senior. Tsukebito may be borrowed from other heya if that heya doesn\u2019t
+      have enough lower-ranked rikishi."
+  - term: Yobidashi
+    description: "The attendants seen running around each honbasho ensuring everything
+      runs smoothly. Their duties include announcing the names of rikishi prior to
+      matches, building and maintaining the dohy\u014D throughout the tournament,
+      carrying banners, and much more."
+  - term: Yokozuna
+    description: "The highest rank in professional sumo. Its name is derived from
+      the braided rope they wear called a yokotsuna. In order for a rikishi to be
+      promoted to yokozuna, he must first be an \u014Czeki. Unlike other ranks in
+      sumo, a rikishi must meet some criteria beyond his wins and losses to obtain
+      the title of yokozuna. The most common requirement is that an \u014Czeki wins
+      two consecutive y\u016Bsh\u014D, but the Sumo Association and the Yokozuna
+      Deliberation Council make the final decision. Factors such as the number of
+      yokozuna, the perceived difficulty of the y\u016Bsh\u014D won, and even the
+      character and temperament of the rikishi affect promotion. There is no official
+      requirement for there to be a yokozuna, nor is there a limit to the number
+      there can be. It is very rare, however, for there to be no yokozuna or more
+      than three yokozuna."
+  - term: "Y\u016Bsh\u014D"
+    description: "A term that means championship in Japanese. It is awarded to the
+      rikishi who has the most wins after 15 days. If two rikishi in the same division
+      have the same record after 15 days, they compete in a one-match playoff. Every
+      division awards a y\u016Bsh\u014D at all six annual honbasho."
 --- !u!1 &7469408998865090036
 GameObject:
   m_ObjectHideFlags: 0
@@ -1843,6 +2060,7 @@ GameObject:
   - component: {fileID: 2628840512866288554}
   - component: {fileID: 728992611220571146}
   - component: {fileID: 8877806192984881448}
+  - component: {fileID: 8517712342484487807}
   m_Layer: 5
   m_Name: Glossary
   m_TagString: Untagged
@@ -1866,8 +2084,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000032913}
-  m_SizeDelta: {x: 0, y: 982.72}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &728992611220571146
 MonoBehaviour:
@@ -1883,6 +2101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entryPrefab: {fileID: 2025569473054151378, guid: a1639e00195213d41b2d7c8f1613c0d5, type: 3}
   termDict: {fileID: 7220375598938190147}
+  container: {fileID: 8723229636561770343}
 --- !u!114 &8877806192984881448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1901,14 +2120,28 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 0
+  m_Spacing: 30
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 0
+  m_ChildControlWidth: 1
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &8517712342484487807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7602984287895129595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
 --- !u!1 &7802402364731311593
 GameObject:
   m_ObjectHideFlags: 0
@@ -1946,8 +2179,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000014305, y: -0.000014782}
-  m_SizeDelta: {x: 837.4506, y: 982.7225}
+  m_AnchoredPosition: {x: 0.0000048829, y: -0.000014782}
+  m_SizeDelta: {x: 1460.4434, y: 982.7225}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2157396739338258365
 CanvasRenderer:
@@ -2006,7 +2239,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 50
   m_Viewport: {fileID: 8314018031989965519}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 2387441195959111121}
