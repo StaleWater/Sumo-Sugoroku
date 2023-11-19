@@ -49,7 +49,7 @@ public class ExtraPopup : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (Input.GetMouseButtonDown(0)) {
+		if (informationUI.activeSelf && Input.GetMouseButtonDown(0)) {
 			if (definitionPanel.activeSelf && !uiChecker.ClickedOn(definitionPanel)) HideDefinition();
 			else if (!definitionPanel.activeSelf) CheckLinkClick();
 		}
