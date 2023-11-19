@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -8,6 +9,14 @@ public class PlayerInfoBox : MonoBehaviour {
 	[SerializeField] private List<Button> buttons;
 	[SerializeField] private Button selectColorButton;
 	[SerializeField] private List<Button> colorButtons;
+	[SerializeField] private Button playerTypeButton;
+
+	[SerializeField] private TMP_InputField nameField;
+
+	[SerializeField] private Sprite playerImage;
+	[SerializeField] private Sprite botImage;
+	private bool isBot;
+	private Image playerTypeImage;
 
 	static private List<bool> isColorAvailable;
 
@@ -16,13 +25,15 @@ public class PlayerInfoBox : MonoBehaviour {
 	private int id; // Index in player list, located in PlayerSelectMenu.cs
 	private bool isSelectingColor = false;
 	private int currColorIndex;
-	private Image buttonImage;
+	private Image colorButtonImage;
 
 	public void Init(int id, UnityAction<int> removeEvent, UnityAction<bool> selectColorEvent) {
-		buttonImage = selectColorButton.GetComponent<Image>();
-		this.id = id;
+		colorButtonImage = selectColorButton.GetComponent<Image>();
+		playerTypeImage = playerTypeButton.GetComponent<Image>();
 		this.removeEvent = removeEvent;
 		this.selectColorEvent = selectColorEvent;
+		isBot = false;
+		UpdateId(id);
 
 		// If it doesn't already exist, initialize a shared list of available colors
 		if (isColorAvailable == null) {
@@ -41,11 +52,25 @@ public class PlayerInfoBox : MonoBehaviour {
 	}
 
 	public void UpdateId(int id) {
+		nameField.placeholder.GetComponent<TMP_Text>().text = "Player " + (id + 1);
 		this.id = id;
 	}
 
 	public void RemoveSelf() {
+		// Make the current color available before removing
+		isColorAvailable[currColorIndex] = true;
+
 		removeEvent?.Invoke(id);
+	}
+
+	public void TogglePlayerType() {
+		isBot = !isBot;
+		if (isBot) {
+			playerTypeImage.sprite = botImage;
+		}
+		else {
+			playerTypeImage.sprite = playerImage;
+		}
 	}
 
 	public void SelectColor() {
@@ -73,7 +98,8 @@ public class PlayerInfoBox : MonoBehaviour {
 		currColorIndex = colorIndex;
 		isColorAvailable[colorIndex] = false;
 		colorButtons[colorIndex].interactable = false;
-		buttonImage.color = colorButtons[colorIndex].image.color;
+		colorButtonImage.color = colorButtons[colorIndex].image.color;
+		playerTypeImage.color = colorButtonImage.color;
 	}
 
 	public void ChangeAllButtonInteraction(bool interactable) {
