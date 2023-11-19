@@ -504,7 +504,7 @@ public class SugorokuManager : MonoBehaviour {
     }
 
     public void ShowExtraPopup(in string text) {
-        popup.BeginExtraPopup();
+        popup.BeginExtraPopup(text);
     }
 
 	void ShowRollText(string text) {

@@ -122,10 +122,11 @@ public class EventPopup : MonoBehaviour {
         Debug.Log("Pop up exited and resetted transformations");
 	}
 
-    public void BeginExtraPopup()
+    public void BeginExtraPopup(in string text)
     {
         Debug.Log("Showing extra pop-up");
         // Run the extra event
+        extraPopup.SetText(text);
         extraPopup.Begin();
 	}
 
