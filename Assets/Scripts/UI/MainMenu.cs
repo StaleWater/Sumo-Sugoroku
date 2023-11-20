@@ -20,7 +20,6 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	private IEnumerator StartGameHelper() {
-		yield return new WaitForSeconds(0.5f);
 		yield return StartCoroutine(screenCurtain.FadeIn());
 		SceneManager.LoadScene(startGameSceneName);
 	}
