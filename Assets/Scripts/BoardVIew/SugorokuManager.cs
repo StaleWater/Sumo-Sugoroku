@@ -69,8 +69,10 @@ public struct PlayerData {
         this.id = id; this.name = name; this.ai = ai; this.colorIndex = colorIndex;
         curTile = 0; fightLevel = 0; chankoLevel = 0; teppoLevel = 0;
         turnSkips = 0;
-        player = man.SpawnPlayer(id);
-        spritePrefab = man.GetSumoSize(0);
+        spritePrefab = man.GetSumoSize(0, 0);
+
+        var spr = spritePrefab.GetComponent<SpriteRenderer>();
+        player = man.SpawnPlayer(id, colorIndex, spr.sprite);
     }
 }
 
@@ -91,7 +93,7 @@ public struct PlayerSavedData {
         pd.teppoLevel = data.teppoLevel;
         pd.turnSkips = data.turnSkips;
         pd.player.transform.position = pos;
-        pd.spritePrefab = man.GetSumoSize(pd.curTile);
+        pd.spritePrefab = man.GetSumoSize(pd.curTile, pd.colorIndex);
 
         return pd;
     }
@@ -116,9 +118,10 @@ public class SugorokuManager : MonoBehaviour {
     [SerializeField] UIFadeable screenCurtain;
     [SerializeField] private TileHighlight tileHighlight;
     [SerializeField] ClickCollider clickOverlay;
-    [SerializeField] Player[] playerPrefabs;
+    [SerializeField] Player playerTokenPrefab;
     [SerializeField] float AIMinigameWinRate;
     [SerializeField] SumoGuy[] sumoSizePrefabs;
+    [SerializeField] SumoGuy[] sumoColorPrefabs;
     [SerializeField] float playerTileMovementTimeGap;
     [SerializeField] TermDictionary dictionary;
 
@@ -198,7 +201,6 @@ public class SugorokuManager : MonoBehaviour {
     }
 
     void StartGameState() {
-
         PlayersInit();
 
         defaultCamState.Apply(cam);
@@ -206,8 +208,10 @@ public class SugorokuManager : MonoBehaviour {
         rollTextContainer.Hide();
     }
 
-    public Player SpawnPlayer(int playerIndex) {
-        Player p = Instantiate(playerPrefabs[playerIndex]);
+    public Player SpawnPlayer(int playerIndex, int colorIndex, Sprite s) {
+        Player p = Instantiate(playerTokenPrefab);
+        p.SetColor(colorIndex);
+        p.SetIcon(s);
         return p;
     }
 
@@ -283,15 +287,20 @@ public class SugorokuManager : MonoBehaviour {
         }
     }
 
-    public SumoGuy GetSumoSize(int curTile) {
+
+    public SumoGuy GetSumoSize(int curTile, int colorIndex) {
         int i = curTile / 9;
         i = Mathf.Min(Mathf.Max(0, i), sumoSizePrefabs.Length - 1);
 
-        return sumoSizePrefabs[i];
+        // 3rd stage, each player gets a colored mawashi
+        if(i == 2) {
+            return sumoColorPrefabs[colorIndex];
+        }
+        else return sumoSizePrefabs[i];
     }
 
     void UpdateSumoSize(int pi) {
-        players[pi].spritePrefab = GetSumoSize(players[pi].curTile);
+        players[pi].spritePrefab = GetSumoSize(players[pi].curTile, players[pi].colorIndex);
     }
 
     Vector3 GetPlayerPosOnTile(int pi, Tile tile) {

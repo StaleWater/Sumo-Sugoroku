@@ -207,9 +207,9 @@ public class ChankoManager : MonoBehaviour
         audioman.Play("round-start");
 
         int difficulty = Level();
-        difficulty = Mathf.Min(Mathf.Max(1, difficulty), 5);
 
         int len = difficulty + numItemTypes + curRound - 4;
+        len = Mathf.Max(3, Mathf.Min(len, 6));
 
         RandomItemOrder(len);
 

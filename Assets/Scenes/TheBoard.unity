@@ -3174,7 +3174,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  minigameDice: {fileID: 507949798}
   cameraPanDurationSEC: 1
   cameraPanCurve:
     serializedVersion: 2
@@ -3200,22 +3199,27 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  minigameDice: {fileID: 507949798}
   dice: {fileID: 1013567298}
   screenCurtain: {fileID: 68293533}
   tileHighlight: {fileID: 1839743854}
   clickOverlay: {fileID: 1911885543}
-  numRealPlayers: 1
-  numAI: 1
-  playerPrefabs:
-  - {fileID: 1903790598512749228, guid: 7b595c65edf576c40a38c84902ec9aef, type: 3}
-  - {fileID: 1903790598512749228, guid: a1570f8b3fe5e114c8c6cfdef27fc46c, type: 3}
-  - {fileID: 1903790598512749228, guid: f28fc66fc4c71644381c67f87bd24d0c, type: 3}
-  - {fileID: 1903790598512749228, guid: 595eb817f26d15940957168a108f8052, type: 3}
+  playerTokenPrefab: {fileID: 1903790598512749228, guid: 7b595c65edf576c40a38c84902ec9aef, type: 3}
   AIMinigameWinRate: 0.7
   sumoSizePrefabs:
   - {fileID: 8397613959355733716, guid: 964d8269a2eea9546ac587568db83b57, type: 3}
   - {fileID: 2610528220988202399, guid: 1d8a79ec70259754e9997d1d82d6761f, type: 3}
   - {fileID: 3371178985632388413, guid: c65c2b200e50e894b91a9923dd8a5716, type: 3}
+  sumoColorPrefabs:
+  - {fileID: 3371178985632388413, guid: 1551e3080d5fc86469210683088ccf87, type: 3}
+  - {fileID: 3371178985632388413, guid: 1f16d1121adfde944a2a10f3347139ed, type: 3}
+  - {fileID: 3371178985632388413, guid: 285cdf3396b57354c86d056291244090, type: 3}
+  - {fileID: 3371178985632388413, guid: fd9fabc865eb6384c86e37e3001eb019, type: 3}
+  - {fileID: 3371178985632388413, guid: e69c37cc6a79b4146b32eb2d254adbb9, type: 3}
+  - {fileID: 3371178985632388413, guid: c342d57b8828e0b43ac07592168b3e90, type: 3}
+  - {fileID: 3371178985632388413, guid: 19caf29d804a4534ba2fb724ac7eb85f, type: 3}
+  - {fileID: 3371178985632388413, guid: 72fe04e1316a88447b7e7924b55aac83, type: 3}
+  - {fileID: 3371178985632388413, guid: e071e46538f7e07408fe0ef6a3aa9bc0, type: 3}
   playerTileMovementTimeGap: 0.1
   dictionary: {fileID: 1407456039}
   gameState: 0
@@ -5946,6 +5950,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  colorFilter: {fileID: 0}
+  icon: {fileID: 0}
 --- !u!114 &1044835414
 MonoBehaviour:
   m_ObjectHideFlags: 0

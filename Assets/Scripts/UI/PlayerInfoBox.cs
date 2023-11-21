@@ -18,7 +18,7 @@ public class PlayerInfoBox : MonoBehaviour {
 	private bool isBot;
 	private Image playerTypeImage;
 
-	static private List<bool> isColorAvailable;
+	private List<bool> isColorAvailable;
 
 	private UnityAction<int> removeEvent;
 	private UnityAction<bool> selectColorEvent;
