@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Term
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9c4ad65ff18607a498e0e0388876814b, type: 2}
-  m_sharedMaterial: {fileID: 9047744854602394921, guid: 9c4ad65ff18607a498e0e0388876814b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a0ee7b5f71b863f419c0cb461b56eb15, type: 2}
+  m_sharedMaterial: {fileID: -383121506429173360, guid: a0ee7b5f71b863f419c0cb461b56eb15, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -207,8 +207,8 @@ MonoBehaviour:
     be y.Description of the term will be seen here. Most likely the term will marry.
     .Des
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9c4ad65ff18607a498e0e0388876814b, type: 2}
-  m_sharedMaterial: {fileID: 9047744854602394921, guid: 9c4ad65ff18607a498e0e0388876814b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a0ee7b5f71b863f419c0cb461b56eb15, type: 2}
+  m_sharedMaterial: {fileID: -383121506429173360, guid: a0ee7b5f71b863f419c0cb461b56eb15, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

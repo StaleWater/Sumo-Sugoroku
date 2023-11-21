@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 using System;
 
 public class EventPopup : MonoBehaviour {
@@ -15,8 +14,9 @@ public class EventPopup : MonoBehaviour {
     [SerializeField] TMP_Text descriptionText;
     [SerializeField] GameObject definitionPanel;
     [SerializeField] TermDictionary dictionary;
-    [SerializeField] UIEventChecker uiChecker;
+    // [SerializeField] UIEventChecker uiChecker;
     [SerializeField] Vector2 definitionOffset;
+    [SerializeField] Button closeDefinitionButton;
 
     AudioManager audioman;
 	UnityAction onExit;
@@ -38,14 +38,18 @@ public class EventPopup : MonoBehaviour {
         gameObject.SetActive(false);
 		originalEventPanelPosition = eventPanel.GetComponent<RectTransform>().position;
 		originalEventPanelSizeDelta = eventPanel.GetComponent<RectTransform>().sizeDelta;
+        closeDefinitionButton.onClick.AddListener(HideDefinition);
         extraPopup.Init();
 	}
 
     void Update() {
         if(Input.GetMouseButtonDown(0)) {
-            if(definitionPanel.activeSelf && !uiChecker.ClickedOn(definitionPanel)) HideDefinition();
-            else if(!definitionPanel.activeSelf) CheckLinkClick();
-        }
+			// if(definitionPanel.activeSelf && uiChecker.ClickedOn(closeDefinitionButton)) 
+			//     HideDefinition();
+			// else if(!definitionPanel.activeSelf) 
+			//     CheckLinkClick();
+			CheckLinkClick();
+		}
     }
 
     void CheckLinkClick() {
@@ -64,13 +68,15 @@ public class EventPopup : MonoBehaviour {
     }
 
     void ShowDefinition(string text, string desc) {
+        currTile.IsTileClickable = false;
         termText.text = text;
         descriptionText.text = desc;
         definitionPanel.SetActive(true);
     }
 
     void HideDefinition() {
-        definitionPanel.SetActive(false);
+		currTile.IsTileClickable = true;
+		definitionPanel.SetActive(false);
     }
 
     public void ApplyOffsetScale(in Vector2 offsetScale) {
@@ -113,7 +119,8 @@ public class EventPopup : MonoBehaviour {
     }
 
     IEnumerator OnExit() {
-        currTile.SetIsClickable(false); // Disable the tile
+		closeDefinitionButton.onClick.RemoveAllListeners();
+		currTile.SetIsClickable(false); // Disable the tile
 		yield return StartCoroutine(fader.FadeOut());
         onExit?.Invoke();
         gameObject.SetActive(false);
@@ -122,15 +129,19 @@ public class EventPopup : MonoBehaviour {
         Debug.Log("Pop up exited and resetted transformations");
 	}
 
-    public void BeginExtraPopup()
+    public void BeginExtraPopup(in string text)
     {
         Debug.Log("Showing extra pop-up");
-        // Run the extra event
+		closeDefinitionButton.onClick.RemoveAllListeners();
+
+		// Run the extra event
+		extraPopup.SetText(text);
         extraPopup.Begin();
 	}
 
     public void EndExtraPopup()
     {
-        extraEventHasEnded?.Invoke(currTile);
+		closeDefinitionButton.onClick.AddListener(HideDefinition);
+		extraEventHasEnded?.Invoke(currTile);
 	}
 }

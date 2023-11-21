@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
@@ -12,8 +13,13 @@ public enum TileContentType {
 
 public class Tile : MonoBehaviour {
 
+	[SerializeField] private GameObject numberMask;
+	[SerializeField] private PauseGame pause;
+
 	UnityAction<Tile> onClick;
 	private bool activeClick = false;
+	private bool overTile = false;
+	public bool IsTileClickable { get; set; } // Used when there is some event and we don't want the tile to be clickable
 
 	public Orientation orientation;
     [TextArea(15,20)]
@@ -44,6 +50,7 @@ public class Tile : MonoBehaviour {
     public void Event(SugorokuManager man, TileContentType type, TileHighlight tileHighlight) {
 		// Set up the tile highlight and run it
 		tileHighlight.SetHighlight(this);
+		showNumberMask(true);
 
 		// Start the event pop-up and send information about this tile
 		switch (type) {
@@ -62,23 +69,35 @@ public class Tile : MonoBehaviour {
 		}
     }
 
+	public void showNumberMask(bool enable) {
+		if (numberMask != null) {
+			numberMask.SetActive(enable);
+		}
+	}
+
 	public void OnMouseDown() {
         activeClick = true;
 	}
 
 	// Signal to Sugoroku Manager that this tile was clicked
 	public void OnMouseUp() {
-		if (activeClick) {
+		if (activeClick && overTile) {
 			onClick?.Invoke(this);
-            activeClick = false;
 		}
+		activeClick = false;
 	}
 
 	public void OnMouseEnter() {
+		if (pause.IsGamePaused() || !IsTileClickable) {
+			return;
+		}
+
+		overTile = true;
 		clickableMaterial.SetFloat("_Is_Selected", 1.0f);
 	}
 
 	public void OnMouseExit() {
+		overTile = false;
 		clickableMaterial.SetFloat("_Is_Selected", 0.0f);
 	}
 
@@ -87,11 +106,13 @@ public class Tile : MonoBehaviour {
 
 		if (clickable) {
 			continueRunningPulse = true;
+			IsTileClickable = true;
 			StartCoroutine(RunPulse());
 			GetComponent<BoxCollider2D>().enabled = true; // Enable the tile
 		} else {
 			GetComponent<BoxCollider2D>().enabled = false; // Disable the tile
 			continueRunningPulse = false;
+			IsTileClickable = false;
 		}
 	}
 
