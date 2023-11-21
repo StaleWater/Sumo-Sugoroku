@@ -1510,7 +1510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   screenCurtain: {fileID: 593746807}
-  playerInfoBoxPrefab: {fileID: 7865799482301776321, guid: 5d6656c8d47faa34d8ce646a27ca64dc, type: 3}
+  playerInfoBoxPrefab: {fileID: 729191901284680046, guid: 5d6656c8d47faa34d8ce646a27ca64dc, type: 3}
   location: {fileID: 1745670944}
   mainMenuSceneName: MainMenu
   startGameSceneName: TheBoard

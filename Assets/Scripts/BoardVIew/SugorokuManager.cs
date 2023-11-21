@@ -53,8 +53,10 @@ public struct CameraData {
 }
 
 public struct PlayerData {
-    public int id; 
+    public int id;
+    public string name;
     public bool ai;
+    public int colorIndex;
     public int curTile;
     public int fightLevel;
     public int chankoLevel;
@@ -63,8 +65,8 @@ public struct PlayerData {
     public SumoGuy spritePrefab;
     public Player player;
 
-    public PlayerData(int id, bool ai, SugorokuManager man) {
-        this.id = id; this.ai = ai; 
+    public PlayerData(int id, string name, bool ai, int colorIndex, SugorokuManager man) {
+        this.id = id; this.name = name; this.ai = ai; this.colorIndex = colorIndex;
         curTile = 0; fightLevel = 0; chankoLevel = 0; teppoLevel = 0;
         turnSkips = 0;
         player = man.SpawnPlayer(id);
@@ -82,7 +84,7 @@ public struct PlayerSavedData {
     }
 
     public PlayerData Load(SugorokuManager man) {
-        PlayerData pd = new PlayerData(data.id, data.ai, man);
+        PlayerData pd = new PlayerData(data.id, data.name, data.ai, data.colorIndex, man);
         pd.curTile = data.curTile;
         pd.fightLevel = data.fightLevel;
         pd.chankoLevel = data.chankoLevel;
@@ -107,15 +109,13 @@ public class SugorokuManager : MonoBehaviour {
     [SerializeField] float cameraZoomPadding;
     [SerializeField] float cameraZoomDurationSEC;
     [SerializeField] AnimationCurve cameraZoomCurve;
-    [SerializeField] Dice minigameDice;
 	[SerializeField] float cameraPanDurationSEC;
 	[SerializeField] AnimationCurve cameraPanCurve;
+    [SerializeField] Dice minigameDice;
 	[SerializeField] Dice dice;
     [SerializeField] UIFadeable screenCurtain;
     [SerializeField] private TileHighlight tileHighlight;
     [SerializeField] ClickCollider clickOverlay;
-    [SerializeField] int numRealPlayers;
-    [SerializeField] int numAI;
     [SerializeField] Player[] playerPrefabs;
     [SerializeField] float AIMinigameWinRate;
     [SerializeField] SumoGuy[] sumoSizePrefabs;
@@ -152,7 +152,7 @@ public class SugorokuManager : MonoBehaviour {
         StopAllCoroutines();
 
 
-        numPlayers = numRealPlayers + numAI;
+        numPlayers = PlayerSelectMenu.playerData.Count;
         gameState = GameState.Transitioning;
         chosenMinigame = -1;
         curPlayer = -1;
@@ -173,7 +173,6 @@ public class SugorokuManager : MonoBehaviour {
         clickOverlay.gameObject.SetActive(false);
 
         endTile = tiles.Length - 1;
-        ShowRollText($"Player {curPlayer+1} Turn");
 
         screenCurtain.gameObject.SetActive(true);
         screenCurtain.Show();
@@ -196,13 +195,32 @@ public class SugorokuManager : MonoBehaviour {
             yield return StartCoroutine(TileZoomProcess(tile));
             StartEvent(tile);
 		}
+    }
 
+    void StartGameState() {
+
+        PlayersInit();
+
+        defaultCamState.Apply(cam);
+        gameState = GameState.RollPhase;
+        rollTextContainer.Hide();
     }
 
     public Player SpawnPlayer(int playerIndex) {
         Player p = Instantiate(playerPrefabs[playerIndex]);
         return p;
     }
+
+    void PlayersInit() {
+        players = new PlayerData[numPlayers];
+
+        for(int i=0; i < numPlayers; i++) {
+            var data = PlayerSelectMenu.playerData[i];
+            players[i] = new PlayerData(i, data.name, data.isBot, data.colorIndex, this);
+            PlayerTeleport(i, 0);
+        }
+    }
+
 
     IEnumerator ReturnFromMinigame() {
         HidePlayers();
@@ -245,24 +263,7 @@ public class SugorokuManager : MonoBehaviour {
         else yield return StartCoroutine(ReturnFromEvent());
     }
 
-    void StartGameState() {
 
-        PlayersInit();
-
-        defaultCamState.Apply(cam);
-        gameState = GameState.RollPhase;
-        rollTextContainer.Hide();
-    }
-
-    void PlayersInit() {
-        players = new PlayerData[numPlayers];
-
-        for(int i=0; i < numPlayers; i++) {
-            bool isAI = i >= numRealPlayers;
-            players[i] = new PlayerData(i, isAI, this);
-            PlayerTeleport(i, 0);
-        }
-    }
 
     void HidePlayers() {
         foreach(PlayerData pd in players) {
@@ -303,7 +304,7 @@ public class SugorokuManager : MonoBehaviour {
             pos.x += spr.bounds.extents.x * pi;
         }
         else if(numPlayers == 3) {
-            float d = spr.bounds.extents.x / 2.0f;
+            float d = spr.bounds.size.x / 3.0f;
             pos.x -= d;
             pos.x += d * pi;
         }
@@ -680,7 +681,8 @@ public class SugorokuManager : MonoBehaviour {
     }
 
     void GameEnd(int winnerIndex) {
-        ShowRollText($"Player {winnerIndex + 1} wins!");
+        string name = players[winnerIndex].name;
+        ShowRollText($"{name} wins!");
         StartFreeRoamMode();
     }
 
@@ -763,14 +765,14 @@ public class SugorokuManager : MonoBehaviour {
         curPlayer = (curPlayer + 1) % numPlayers;
 
         while (players[curPlayer].turnSkips > 0) {
-            ShowRollText($"Player {curPlayer+1} Turn Skipped!");
+            ShowRollText($"{players[curPlayer].name} Turn Skipped!");
             players[curPlayer].turnSkips--;
             curPlayer = (curPlayer + 1) % numPlayers;
 
             yield return new WaitForSeconds(1.0f);
         }
 
-        ShowRollText($"Player {curPlayer+1} Turn");
+        ShowRollText($"{players[curPlayer].name}'s Turn");
         audioman.Play("start-turn");
 
         if(players[curPlayer].ai) {

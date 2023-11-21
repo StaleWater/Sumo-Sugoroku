@@ -8,11 +8,25 @@ static class PlayerSelectMenuConstants {
 	public const int MAX_PLAYER_COUNT = 4;
 }
 
+public struct PlayerSelectData {
+	public string name;
+	public int colorIndex;
+	public bool isBot;
+
+	public PlayerSelectData(string name, int colorIndex, bool isBot) {
+		this.name = name;
+		this.colorIndex = colorIndex;
+		this.isBot = isBot;
+	}
+}
+
 public class PlayerSelectMenu : MonoBehaviour {
+
+	public static List<PlayerSelectData> playerData;
 
 	[SerializeField] UIFadeable screenCurtain;
 
-	[SerializeField] private GameObject playerInfoBoxPrefab;
+	[SerializeField] private PlayerInfoBox playerInfoBoxPrefab;
 	[SerializeField] private GameObject location;
 	[SerializeField] private string mainMenuSceneName;
 	[SerializeField] private string startGameSceneName;
@@ -22,9 +36,10 @@ public class PlayerSelectMenu : MonoBehaviour {
 
 	[SerializeField] private List<Button> buttons;
 
-	private static int playerCount;
+	public int playerCount;
 	private static Vector3 locationPosition;
-	private static List<GameObject> playerList = new List<GameObject>();
+
+	public List<PlayerInfoBox> playerList = new List<PlayerInfoBox>();
 
 	private static readonly List<Vector3> predeterminedBoxPositions = new List<Vector3> {
 		new Vector3(0.0f, 275.0f, 0.0f),
@@ -45,6 +60,14 @@ public class PlayerSelectMenu : MonoBehaviour {
 		AddPlayer();
 	}
 
+	void SetupStaticData() {
+		playerData = new List<PlayerSelectData>();
+		foreach(var ibox in playerList) {
+			var data = new PlayerSelectData(ibox.GetName(), ibox.GetColorIndex(), ibox.IsBot());
+			playerData.Add(data);
+		}
+	}
+
 	public void GoToMainMenu() {
 		SceneManager.LoadScene(mainMenuSceneName);
 	}
@@ -54,6 +77,7 @@ public class PlayerSelectMenu : MonoBehaviour {
 	}
 
 	private IEnumerator StartGameHelper() {
+		SetupStaticData();
 		yield return StartCoroutine(screenCurtain.FadeIn());
 		SceneManager.LoadScene(startGameSceneName);
 	}
@@ -67,8 +91,9 @@ public class PlayerSelectMenu : MonoBehaviour {
 			Quaternion.identity,
 			location.transform
 		));
-		PlayerInfoBox infoBox = playerList[playerCount].GetComponent<PlayerInfoBox>();
+		PlayerInfoBox infoBox = playerList[playerCount];
 		infoBox.Init(playerCount, RemovePlayer, ChangeAllButtonInteraction);
+
 		++playerCount;
 
 		// Update the position of the add button
@@ -93,13 +118,13 @@ public class PlayerSelectMenu : MonoBehaviour {
 		}
 
 		// Remove the given info box
-		Destroy(playerList[index]);
+		Destroy(playerList[index].gameObject);
 		playerList.RemoveAt(index);
 
 		// Reorganize the info boxes as necessary
 		for (int i = 0; i < playerList.Count; ++i) {
 			playerList[i].transform.position = locationPosition + predeterminedBoxPositions[i];
-			PlayerInfoBox infoBox = playerList[i].GetComponent<PlayerInfoBox>();
+			PlayerInfoBox infoBox = playerList[i];
 			infoBox.UpdateId(i);
 		}
 
@@ -117,8 +142,7 @@ public class PlayerSelectMenu : MonoBehaviour {
 			b.interactable = interactable;
 		}
 
-		foreach (GameObject player in playerList) {
-			PlayerInfoBox infoBox = player.GetComponent<PlayerInfoBox>();
+		foreach (PlayerInfoBox infoBox in playerList) {
 			infoBox.ChangeAllButtonInteraction(interactable);
 		}
 	}

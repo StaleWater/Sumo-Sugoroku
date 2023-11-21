@@ -51,6 +51,18 @@ public class PlayerInfoBox : MonoBehaviour {
 		SetColor(j);
 	}
 
+	public string GetName() {
+		return nameField.text;	
+	}
+
+	public int GetColorIndex() {
+		return currColorIndex;
+	}
+
+	public bool IsBot() {
+		return isBot;
+	}
+
 	public void UpdateId(int id) {
 		nameField.placeholder.GetComponent<TMP_Text>().text = "Player " + (id + 1);
 		this.id = id;
