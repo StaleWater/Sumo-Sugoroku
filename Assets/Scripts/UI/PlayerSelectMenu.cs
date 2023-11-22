@@ -56,6 +56,7 @@ public class PlayerSelectMenu : MonoBehaviour {
 
 		locationPosition = location.transform.position;
 
+		PlayerInfoBox.ResetAvailableColors();
 		// Start with 1 player
 		AddPlayer();
 	}

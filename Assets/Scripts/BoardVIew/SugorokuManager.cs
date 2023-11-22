@@ -271,19 +271,19 @@ public class SugorokuManager : MonoBehaviour {
 
     void HidePlayers() {
         foreach(PlayerData pd in players) {
-            pd.player.GetComponent<Fadeable>().Hide();
+            pd.player.Hide();
         }
     }
 
     void FadeInPlayers() {
         foreach(PlayerData pd in players) {
-            pd.player.GetComponent<Fadeable>().FadeIn();
+            pd.player.FadeIn();
         }
     }
 
     void FadeOutPlayers() {
         foreach(PlayerData pd in players) {
-            pd.player.GetComponent<Fadeable>().FadeOut();
+            pd.player.FadeOut();
         }
     }
 

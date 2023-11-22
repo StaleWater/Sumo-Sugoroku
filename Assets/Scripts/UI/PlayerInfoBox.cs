@@ -18,7 +18,7 @@ public class PlayerInfoBox : MonoBehaviour {
 	private bool isBot;
 	private Image playerTypeImage;
 
-	private List<bool> isColorAvailable;
+	private static List<bool> isColorAvailable;
 
 	private UnityAction<int> removeEvent;
 	private UnityAction<bool> selectColorEvent;
@@ -49,6 +49,10 @@ public class PlayerInfoBox : MonoBehaviour {
 			++j;
 		}
 		SetColor(j);
+	}
+
+	public static void ResetAvailableColors() {
+		isColorAvailable = null;
 	}
 
 	public string GetName() {

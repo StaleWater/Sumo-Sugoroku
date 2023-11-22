@@ -179,7 +179,6 @@ GameObject:
   - component: {fileID: 2906239605905777835}
   - component: {fileID: 942710015145454743}
   - component: {fileID: 1903790598512749228}
-  - component: {fileID: 5425687153735787090}
   m_Layer: 0
   m_Name: playerToken
   m_TagString: Untagged
@@ -297,19 +296,31 @@ MonoBehaviour:
     m_RotationOrder: 4
   colorFilter: {fileID: 4537755411933223922}
   icon: {fileID: 3388595578463988744}
---- !u!114 &5425687153735787090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959929352648183958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 910ca4ba4ff390e409307278d4a604a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultSettings: {fileID: 11400000, guid: 31546e53c5180ce4a8b47fdc109d98c7, type: 2}
+  fadeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fadeDurationSEC: 0.5
 --- !u!1 &3036889972285031799
 GameObject:
   m_ObjectHideFlags: 0
