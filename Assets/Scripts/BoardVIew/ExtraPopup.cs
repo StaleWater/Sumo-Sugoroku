@@ -8,12 +8,16 @@ using System;
 
 public class ExtraPopup : MonoBehaviour {
 
-	[SerializeField] TMP_Text eventText;
-	[SerializeField] TMP_Text termText;
+	[Header("Text references")]
+	[SerializeField] private TMP_Text eventText;
+	[SerializeField] private TMP_Text termText;
 
+	[Header("References to other UI")]
 	[SerializeField] private GameObject transitionUI; // Buttons to exit and show the text
 	[SerializeField] private GameObject informationUI; // Information
+	[SerializeField] private AnimationClip infoButtonHideClip;
 
+	[Header("Dictionary")]
 	[SerializeField] TMP_Text descriptionText;
 	[SerializeField] GameObject definitionPanel;
 	[SerializeField] TermDictionary dictionary;
@@ -40,13 +44,13 @@ public class ExtraPopup : MonoBehaviour {
 	}
 
 	// Close the extra pop-up
-	public void Exit(float seconds) {
-		StartCoroutine(ExitRoutine(seconds));
+	public void Exit() {
+		StartCoroutine(ExitRoutine());
 	}
 
-	IEnumerator ExitRoutine(float seconds) {
+	IEnumerator ExitRoutine() {
 		closeDefinitionButton.onClick.RemoveListener(HideDefinition);
-		yield return new WaitForSeconds(seconds);
+		yield return new WaitForSeconds(infoButtonHideClip.length);
 		transitionUI.SetActive(false);
 		informationUI.SetActive(false);
 		gameObject.SetActive(false);
@@ -94,7 +98,8 @@ public class ExtraPopup : MonoBehaviour {
 
 		if (showingInformation) {
 			HideInformation();
-		} else {
+		}
+		else {
 			ShowInformation();
 		}
 
