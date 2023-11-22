@@ -105,8 +105,8 @@ public class SugorokuManager : MonoBehaviour {
 
     [SerializeField] Tile[] tiles;
     [SerializeField] EventPopup popup;
-    [SerializeField] TMP_Text rollText;
-    [SerializeField] UIFadeable rollTextContainer; 
+    [SerializeField] TMP_Text infoText;
+    [SerializeField] UIFadeable infoTextContainer; 
     [SerializeField] float popupDelay;
     [SerializeField] float cameraZoomPadding;
     [SerializeField] float cameraZoomDurationSEC;
@@ -126,6 +126,7 @@ public class SugorokuManager : MonoBehaviour {
     [SerializeField] TermDictionary dictionary;
     [SerializeField] int startTile;
     [SerializeField] WinLoseText winLoseText;
+    [SerializeField] UIFadeable rollTextContainer;
 
     AudioManager audioman;
 	Camera cam;
@@ -172,9 +173,11 @@ public class SugorokuManager : MonoBehaviour {
 
         dice.Init();
         minigameDice.Init();
-        rollTextContainer.Init();
+        infoTextContainer.Init();
         screenCurtain.Init();
+        rollTextContainer.Init();
 
+        rollTextContainer.Hide();
         winLoseText.Hide();
 
         clickOverlay.gameObject.SetActive(false);
@@ -196,6 +199,7 @@ public class SugorokuManager : MonoBehaviour {
         }
         else {
             StartGameState();
+            yield return new WaitForSeconds(1.0f);
             yield return StartCoroutine(screenCurtain.FadeOut());
             yield return new WaitForSeconds(1.0f);
             Tile tile = tiles[0];
@@ -209,7 +213,7 @@ public class SugorokuManager : MonoBehaviour {
 
         defaultCamState.Apply(cam);
         gameState = GameState.RollPhase;
-        rollTextContainer.Hide();
+        infoTextContainer.Hide();
     }
 
     public Player SpawnPlayer(int playerIndex, int colorIndex, Sprite s) {
@@ -363,6 +367,7 @@ public class SugorokuManager : MonoBehaviour {
         if(gameState != GameState.RollPhase) return;
 
         clickOverlay.gameObject.SetActive(false);
+        StartCoroutine(rollTextContainer.FadeOut());
         StartCoroutine(RollDice());
     }
 
@@ -424,7 +429,7 @@ public class SugorokuManager : MonoBehaviour {
     }
 
     IEnumerator TileZoomProcess(Tile tile, bool offset = true, bool sound = true) {
-        StartCoroutine(rollTextContainer.FadeOut());
+        StartCoroutine(infoTextContainer.FadeOut());
 
         if(sound) audioman.Play("zoom");
         float tileZoom = tile.IsPortrait ? 0.8f : 0.5f;
@@ -524,12 +529,12 @@ public class SugorokuManager : MonoBehaviour {
     }
 
 	void ShowRollText(string text) {
-        rollText.text = text;
-        rollText.gameObject.SetActive(true);
+        infoText.text = text;
+        infoText.gameObject.SetActive(true);
     }
 
     void HideRollText() {
-        rollText.gameObject.SetActive(false);
+        infoText.gameObject.SetActive(false);
     }
 
     public Vector3 GetScreenPosition(in Vector3 worldPosition) {
@@ -795,7 +800,7 @@ public class SugorokuManager : MonoBehaviour {
 
 
         gameState = GameState.RollPhase;
-        StartCoroutine(rollTextContainer.FadeIn());
+        StartCoroutine(infoTextContainer.FadeIn());
 
         if(freeRoamMode) EnableAllTileClicks();
         else if(curPlayer >= 0 && players[curPlayer].curTile == endTile) GameEnd(curPlayer);
@@ -821,6 +826,7 @@ public class SugorokuManager : MonoBehaviour {
         }
         else {
             clickOverlay.gameObject.SetActive(true);
+            StartCoroutine(rollTextContainer.FadeIn());
         }
     }
 

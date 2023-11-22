@@ -2271,7 +2271,7 @@ MonoBehaviour:
   instructionsPanel: {fileID: 2066794539}
   infoTextContainer: {fileID: 1901133150}
   infoText: {fileID: 1355672296}
-  defaultLevel: 5
+  defaultLevel: 1
   winLoseText: {fileID: 774122200}
 --- !u!4 &1846954803
 Transform:

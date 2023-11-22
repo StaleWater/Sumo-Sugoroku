@@ -101,7 +101,7 @@ public class SumoEnemy : MonoBehaviour {
         possible.Add(SumoAction.Idle);
         if(distToPlayer <= guy.pushRange) possible.Add(SumoAction.Push);
         if(distToPlayer > guy.pushRange / 2.0f) possible.Add(SumoAction.MoveForward);
-        if(distToRingEdge > guy.moveSpeed * actionCooldownSEC * 2.0f) possible.Add(SumoAction.MoveBack);
+        if(distToRingEdge > guy.moveSpeed * actionCooldownSEC * 4.0f) possible.Add(SumoAction.MoveBack);
         if(distToPlayer <= guy.pushRange * 2.0f) possible.Add(SumoAction.Block);
 
         int numActions = possible.Count;
