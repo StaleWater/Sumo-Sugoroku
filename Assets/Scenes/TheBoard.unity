@@ -979,7 +979,8 @@ MonoBehaviour:
     to j\u016Bry\u014D. I have won my other five matches so far, so if I can pull
     this off, I will finally be in the upper ranks. On top of that, I will finally
     have a salary! For my next match, I am facing a recently-relegated sekitori.
-    His will to win should not be underestimated. Then again, neither should mine."
+    His will to win should not be underestimated. Then again, neither should mine.\n\n<color=#94282a>Advance
+    three spaces.</color>"
   extraContent: "J\u016Bry\u014D is the second-highest division in sumo. It is the
     first of the salaried divisions in sumo. J\u016Bry\u014D is capped at 28 rikishi.
     The rikishi in this rank and above are considered true professionals, and are
@@ -2803,12 +2804,16 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 2
-  narrative: Recently I have been questioning if I truly made the right choice to
+  narrative: 'Recently I have been questioning if I truly made the right choice to
     become a rikishi. The process has been more difficult than I imagined and sometimes
     I long for home. But these thoughts are not acceptable and I need to train my
     mind and heart. To do so I need to go back to the beginning and remind myself
     why I embarked on this journey in the first place. Only once I have regained
     my resolve will I be able to achieve my goal.
+
+
+    <color=#94282a>Go back to
+    start.</color>'
   extraContent: The difficulty of being a rikishi can take its toll, causing some
     to consider leaving. Some rikishi who leave may be tracked down by their stablemates
     and forced to return, while others will be forever barred from returning if they
@@ -7576,10 +7581,13 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 3
-  narrative: I almost reached sandame, but I twisted my ankle in my last match. Now,
-    I am being relegated to jonokuchi. I understand the reasoning, but I am still
-    filled with frustration. Nevertheless, I will recover and come back better than
-    ever before!
+  narrative: 'I almost reached sandame, but I twisted my ankle in my last match.
+    Now, I am being relegated to jonokuchi. I understand the reasoning, but I am
+    still filled with frustration. Nevertheless, I will recover and come back better
+    than ever before!
+
+
+    <color=#94282a>Return to jonokuchi due to injury.</color>'
   extraContent: Sandanme is the third-lowest division in sumo. Like the divisions
     below it, sandanme is an unsalaried division filled with mostly young, up-and-coming
     rikishi. Some rikishi in this division skipped the jonokuchi and jonidan divisions
@@ -9072,7 +9080,7 @@ MonoBehaviour:
     me feel sick. Last night, I was so sure I could keep up with my superiors, but
     this was one match I should have conceded. I am in no position to train today,
     and I know I am going to get an earful about it. I\u2019ll have to work twice
-    as hard tomorrow."
+    as hard tomorrow.\n\n<color=#94282a>Drink too much, rest for one turn.</color>"
   extraContent: Rikishi are known to consume copious amounts of alcohol to increase
     their caloric intake and appetite. They also use alcohol to help dull the aches
     and pains of practice.
@@ -11140,12 +11148,15 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: I have been demoted. I was involved in a scuffle where a man sliced
+  narrative: 'I have been demoted. I was involved in a scuffle where a man sliced
     my arm. Although there is no long-term damage, I have had to sit out a few tournaments
     while I recuperate. I am disappointed that I was demoted for actions done outside
     of sumo, but I know what I must do to regain my position. I have a challenging
     journey ahead of me, but I will not give up! Soon, the title of maegashira will
     be mine once more.
+
+
+    <color=#94282a>Return to makushita.</color>'
   extraContent: This tile is a depiction of the Akizuki rebellion, which was an uprising
     by former <i>samurai</i> against the Meiji government in 1876. Enraged by the
     government reforms stripping them of their privileged social status, as well

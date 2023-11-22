@@ -1381,9 +1381,9 @@ MonoBehaviour:
   instructionsPanel: {fileID: 1722044545}
   infoTextContainer: {fileID: 457714415}
   infoText: {fileID: 550341944}
-  playerSpritePos: {x: 2.36, y: -3.51, z: -2}
+  playerSpritePos: {x: 2.6, y: -3.51, z: -2}
   playerSpriteScale: {x: 0.21624352, y: 0.21624352, z: 0.21624352}
-  defaultPlayerPrefab: {fileID: 3371178985632388413, guid: c65c2b200e50e894b91a9923dd8a5716, type: 3}
+  defaultPlayerPrefab: {fileID: 3371178985632388413, guid: 72fe04e1316a88447b7e7924b55aac83, type: 3}
   defaultLevel: 4
   winLoseText: {fileID: 1200526325}
   backgroundImg: {fileID: 695578323}
