@@ -28,6 +28,7 @@ public class RhythmManager : MonoBehaviour
     [SerializeField] SumoGuy defaultPlayerPrefab;
     [SerializeField] int defaultLevel;
     [SerializeField] WinLoseText winLoseText;
+    [SerializeField] SpriteRenderer backgroundImg;
 
     // note values in units of beats.
     // internally, a beat is considered a 16th note to avoid floating point error issues.
@@ -72,6 +73,11 @@ public class RhythmManager : MonoBehaviour
 
         winLoseText.Hide();
 
+        // when the screen size changes, scale the camera so that it always 
+        // has the whole background in view
+        Camera cam = Camera.main;
+        float camSize = backgroundImg.bounds.extents.x / cam.aspect;
+        cam.orthographicSize = camSize;
 
         staff1.Init(KeyCode.LeftArrow, reactionTimeBEATS, tempoBPS, 
                 hitToleranceBEATS, missToleranceBEATS);
