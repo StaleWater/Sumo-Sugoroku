@@ -178,10 +178,10 @@ MonoBehaviour:
   maxEndurance: 100
   enduranceRecoveryRate: 0.1
   pushDamage: 25
-  pushBackDistance: 1
+  pushBackDistance: 0.5
   enduranceBarSpr: {fileID: 180541370771082606}
   actionStunTimeSEC: 0.5
-  moveSpeed: 3
+  moveSpeed: 2
   endurance: 100
   facingRight: 0
   pushRange: 0.75
@@ -218,13 +218,13 @@ MonoBehaviour:
   - action: 0
     weight: 5
   - action: 1
-    weight: 1
+    weight: 5
   - action: 2
     weight: 10
   - action: 3
-    weight: 10
-  - action: 4
     weight: 1
+  - action: 4
+    weight: 5
   state: 3
   active: 0
 --- !u!95 &6942683190438468082
@@ -320,7 +320,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 5
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

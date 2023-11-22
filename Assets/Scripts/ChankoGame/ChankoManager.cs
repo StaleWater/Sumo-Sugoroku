@@ -21,6 +21,7 @@ public class ChankoManager : MonoBehaviour
     [SerializeField] Vector2 itemDuplicateOffset;
     [SerializeField] float itemDuplicateScaleDown;
     [SerializeField] ClickCollider clickOverlay;
+    [SerializeField] WinLoseText winLoseText;
 
     AudioManager audioman;
     Fadeable[] itemImages;
@@ -62,6 +63,8 @@ public class ChankoManager : MonoBehaviour
         instructionsPanel.Hide();
 
         clickOverlay.gameObject.SetActive(false);
+
+        winLoseText.Hide();
 
         numItemTypes = itemTypes.Length;
 
@@ -305,17 +308,28 @@ public class ChankoManager : MonoBehaviour
         StartCoroutine(NextRound());
     }
 
-    IEnumerator GameEnd(bool win) {
-        audioman.Play("win");
-        if(win) infoText.text = "You Win!";
-        else infoText.text = "You Lose!";
-        SugorokuManager.stateData.wonMinigame = win;
+    IEnumerator GameEndText(bool won) {
+        yield return winLoseText.FadeIn(won);
+
+        if(won) audioman.Play("win");
+        else audioman.Play("lose");
+        yield return new WaitForSeconds(2.0f);
+
+        yield return winLoseText.FadeOut(won);
+    }
+
+    IEnumerator GameEnd(bool won) {
+        infoTextContainer.FadeOut();
+
+        yield return StartCoroutine(GameEndText(won));
+
+        SugorokuManager.stateData.wonMinigame = won;
 
         yield return StartCoroutine(BackToBoard());
     }
 
     IEnumerator BackToBoard() {
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(1.0f);
         yield return StartCoroutine(screenCurtain.FadeIn());
         SceneManager.LoadScene("TheBoard");
     }

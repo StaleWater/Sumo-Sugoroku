@@ -14,12 +14,16 @@ public class SumoFightManager : MonoBehaviour {
     [SerializeField] Color bgEndColor;
     [SerializeField] UIFadeable screenCurtain;
     [SerializeField] UIFadeable instructionsPanel;
-    [SerializeField] TMP_Text topText;
+    [SerializeField] UIFadeable infoTextContainer;
+    [SerializeField] TMP_Text infoText;
+    [SerializeField] int defaultLevel;
+    [SerializeField] WinLoseText winLoseText;
     
     AudioManager audioman;
     SumoGuy enemyGuy;
     SumoEnemy enemy;
     SumoGuy player;
+    bool ended;
 
     string helpText = "Move:  A-D or Arrow Keys      Push: Space	     Block: Shift";
     string startText = "- Press Space to Start -";
@@ -30,6 +34,8 @@ public class SumoFightManager : MonoBehaviour {
     }
 
     public void Init() {
+        ended = false;
+
         player = SpawnPlayer();
         player.Init();
 
@@ -47,7 +53,9 @@ public class SumoFightManager : MonoBehaviour {
         instructionsPanel.gameObject.SetActive(true);
         instructionsPanel.Hide();
 
-        topText.text = startText;
+        winLoseText.Hide();
+
+        infoText.text = startText;
 
         player.SetOnDeath(() => {
             GameEnd(enemyGuy, player);
@@ -72,7 +80,7 @@ public class SumoFightManager : MonoBehaviour {
         if(SugorokuManager.stateData.usingState) {
             return SugorokuManager.stateData.players[SugorokuManager.stateData.curPlayer].data.fightLevel;
         }
-        else return 1;
+        else return defaultLevel;
     } 
 
     SumoGuy SpawnPlayer() {
@@ -87,11 +95,8 @@ public class SumoFightManager : MonoBehaviour {
 
     SumoEnemy ChooseEnemy() {
 
-        int i = 0;
-        if(SugorokuManager.stateData.usingState) {
-            int difficulty = Level();
-            i = Mathf.Min(Mathf.Max(0, difficulty-1), 4);
-        }
+        int difficulty = Level();
+        int i = Mathf.Min(Mathf.Max(0, difficulty-1), 4);
 
         var prefab = enemyList[i];
         SumoEnemy e = Instantiate(prefab, transform);
@@ -100,14 +105,14 @@ public class SumoFightManager : MonoBehaviour {
 
     IEnumerator CheckGameEnd() {
         var waiter = new WaitForSeconds(0.25f);
-        while(true) {
+        while(!ended) {
             if(!InRing(player)) {
                 GameEnd(enemyGuy, player);
-                break;
+                yield break;
             } 
             else if(!InRing(enemyGuy)) {
                 GameEnd(player, enemyGuy);
-                break;
+                yield break;
             }
             yield return waiter;
         }
@@ -121,27 +126,45 @@ public class SumoFightManager : MonoBehaviour {
         return (distToPlayer, distToEdge);
     }
 
+    IEnumerator GameEndText(bool won) {
+        yield return winLoseText.FadeIn(won);
+
+        if(won) audioman.Play("win");
+        else audioman.Play("lose");
+        yield return new WaitForSeconds(2.0f);
+
+        yield return winLoseText.FadeOut(won);
+    }
+
     void GameEnd(SumoGuy winner, SumoGuy loser) {
+        if(ended) return;
+
+        ended = true;
         background.color = bgEndColor;
         enemy.active = false;
         enemy.StopActionLoop();
+        winner.alive = false;
+        loser.alive = false;
+
+        audioman.Play("match");
 
         bool won = winner == player;
-        if(won) {
-            audioman.Play("win");
-            topText.text = "You Win!";
-        }
-        else {
-            audioman.Play("lose");
-            topText.text = "You Lose!";
-        }
         SugorokuManager.stateData.wonMinigame = won;
+
+        StartCoroutine(GameEndHelper(won));
+    }
+
+    IEnumerator GameEndHelper(bool won) {
+        infoTextContainer.FadeOut();
+
+        yield return new WaitForSeconds(1.0f);
+        yield return StartCoroutine(GameEndText(won));
 
         StartCoroutine(BackToBoard());
     }
 
     IEnumerator BackToBoard() {
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(2.0f);
         yield return StartCoroutine(screenCurtain.FadeIn());
         SceneManager.LoadScene("TheBoard");
     }
@@ -152,12 +175,12 @@ public class SumoFightManager : MonoBehaviour {
     }
 
     void StartFight() {
-        audioman.Play("match-start");
+        audioman.Play("match");
         StartCoroutine(CheckGameEnd());
         enemy.StartActionLoop();
         player.GetComponent<PlayerController>().enabled = true;
 
-        topText.text = helpText;
+        infoText.text = helpText;
     }
 
     IEnumerator WaitToStart() {

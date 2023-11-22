@@ -158,6 +158,7 @@ public class SumoGuy : MonoBehaviour {
         var waiter = new WaitForSeconds(enduranceRecoveryRate);
         while(endurance < maxEndurance) {
             yield return waiter;
+            if(!alive) yield break;
             Recover(1);
         }
     }

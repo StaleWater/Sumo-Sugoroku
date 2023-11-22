@@ -125,6 +125,7 @@ public class SugorokuManager : MonoBehaviour {
     [SerializeField] float playerTileMovementTimeGap;
     [SerializeField] TermDictionary dictionary;
     [SerializeField] int startTile;
+    [SerializeField] WinLoseText winLoseText;
 
     AudioManager audioman;
 	Camera cam;
@@ -173,6 +174,8 @@ public class SugorokuManager : MonoBehaviour {
         minigameDice.Init();
         rollTextContainer.Init();
         screenCurtain.Init();
+
+        winLoseText.Hide();
 
         clickOverlay.gameObject.SetActive(false);
 
@@ -662,9 +665,23 @@ public class SugorokuManager : MonoBehaviour {
 		cam.transform.position = endCamPos;
     }
 
+    IEnumerator GameEndText(bool won) {
+        yield return winLoseText.FadeIn(won);
+
+        if(won) audioman.Play("win");
+        else audioman.Play("lose");
+        yield return new WaitForSeconds(1.0f);
+
+        yield return winLoseText.FadeOut(won);
+    }
+
     IEnumerator StartMinigame(MinigameType mg) {
             if(players[curPlayer].ai) {
-                stateData.wonMinigame = Random.value < AIMinigameWinRate;
+                bool won = Random.value < AIMinigameWinRate;
+                stateData.wonMinigame = won;
+
+                yield return StartCoroutine(GameEndText(won));
+
                 StartCoroutine(ReturnFromMinigame());
                 yield break;
             }

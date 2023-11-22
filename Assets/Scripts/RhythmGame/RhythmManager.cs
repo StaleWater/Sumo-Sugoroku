@@ -27,6 +27,7 @@ public class RhythmManager : MonoBehaviour
     [SerializeField] Vector3 playerSpriteScale;
     [SerializeField] SumoGuy defaultPlayerPrefab;
     [SerializeField] int defaultLevel;
+    [SerializeField] WinLoseText winLoseText;
 
     // note values in units of beats.
     // internally, a beat is considered a 16th note to avoid floating point error issues.
@@ -68,6 +69,8 @@ public class RhythmManager : MonoBehaviour
         instructionsPanel.Init();
         instructionsPanel.gameObject.SetActive(true);
         instructionsPanel.Hide();
+
+        winLoseText.Hide();
 
 
         staff1.Init(KeyCode.LeftArrow, reactionTimeBEATS, tempoBPS, 
@@ -176,6 +179,16 @@ public class RhythmManager : MonoBehaviour
         StartCoroutine(Game());
     }
 
+    IEnumerator GameEndText(bool won) {
+        yield return winLoseText.FadeIn(won);
+
+        if(won) audioman.Play("win");
+        else audioman.Play("lose");
+        yield return new WaitForSeconds(2.0f);
+
+        yield return winLoseText.FadeOut(won);
+    }
+
     IEnumerator Game() {
         yield return StartCoroutine(smp.Read());
 
@@ -185,23 +198,15 @@ public class RhythmManager : MonoBehaviour
 
         yield return new WaitForSeconds(3.0f);
 
-        if(win) {
-            infoText.text = "You win!";
-            audioman.Play("win");
-        }
-        else {
-            infoText.text = "You Lose!";
-            audioman.Play("lose");
-        }
+        yield return StartCoroutine(GameEndText(win));
 
         SugorokuManager.stateData.wonMinigame = win;
 
-        yield return StartCoroutine(infoTextContainer.FadeIn());
         yield return StartCoroutine(BackToBoard());
     }
 
     IEnumerator BackToBoard() {
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(1.0f);
         yield return StartCoroutine(screenCurtain.FadeIn());
         SceneManager.LoadScene("TheBoard");
     }
