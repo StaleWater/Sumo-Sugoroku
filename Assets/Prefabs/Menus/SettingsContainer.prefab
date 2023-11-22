@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 1832437490830538076}
   - component: {fileID: 8782120280243412839}
   m_Layer: 5
-  m_Name: MusicSlider
+  m_Name: SFXSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -540,6 +540,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicGroup: {fileID: -1701979925849485410, guid: 73112c2b288666e42b437851c8a7b5c6, type: 2}
   sfxGroup: {fileID: 4503922837233493757, guid: 73112c2b288666e42b437851c8a7b5c6, type: 2}
+  musicSlider: {fileID: 6100431268076756959}
+  sfxSlider: {fileID: 8782120280243412839}
 --- !u!1 &3312544817485947988
 GameObject:
   m_ObjectHideFlags: 0

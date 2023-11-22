@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour {
 	[SerializeField] private string startGameSceneName;
 
 	private void Start() {
+		screenCurtain.gameObject.SetActive(true);
 		screenCurtain.Init();
 		screenCurtain.Show();
 
