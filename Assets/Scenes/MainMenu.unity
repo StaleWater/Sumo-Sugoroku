@@ -135,29 +135,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: SettingsContainer
       objectReference: {fileID: 0}
+    - target: {fileID: 3301846784848174040, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4135931226560154639, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4135931226560154639, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4135931226560154639, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4874105782566349326, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4874105782566349326, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4874105782566349326, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5870246837112407833, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
       propertyPath: m_Pivot.x
@@ -239,21 +243,53 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6422906343600741627, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6422906343600741627, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6422906343600741627, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 446.725
+      objectReference: {fileID: 0}
+    - target: {fileID: 6422906343600741627, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -38.35205
+      objectReference: {fileID: 0}
+    - target: {fileID: 8695331506445366897, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8695331506445366897, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8695331506445366897, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 446.725
+      objectReference: {fileID: 0}
+    - target: {fileID: 8695331506445366897, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -183.4815
+      objectReference: {fileID: 0}
     - target: {fileID: 8825405113069703692, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8825405113069703692, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9009229768957810392, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9009229768957810392, guid: 1836194bab5f0f34abcdab21301200fb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
