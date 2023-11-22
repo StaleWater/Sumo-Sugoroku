@@ -265,7 +265,7 @@ public class SugorokuManager : MonoBehaviour {
         if(pd.curTile == endTile) {
             // minigame happens before event for the last tile
             Tile tile = tiles[pd.curTile];
-            yield return StartCoroutine(TileZoomProcess(tile));
+            yield return StartCoroutine(TileZoomProcess(tile, true, false));
             StartEvent(tile);
         }
         else yield return StartCoroutine(ReturnFromEvent());
@@ -413,6 +413,7 @@ public class SugorokuManager : MonoBehaviour {
         if(players[pi].curTile == endTile) {
             // zoom in with no offset and start the final fight
             yield return StartCoroutine(TileZoomProcess(tile, false));
+            yield return new WaitForSeconds(1.0f);
             StartCoroutine(StartMinigame(MinigameType.Fight));
         }
         else {
@@ -665,12 +666,12 @@ public class SugorokuManager : MonoBehaviour {
 		cam.transform.position = endCamPos;
     }
 
-    IEnumerator GameEndText(bool won) {
+    IEnumerator GameEndText(bool won, float waitTime = 1.0f) {
         yield return winLoseText.FadeIn(won);
 
         if(won) audioman.Play("win");
         else audioman.Play("lose");
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(waitTime);
 
         yield return winLoseText.FadeOut(won);
     }
@@ -709,9 +710,20 @@ public class SugorokuManager : MonoBehaviour {
     }
 
     void GameEnd(int winnerIndex) {
+        StartCoroutine(GameEndHelper(winnerIndex));
+    }
+
+    IEnumerator GameEndHelper(int winnerIndex) {
         string name = players[winnerIndex].name;
-        ShowRollText($"{name} wins!");
+        name = name.ToUpper();
+        winLoseText.SetWinText($"{name}\nWINS");
+
+        yield return StartCoroutine(GameEndText(true, 3.0f));
+
+        ShowRollText("Click on any tile!");
+
         StartFreeRoamMode();
+
     }
 
     // pass in which minigame you'll transition to

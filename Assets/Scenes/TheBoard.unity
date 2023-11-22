@@ -3333,7 +3333,7 @@ MonoBehaviour:
   - {fileID: 3371178985632388413, guid: e071e46538f7e07408fe0ef6a3aa9bc0, type: 3}
   playerTileMovementTimeGap: 0.1
   dictionary: {fileID: 1407456039}
-  startTile: 15
+  startTile: 27
   winLoseText: {fileID: 5281359586945370545}
   gameState: 0
 --- !u!65 &667063889
