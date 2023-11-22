@@ -27,7 +27,7 @@ public class TermDictionary : MonoBehaviour {
         return dict[term.ToLower()];
     }
 
-    public string TagTermsInString(string text) {
+    public string TagTermsInString(string text, bool color = true) {
         if(text.Length < 1) return text;
 
         foreach(var u in dictEditor) {
@@ -41,10 +41,12 @@ public class TermDictionary : MonoBehaviour {
                 int tail = i + term.Length;
 
                 newText += text.Substring(si, i - si);
+                string matched = text.Substring(i, term.Length);
 				if ((head < 0 || !Char.IsLetter(text[head])) && (tail >= text.Length || !Char.IsLetter(text[tail]))) {
-					string matched = text.Substring(i, term.Length);
-                    newText += $"<link><color=#ce2c2f>{matched}</color></link>";
+                    if(color) newText += $"<link><i><color=#ce2c2f>{matched}</color></i></link>";
+                    else newText += $"<link><i>{matched}</i></link>";
                 }
+                else newText += matched;
 
 				si = tail;
                 i = ltext.IndexOf(term, si);

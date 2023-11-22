@@ -47,7 +47,8 @@ public class Glossary : MonoBehaviour
 
     GlossaryEntry SpawnEntry(string term, string description) {
         GlossaryEntry ge = Instantiate(entryPrefab, transform);
-        ge.SetText(term, description);
+        string tagged = termDict.TagTermsInString(description, false);
+        ge.SetText(term, tagged);
 
         return ge;
     }

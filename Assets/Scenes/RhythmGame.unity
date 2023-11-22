@@ -1295,7 +1295,7 @@ MonoBehaviour:
   playerSpritePos: {x: 2.36, y: -3.51, z: -2}
   playerSpriteScale: {x: 0.21624352, y: 0.21624352, z: 0.21624352}
   defaultPlayerPrefab: {fileID: 3371178985632388413, guid: c65c2b200e50e894b91a9923dd8a5716, type: 3}
-  defaultLevel: 3
+  defaultLevel: 4
 --- !u!4 &1041202032
 Transform:
   m_ObjectHideFlags: 0

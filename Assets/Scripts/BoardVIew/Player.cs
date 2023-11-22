@@ -11,18 +11,21 @@ public class Player : MonoBehaviour {
     [SerializeField] AnimationCurve fadeCurve;
     [SerializeField] float fadeDurationSEC;
 
-    float colorFilterAlpha;
     List<float> saved;
 
-    void Start() {
-        colorFilterAlpha = colorFilter.color.a;
+    void Awake() {
+        SaveAlpha();
     }
 
-    public void ResetAlpha() {
-        Color c = colorFilter.color;
-        c.a = colorFilterAlpha;
-        colorFilter.color = c;
+    public void SaveAlpha() {
+        var all = FadeTargets();
+        saved = new List<float>();
+
+        foreach((_, Color c) in all) {
+            saved.Add(c.a);
+        }
     }
+
 
     public IEnumerator MoveTo(Vector3 end) {
         Vector3 start = transform.position;
@@ -85,8 +88,19 @@ public class Player : MonoBehaviour {
     }
 
     public void Hide() {
-        var fade = GetComponent<Fadeable>();
-        fade.Hide();
+        var all = FadeTargets();
+        foreach((var spr, var c) in all) {
+            spr.color = new Color(c.r, c.g, c.b, 0.0f);
+        }
+    }
+
+    public void Show() {
+        var all = FadeTargets();
+
+        foreach((var spr, var c) in all) {
+            spr.color = new Color(c.r, c.g, c.b, 1.0f);
+            spr.color = c;
+        }
     }
 
     public void FadeIn() {
@@ -99,10 +113,6 @@ public class Player : MonoBehaviour {
 
     IEnumerator FadeTowards(float endAlpha) {
         var all = FadeTargets();
-        saved = new List<float>();
-        foreach((_, var c) in all) {
-            saved.Add(c.a);
-        }
 
         float timePassed = 0.0f;
         while(timePassed < fadeDurationSEC) {

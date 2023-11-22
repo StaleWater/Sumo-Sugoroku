@@ -1801,8 +1801,8 @@ MonoBehaviour:
   - term: Chanko
     description: "The general term for dishes eaten by rikishi. Anything prepared
       by the cook of the heya is known as chanko and there are no strict rules for
-      what goes into it. Chankonabe is a \u201Cone-pot\u201D stew version of chanko
-      that is the primary meal eaten by rikishi."
+      what goes into it. <i>Chankonabe</i> is a \u201Cone-pot\u201D stew version
+      of chanko that is the primary meal eaten by rikishi."
   - term: "Dohy\u014D"
     description: "The area or ring in which sumo matches occur. In honbasho, it is
       a raised square platform made from clay with a white inner ring made from rice
@@ -1852,7 +1852,7 @@ MonoBehaviour:
       sekitori, this equates to at least 8 wins across 15 matches; for lower-ranked
       rikishi, it is at least 4 wins across 7 matches. Accomplishing this feat gives
       you a significantly higher chance of promotion. The opposite of a kachi-koshi
-      is known as a make-koshi.
+      is known as a <i>make-koshi</i>.
   - term: Komusubi
     description: "The fourth highest rank in sumo, above maegashira and below sekiwake.
       It is the lowest of the san\u2019yaku ranks."
@@ -1874,8 +1874,8 @@ MonoBehaviour:
       one for practice and one for competition. For practice, all rikishi wear cotton
       or canvas mawashi, white for sekitori and black for lower-division rikishi.
       In competition, lower-division rikishi wear their practice mawashi. Sekitori
-      wear a special mawashi for competition known as shimekomi that is made of satin
-      silk in the color of their choice."
+      wear a special mawashi for competition known as <i>shimekomi</i> that is made
+      of satin silk in the color of their choice."
   - term: Moshiai
     description: 'A king-of-the-hill-style drill where rikishi engage in practice
       matches in which the winning rikishi remains until he loses. The winner also
@@ -1885,11 +1885,11 @@ MonoBehaviour:
   - term: "\u014Czeki"
     description: The second highest rank a rikishi can obtain, just below Yokozuna.
   - term: Rikishi
-    description: "A professional sumo wrestler. While they can also be called sum\u014Dtori
-      or osum\u014Dsan, rikishi is most commonly used for a sumo wrestler of any
-      rank or division until sekitori. Rikishi can come from numerous countries around
-      the world, with the most common outside of Japan being Mongolia. There is a
-      limit, however, to the number of foreign rikishi allowed.\r\n"
+    description: "A professional sumo wrestler. While they can also be called <i>sum\u014Dtori</i>
+      or <i>osum\u014Dsan</i>, rikishi is most commonly used for a sumo wrestler
+      of any rank or division until sekitori. Rikishi can come from numerous countries
+      around the world, with the most common outside of Japan being Mongolia. There
+      is a limit, however, to the number of foreign rikishi allowed.\r\n"
   - term: Sandanme
     description: The third lowest division in sumo, above jonidan and below makushita.
   - term: "San\u2019yaku"
@@ -1927,9 +1927,9 @@ MonoBehaviour:
       carrying banners, and much more."
   - term: Yokozuna
     description: "The highest rank in professional sumo. Its name is derived from
-      the braided rope they wear called a yokotsuna. In order for a rikishi to be
-      promoted to yokozuna, he must first be an \u014Czeki. Unlike other ranks in
-      sumo, a rikishi must meet some criteria beyond his wins and losses to obtain
+      the braided rope they wear called a <i>yokotsuna</i>. In order for a rikishi
+      to be promoted to yokozuna, he must first be an \u014Czeki. Unlike other ranks
+      in sumo, a rikishi must meet some criteria beyond his wins and losses to obtain
       the title of yokozuna. The most common requirement is that an \u014Czeki wins
       two consecutive y\u016Bsh\u014D, but the Sumo Association and the Yokozuna
       Deliberation Council make the final decision. Factors such as the number of

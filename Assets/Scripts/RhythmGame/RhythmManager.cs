@@ -382,10 +382,6 @@ public class RhythmManager : MonoBehaviour
         return notes;
     }
 
-    List<(float, int)> SheetMusic4() {
-        return SheetMusic1();
-    }
-
     List<(float, int)> SheetMusic5() {
         float h = HALF_NOTE;
         float q = QUARTER_NOTE;
@@ -393,51 +389,125 @@ public class RhythmManager : MonoBehaviour
         float s = SIXTEENTH_NOTE;
 
         // use bit masks to assign a note to multiple staves 
-        int s1 = 1;
-        int s2 = 2;
-        int s3 = 4;
-        int s4 = 8;
+        int l = 1;
+        int d = 2;
+        int u = 4;
+        int r = 8;
 
         List<(float, int)> notes = new List<(float, int)>() {
-            (q, s1),
-            (q, s1|s2),
-            (e, s3),
-            (e, s3),
-            (q, s1),
-            (q, s4),
-            (q+e, s1|s2),
-            (e, s2|s4),
-            (e, s2|s4),
-            (h, s1|s4),
-            (e, s1),
-            (e, s2),
-            (e, s3),
-            (e, s4),
-            (e, s3),
-            (e, s2),
-            (e, s1),
-            (e, s2),
-            (e, s1),
-            (e, s3),
-            (e, s1),
-            (e, s4),
-            (e, s1),
-            (e, s4),
-            (e, s1),
-            (e, s4),
-            (q, s2|s3),
-            (q, s2|s3),
-            (s, s3),
-            (s, s2),
-            (s, s3),
-            (s, s2),
-            (s, s3),
-            (s, s2),
-            (s, s3),
-            (s, s2),
-            (q, s3|s2),
-            (q, s3|s2),
-            (h, s3|s2),
+            (e, u),
+            (e, d),
+            (e, l),
+            (e, r),
+
+            (e, u),
+            (e, d),
+            (e, l),
+            (e, r),
+
+            (q, u|d),
+            (q, u|d),
+            (h, u|d),
+
+            (e, r),
+            (s, r),
+            (s, r),
+            (e, d),
+            (e, r),
+
+            (e, l),
+            (s, l),
+            (s, l),
+            (e, u),
+            (e, l),
+
+            (e, l|r),
+            (e, d),
+            (e, l|r),
+            (e, d),
+            (h, l|r),
+
+            (e, u),
+            (q, l),
+            (q, l),
+            (e, d),
+            (q, r),
+            (q, r),
+
+            (e, d),
+            (e, l),
+            (e, d),
+            (e, r),
+            (h, l|r),
+
+            (q, l|r),
+            (q, u|d),
+            (q, l|r),
+
+            (s, u),
+            (s, d),
+            (s, l),
+            (s, r),
+
+            (e, l|r),
+            (e, d),
+            (e, l|r),
+            (e, d),
+            (h, l|r),
+        };
+
+        return notes;
+    }
+
+    List<(float, int)> SheetMusic4() {
+        float h = HALF_NOTE;
+        float q = QUARTER_NOTE;
+        float e = EIGHTH_NOTE;
+        float s = SIXTEENTH_NOTE;
+
+        // use bit masks to assign a note to multiple staves 
+        int l = 1;
+        int d = 2;
+        int u = 4;
+        int r = 8;
+
+        List<(float, int)> notes = new List<(float, int)>() {
+            (q, d),
+            (q, l|r),
+            (e, d),
+            (e, d),
+            (q, d),
+            (e, l|r),
+            (q, d),
+            (e, d),
+            (h, l|r),
+
+            (e, u),
+            (e, r),
+            (e, l),
+            (e, d),
+            (e, d),
+            (e, l),
+            (e, r),
+            (e, u),
+            (e, l),
+            (e, d),
+            (e, l),
+            (e, d),
+            (e, r),
+            (e, d),
+            (e, r),
+            (e, u),
+            (q, u|d),
+            (q, u|d),
+            (e, u|d),
+            (q, u|d),
+            (e, l|r),
+            (e, l|r),
+            (e, u|d),
+            (e, l|r),
+            (e, u|d),
+            (h, l|r),
         };
 
         return notes;

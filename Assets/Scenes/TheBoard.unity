@@ -704,8 +704,14 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 1
-  narrative: 
-  extraContent: 
+  narrative: "<i>Kanpai</i>! We\u2019re celebrating my san\u2019yaku promotion and
+    it feels amazing to have a night dedicated to the work I have done so far! Not
+    only does it remind me of why I started this journey in the first place, it encourages
+    me to keep pushing onward. My next celebration will be for reaching the rank
+    of yokozuna!"
+  extraContent: "A rikishi being promoted to san\u2019yaku is a momentous occasion.
+    Thanks to the higher salary for san\u2019yaku rikishi, it is common to have a
+    big celebration at an expensive restaurant for a stablemate\u2019s big promotion."
 --- !u!61 &282361992
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -852,8 +858,17 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: 
-  extraContent: 
+  narrative: "I have just two matches left, and they will determine whether I advance
+    to j\u016Bry\u014D. I have won my other five matches so far, so if I can pull
+    this off, I will finally be in the upper ranks. On top of that, I will finally
+    have a salary! For my next match, I am facing a recently-relegated sekitori.
+    His will to win should not be underestimated. Then again, neither should mine."
+  extraContent: "J\u016Bry\u014D is the second-highest division in sumo. It is the
+    first of the salaried divisions in sumo. J\u016Bry\u014D is capped at 28 rikishi.
+    The rikishi in this rank and above are considered true professionals, and are
+    otherwise known as sekitori. This division is a mixture of young talent and older
+    rikishi who have fallen from makuuchi. Rikishi in this division and above participate
+    in all fifteen days of a basho."
 --- !u!61 &289909413
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -981,7 +996,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 291187500}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 607299768}
+        m_TargetAssemblyTypeName: EventPopup, Assembly-CSharp
+        m_MethodName: HideDefinition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &291187500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1232,8 +1259,17 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 2
-  narrative: 
-  extraContent: 
+  narrative: The opportunity has finally come for me to move up to the rank of sekiwake.
+    All I have to do is win two more matches to achieve a winning record in this
+    tournament. I have been waiting for this chance for so long. I will not let it
+    slip by me!
+  extraContent: "Sekiwake is the third-highest rank in sumo and the second lowest
+    rank of san\u2019yaku. A komusubi must achieve a kachi-koshi, or winning record
+    in a tournament, to achieve the rank of sekiwake. Much like komusubi, sekiwake
+    may have difficulty being promoted due to the higher level of competition. A
+    traditional cap on the number of rikishi allowed to be \u014Dzeki can also prove
+    to be a barrier preventing promotion. There are generally 2\u20133 rikishi holding
+    the rank of sekiwake."
 --- !u!61 &319386464
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1380,8 +1416,23 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 3
-  narrative: 
-  extraContent: 
+  narrative: "It is the last day of the tournament. The opposing \u014Dzeki and I
+    are undefeated going into our match today, so the winner takes all. If I win,
+    it will be my second consecutive y\u016Bsh\u014D, which is the most important
+    criteria for being promoted to yokozuna. My opponent, however, is perhaps the
+    greatest rikishi I have ever faced. He had to withdraw before our match during
+    the last tournament when I won my first y\u016Bsh\u014D. This time, I\u2019ll
+    prove that I deserve to be a yokozuna."
+  extraContent: A honbasho is an official sumo tournament organized by the Japan
+    Sumo Association. These fifteen-day tournaments are held six times a year, beginning
+    on the second Sunday of odd-numbered months. Three of the six honbasho are situated
+    in Tokyo, with the remaining three taking place in Osaka, Nagoya, and Fukuoka.
+    Rikishi from the top two divisions participate in matches every day of the tournament,
+    while those in the lower divisions have seven matches across the same fifteen-day
+    span. The goal for all rikishi is to finish the tournament with more wins than
+    losses, which is known as kachi-koshi. While there are other tournaments held
+    throughout the year, only honbasho results are used to determine whether a rikishi
+    is promoted or relegated.
 --- !u!61 &329387914
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1588,8 +1639,14 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: 
-  extraContent: 
+  narrative: "I\u2019ve decided to set up camp under a tree tonight because I don\u2019t
+    have enough funds to purchase a bed at an inn. The ground is hard, but it\u2019s
+    nothing that I can\u2019t handle. My furoshiki is set on top of my chest so that
+    I can hold onto it as I sleep. It\u2019s not the best protective measure but
+    it will have to do for now."
+  extraContent: On the trip to Edo, he has no choice but to sleep outdoors. This
+    image illustrates the significant hardship aspiring rikishi endure before they
+    even begin formal training.
 --- !u!61 &345828246
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1736,8 +1793,13 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 2
-  narrative: 
-  extraContent: 
+  narrative: "I don\u2019t care how exhausted I am after morning practice and all
+    my chores, I need to practice more. I will join a few other determined rikishi
+    for another round of training on the dohy\u014D. This extra practice will get
+    me one step closer to my goal, which is more than enough of a reason for me to
+    press on past my exhaustion and get back to work."
+  extraContent: Even after hours of grueling practice in the morning, some rikishi
+    continue to practice at night in hopes of gaining an edge over their stablemates.
 --- !u!61 &467741865
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2251,8 +2313,20 @@ MonoBehaviour:
   numberMask: {fileID: 1969755904}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: 
-  extraContent: 
+  narrative: "I have finally made it to Ry\u014Dgoku. As I walk around, I can\u2019t
+    help but imagine myself training with my stablemates in a heya. The Ek\u014D-in
+    Temple is truly a sight to behold, more impressive than any structure I have
+    seen so far. I will have to fight with all of my might to become an official
+    rikishi, but I am determined and willing to risk it all for my goal."
+  extraContent: "Ry\u014Dgoku is a district in Tokyo that is home to numerous heya
+    as well as the current and previous iterations of the Ry\u014Dgoku Kokugikan\u2013an
+    indoor arena that hosts half of the honbasho held each year. The name Ry\u014Dgoku,
+    meaning \u201Ctwo provinces\u201D, stems from a bridge of the same name. The
+    bridge, originally constructed in 1659, connected the provinces of Musashi and
+    Shimosa. The Ry\u014Dgoku area is also home to Ek\u014D-in Temple, which was
+    the venue for sumo tournaments prior to the construction of the original Ry\u014Dgoku
+    Kokugikan. Sumo has also influenced local businesses in the area, with a spattering
+    of chanko restaurants and many other sumo-related shops and attractions."
 --- !u!61 &510308956
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2536,8 +2610,16 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 2
-  narrative: 
-  extraContent: 
+  narrative: Recently I have been questioning if I truly made the right choice to
+    become a rikishi. The process has been more difficult than I imagined and sometimes
+    I long for home. But these thoughts are not acceptable and I need to train my
+    mind and heart. To do so I need to go back to the beginning and remind myself
+    why I embarked on this journey in the first place. Only once I have regained
+    my resolve will I be able to achieve my goal.
+  extraContent: The difficulty of being a rikishi can take its toll, causing some
+    to consider leaving. Some rikishi who leave may be tracked down by their stablemates
+    and forced to return, while others will be forever barred from returning if they
+    regret their decision.
 --- !u!61 &571682096
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2817,8 +2899,20 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: 
-  extraContent: 
+  narrative: "If I have a winning record in this tournament, I will finally be promoted
+    from j\u016Bry\u014D to maegashira. I have seven wins and seven losses, so my
+    final match will decide my fate. It will not be easy, but I will give it my all."
+  extraContent: "Maegashira is the group of \u201Crank-and-file\u201D, or untitled
+    rikishi, in the top division in sumo known as makuuchi. The number of maegashira
+    per tournament varies because of the ever-changing number of title-holding wrestlers
+    in the higher san\u2019yaku ranks, but there are usually 30\u201334 maegashira
+    rikishi representing the east and west sides. The higher-ranked rikishi in maegashira
+    face the san\u2019yaku rikishi and other higher maegashira. Those in the lower
+    ranks square off against each other as well as the occasional opponent from j\u016Bry\u014D
+    if there is an injury. Each rikishi ranked in maegashira makes the same salary,
+    which is higher than j\u016Bry\u014D, but lower than san\u2019yaku. If a maegashira
+    rikishi defeats a yokozuna, he receives a <i>kinboshi</i>, or gold star, which
+    comes with a small permanent boost to his salary."
 --- !u!61 &631496245
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2966,8 +3060,19 @@ MonoBehaviour:
   numberMask: {fileID: 881504022}
   pause: {fileID: 52435043}
   orientation: 1
-  narrative: 
-  extraContent: 
+  narrative: "I have been given the duty of carrying one of the more advanced rikishi\u2019s
+    akeni. The box is definitely something to marvel at, but it will no doubt pale
+    in comparison to the one I will eventually earn. I am looking forward to that
+    day, but to get there I need to hone my skills and advance ranks first."
+  extraContent: "The possessions of rikishi and top-ranked gy\u014Dji are stored
+    and carried in lacquered paper-and-bamboo boxes called akeni. All akeni bear
+    the owner\u2019s name on the side and have the same color scheme of green, vermilion,
+    and black. Yokozuna are allowed to use up to three akeni because they have more
+    regalia. Akeni have no locking mechanism, instead consisting of a top section
+    that simply slides over the bottom section. Traditionally made akeni are expensive
+    and only made for members of the Sumo Association. But, fans may purchase plastic
+    tissue boxes designed to look like akeni with the names of their favorite rikishi
+    on the side."
 --- !u!61 &658391180
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3222,6 +3327,7 @@ MonoBehaviour:
   - {fileID: 3371178985632388413, guid: e071e46538f7e07408fe0ef6a3aa9bc0, type: 3}
   playerTileMovementTimeGap: 0.1
   dictionary: {fileID: 1407456039}
+  startTile: 15
   gameState: 0
 --- !u!65 &667063889
 BoxCollider:
@@ -3567,8 +3673,18 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 2
-  narrative: 
-  extraContent: 
+  narrative: "The time has come to help make mochi for New Year\u2019s. This is one
+    of my favorite times of the year because I have always loved the taste of mochi.
+    I am excited to help make it this year because the technique required seems like
+    a new form of exercise. I wonder how much I could make in one sitting\u2026"
+  extraContent: "Mochi-tsuki, or pounding rice to make mochi rice cakes, is a Japanese
+    tradition usually performed around Christmas time in preparation for the New
+    Year. The act of making mochi involves two people, one who pounds the special
+    sticky rice with a heavy wooden hammer while the other regularly shifts the rice
+    in the large wood or stone bowl to maintain evenness. The act of making your
+    own mochi has steadily declined over the years as most people in Japan opt to
+    order their mochi from specialty shops or buy machine-made mochi from supermarkets.
+    The mochi is cooked and eaten on New Year\u2019s Day."
 --- !u!61 &711322043
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3821,8 +3937,19 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 3
-  narrative: 
-  extraContent: 
+  narrative: "I have managed to secure 32 wins so far, so this next match is crucial.
+    It will not be an easy one, as my opponent is not only an \u014Dzeki, but is
+    looking to win the tournament. He is by far the most skilled rikishi I have had
+    to face so far, but I will not fail here. I am just as determined as he is, and
+    winning this match will guarantee my promotion to \u014Dzeki. As far as I am
+    concerned, losing is simply not an option."
+  extraContent: "\u014Czeki is the second-highest rank that a rikishi can obtain,
+    just below yokozuna. Promotion to \u014Dzeki takes place over multiple tournaments.
+    Rikishi with the rank of sekiwake are generally considered for promotion after
+    attaining 33 wins over a three-tournament span, but this is not a firmly enforced
+    policy. Other achievements, such as a win against a yokozuna or a y\u016Bsh\u014D\u2013the
+    term for a tournament victory\u2013factor into \u014Dzeki promotion. There are
+    typically 3\u20135 \u014Dzeki at any given time."
 --- !u!61 &762015542
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4696,8 +4823,17 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 1
-  narrative: 
-  extraContent: 
+  narrative: "The lower ranks have to prepare the food for our heya, and today we
+    made a <i>nabe</i> with fish. Once I rise in rank, I\u2019ll be able to get the
+    best parts instead of the leftovers. My first tournament is coming soon. I can\u2019t
+    wait!"
+  extraContent: "Chanko is the general term for dishes eaten by rikishi. It can contain
+    curried rice, spaghetti, ramen noodles, etc. Anything prepared by the <i>chanko-ban</i>,
+    the cook of the heya, is called chanko. That said, the primary meal eaten by
+    rikishi every day is called <i>chankonabe</i>\u2013a \u201Cone-pot\u201D stew
+    version of chanko. Meat and seafood are commonly used to provide protein while
+    the vegetables used vary based on what\u2019s available. The dish can be seasoned
+    with broths, soy sauce, mirin, or other condiments."
 --- !u!61 &891868370
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4952,8 +5088,16 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: 
-  extraContent: 
+  narrative: "It seems the yobidashi are announcing the tournament today. I knew
+    they were here as soon as I heard the taiko drums. Soon after, they bellowed
+    the news about the start of the tournament as their voices echoed throughout
+    the streets. I can feel my body shaking in anticipation for what\u2019s to come!"
+  extraContent: "Yobidashi travel over the <i>Nihonbashi</i> bridge to announce information
+    about a new sumo tournament. Because there was no other reliable way to distribute
+    the news, they would parade around the city sounding taiko drums to attract attention.
+    Modern day yobidashi do something similar for the dohy\u014D matsuri ceremony
+    \u2013 they circle around the dohy\u014D three times, then head out towards the
+    heya to publicly announce the start of a tournament."
 --- !u!61 &943744232
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5033,8 +5177,27 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: 
-  extraContent: 
+  narrative: "I have completed my dream of becoming Grand Champion, and this ceremony
+    is the final step. Once this is over, I will have finally accomplished what I
+    set out to do all those years ago. My new goal is to win the most y\u016Bsh\u014D
+    ever recorded. My blood is racing thinking about all the new, young wrestlers
+    who will rise the ranks to challenge me over the coming years. They will find
+    me waiting, defending my place within the ring. I will not rest until I become
+    the most well-known rikishi in the country. I will create a legacy that will
+    be remembered for centuries. Next honbasho here I come!"
+  extraContent: "The Yokozuna ring-entering ceremony is performed prior to the start
+    of makuuchi matches on each day of the tournament. During this ceremony, each
+    makuuchi rikishi enters the dohy\u014D in reverse order of rank wearing a kesh\u014D-mawashi,
+    a ceremonial apron, and performs a short ritual. The rikishi are separated into
+    two groups who both perform the same ceremony. The yokozuna participate in their
+    own individual ritual afterward. During this ritual, the yokozuna enters the
+    dohy\u014D wearing a massive, braided rope in addition to his kesh\u014D-mawashi.
+    This braided rope, known as a yokotsuna, is why the rikishi who attain this rank
+    are called yokozuna. After clapping his hands to attract the attention of the
+    gods, he extends his arms to the sides and turns his palms upward to show he
+    isn\u2019t concealing any weapons. He then lifts each leg in the air and stamps
+    the ground, symbolically driving evil from the dohy\u014D. Each yokozuna performs
+    this ritual before matches begin."
 --- !u!212 &950853158
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5952,6 +6115,13 @@ MonoBehaviour:
     m_RotationOrder: 4
   colorFilter: {fileID: 0}
   icon: {fileID: 0}
+  fadeCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fadeDurationSEC: 0
 --- !u!114 &1044835414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6723,8 +6893,20 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 1
-  narrative: 
-  extraContent: 
+  narrative: "I\u2019ve finally become an official rikishi! Now I have to focus on
+    training hard to make sure that I can quickly rise the ranks of professional
+    sumo and increase my standing within my heya. Once I do that, I can focus more
+    on training without having to deal with all the extra chores."
+  extraContent: "New rikishi start their training at the bottom. Recruits are expected
+    to have additional duties on top of their daily training regimens. They are tasked
+    with preparing the dohy\u014D every morning prior to practice as well as other
+    menial chores such as cleaning and doing laundry. Younger rikishi are the last
+    to eat their meals, being forced to eat whatever chanko is leftover after their
+    superiors have had their fill. Hazing of the younger, newer members of the heya
+    is not an uncommon practice. Newer recruits are sometimes tasked with assisting
+    larger, senior rikishi who would otherwise have difficulty performing tasks related
+    to maintaining hygiene such as bathing or wiping their behind. Once rikishi climb
+    the ranks, they shed most of these duties."
 --- !u!61 &1258652084
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6907,8 +7089,16 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 2
-  narrative: 
-  extraContent: 
+  narrative: "I overheard some younger rikishi complaining about having to help their
+    senior bathe today. It reminded me of when I first entered the heya. If they
+    don\u2019t like that duty, they must train even harder to rise to the top like
+    I have. Until then, they have no right to object."
+  extraContent: Younger rikishi are traditionally required to bathe their seniors,
+    this is due to both customs around hierarchy and to the sheer size of highly-ranked
+    rikishi. Additionally, higher-ranked rikishi get to bathe before the lower-ranked
+    ones. The number of helpers increases as one goes up in rank. Yokozuna may have
+    more than ten, allowing them to simply stand with their arms stretched out when
+    taking a bath.
 --- !u!61 &1292552491
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7055,8 +7245,18 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 3
-  narrative: 
-  extraContent: 
+  narrative: I almost reached sandame, but I twisted my ankle in my last match. Now,
+    I am being relegated to jonokuchi. I understand the reasoning, but I am still
+    filled with frustration. Nevertheless, I will recover and come back better than
+    ever before!
+  extraContent: Sandanme is the third-lowest division in sumo. Like the divisions
+    below it, sandanme is an unsalaried division filled with mostly young, up-and-coming
+    rikishi. Some rikishi in this division skipped the jonokuchi and jonidan divisions
+    because of a system known as sandanme <i>tsukedashi</i>. This system allows rikishi
+    who place at a certain level in certain amateur or collegiate tournaments to
+    skip the bottom two divisions. Rikishi in sandanme are allowed better-quality
+    attire than their lower-division counterparts. This division has a cap of 180
+    rikishi.
 --- !u!61 &1328652334
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7536,8 +7736,16 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 3
-  narrative: 
-  extraContent: 
+  narrative: "This match will decide if I am promoted to Jonokuchi. It\u2019s my
+    most important match yet, but I am confident in my skills. I will face this challenge
+    head on, and I will win!"
+  extraContent: Jonokuchi is the lowest division in sumo. This division is primarily
+    comprised of younger rikishi beginning their careers. Older, more experienced
+    rikishi can be found in the lower three divisions by falling from higher ranks,
+    typically due to persistent injury issues preventing participation in multiple
+    tournaments. Promotions from this rank are common due to a steady influx of new
+    recruits. This is the first rank in which rikishi have their names listed on
+    the banzuke.
 --- !u!61 &1483084583
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7971,8 +8179,16 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: 
-  extraContent: 
+  narrative: "I\u2019ve arrived at Nihonbashi, and it is filled with bustling commotion.
+    So many people are traveling to and fro while merchants line the street to hawk
+    their wares. The area is known for being a great place to watch sumo matches,
+    and the idea fills me with excitement. I want to be up there competing against
+    other rikishi, throwing my opponents to the ground as the crowds cheer\u2026I
+    can\u2019t wait!"
+  extraContent: The aspiring rikishi arrives at Nihonbashi, the trade and cultural
+    center of Edo. Almost half of the population of Edo lives around this area, making
+    it an ideal place to find a crowd of financially well-off citizens that have
+    little trouble paying to watch sumo matches.
 --- !u!61 &1596942945
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8364,8 +8580,17 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 1
-  narrative: 
-  extraContent: 
+  narrative: "My next opponent is a sekiwake, and my anticipation is like never before.
+    Winning this match will prove that I deserve to be a komusubi. Whether I am promoted
+    or not, the rest of the san\u2019yaku rikishi better watch out!"
+  extraContent: "Komusubi or \u201Cthe little knot\u201D is the fourth-highest rank
+    in sumo and the lowest rank of san\u2019yaku. It is considered a difficult rank
+    because komusubi face rikishi from the higher ranks of sekiwake, \u014Dzeki,
+    and yokozuna. Additionally, if there are no open positions at the higher ranks,
+    a rikishi must either wait for an open spot or perform so well that they must
+    be promoted. Being promoted to komusubi includes a salary increase in addition
+    to other benefits related to hairstyle and attire. There are generally 2\u20133
+    rikishi holding the rank of komusubi."
 --- !u!61 &1714454359
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8512,8 +8737,14 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 3
-  narrative: 
-  extraContent: 
+  narrative: "Ugh, my head is pounding this morning, and looking at the light makes
+    me feel sick. Last night, I was so sure I could keep up with my superiors, but
+    this was one match I should have conceded. I am in no position to train today,
+    and I know I am going to get an earful about it. I\u2019ll have to work twice
+    as hard tomorrow."
+  extraContent: Rikishi are known to consume copious amounts of alcohol to increase
+    their caloric intake and appetite. They also use alcohol to help dull the aches
+    and pains of practice.
 --- !u!61 &1754739843
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8765,8 +8996,15 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: 
-  extraContent: 
+  narrative: "I am at Ek\u014D-in Temple where the tournament is taking place. Rikishi
+    are filing in, with the lower ranks carrying the higher ranks\u2019 akeni. They
+    all draw attention from onlookers with their imposing figures. Someday soon,
+    I will walk beside them as an official rikishi."
+  extraContent: "As the sekitori arrive at the tournament, they are accompanied by
+    lower-division rikishi acting as their assistants, known as tsukebito, who carry
+    their possessions in an akeni. A tsukebito is generally responsible for all of
+    his senior\u2019s day-to-day needs. During the tournament, the tsukebito can
+    be seen carrying a cushion in and out of the arena for his superior."
 --- !u!61 &1838652419
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9071,8 +9309,14 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 1
-  narrative: 
-  extraContent: 
+  narrative: "Today is laundry day, and those of us in the lower ranks are in charge
+    of cleaning our superior\u2019s mawashi. The process is long and grueling and
+    it makes me look forward to moving up even more. For now, I will have to finish
+    as fast as I can and get back to practicing to make sure that I get promoted
+    as quickly as possible."
+  extraContent: In addition to their other responsibilities, lower-ranked rikishi
+    are responsible for all the cleaning and laundry at the heya. This includes cleaning
+    the mawashi of their stablemates by hand.
 --- !u!61 &1883551965
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9610,8 +9854,25 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 2
-  narrative: 
-  extraContent: 
+  narrative: The lower-division practices start before the sun rises. The hundreds
+    of shiko cause my knees to shake until my legs feel like they will give out.
+    During the moshiai matches, I am thrown to the ground by the more skilled wrestlers
+    over and over again without rest. The butsukari feel like trying to push an unyielding
+    mountain. Every practice takes all that I have out of me. My blood, sweat, and
+    tears have soaked into the unforgiving clay of the ring. Despite this, I am determined
+    to improve with every practice. I will persevere until I am the better wrestler,
+    toppling my opponents and rising within my heya and professional sumo.
+  extraContent: "Practices start bright and early at around 5 A.M. Every practice
+    begins with various exercises designed to increase strength and improve balance
+    and flexibility. The most fundamental exercise is shiko, which is performed hundreds
+    of times each day. Other exercises performed regularly include tepp\u014D and
+    <i>matawari</i>. Once the exercise portion of practice is complete, rikishi move
+    on to <i>moshiai</i>. <i>Moshiai</i> is a king-of-the-hill-style drill where
+    rikishi engage in practice matches in which the winner remains until he loses.
+    Rikishi also engage in a drill known as butsukari, where one rikishi pushes another
+    across the dohy\u014D. The rikishi that is being pushed acts as resistance but
+    does not push back. Sumo practices are very demanding and leave rikishi exhausted
+    by the end."
 --- !u!61 &1937165301
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9795,8 +10056,15 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 3
-  narrative: 
-  extraContent: 
+  narrative: "I have moved up to jonidan. Not much has changed except a slight bump
+    in my allowance, and I get prize money when I win a match. It\u2019s not a lot,
+    but it is a start. Each yen reminds me that I am on the right track. I just have
+    to keep working hard and take advantage of every opportunity that comes my way."
+  extraContent: Jonidan is the second-lowest division in sumo and one of its largest.
+    This is due, in part, to a cap on the number of rikishi allowed in the divisions
+    above jonidan. Rikishi in this division, as well as all other non-salaried divisions,
+    receive an allowance in exchange for doing chores at their heya. They also receive
+    prize money for winning their matches.
 --- !u!61 &1951968687
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9943,8 +10211,17 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: 
-  extraContent: 
+  narrative: "I have been promoted to makushita, and I can\u2019t wait for the upcoming
+    tournament. If I do well this time, I will be promoted to j\u016Bry\u014D! Then,
+    I will finally receive a salary. My goal is to finish this tournament undefeated,
+    so that there will be no question about my qualifications or readiness for promotion."
+  extraContent: "Makushita is the third-highest division in sumo. This division is
+    the top of the non-salaried ranks. It is capped at 120 total rikishi. In makushita,
+    and all divisions below it, rikishi participate in seven matches across the fifteen-day
+    basho. Doing particularly well in this division is key, as moving up to j\u016Bry\u014D
+    means rikishi will receive a salary. Going undefeated (7-0) grants a rikishi
+    unconditional promotion. Conversely, when a sekitori is relegated to makushita,
+    he loses his salary."
 --- !u!61 &1953006913
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10518,8 +10795,19 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: 
-  extraContent: 
+  narrative: I have been demoted. I was involved in a scuffle where a man sliced
+    my arm. Although there is no long-term damage, I have had to sit out a few tournaments
+    while I recuperate. I am disappointed that I was demoted for actions done outside
+    of sumo, but I know what I must do to regain my position. I have a challenging
+    journey ahead of me, but I will not give up! Soon, the title of maegashira will
+    be mine once more.
+  extraContent: This tile is a depiction of the Akizuki rebellion, which was an uprising
+    by former <i>samurai</i> against the Meiji government in 1876. Enraged by the
+    government reforms stripping them of their privileged social status, as well
+    as the government-mandated prohibition of swords, several hundred <i>samurai</i>
+    of the Akizuki domain attacked the prefectural office. The rebels were eventually
+    suppressed and captured by the Imperial Japanese Army. This picture suggests
+    that rikishi were involved in the event, but it is unknown to what extent.
 --- !u!61 &2112405831
 BoxCollider2D:
   m_ObjectHideFlags: 0

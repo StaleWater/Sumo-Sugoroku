@@ -38,7 +38,6 @@ public class EventPopup : MonoBehaviour {
         gameObject.SetActive(false);
 		originalEventPanelPosition = eventPanel.GetComponent<RectTransform>().position;
 		originalEventPanelSizeDelta = eventPanel.GetComponent<RectTransform>().sizeDelta;
-        closeDefinitionButton.onClick.AddListener(HideDefinition);
         extraPopup.Init();
 	}
 
@@ -63,8 +62,9 @@ public class EventPopup : MonoBehaviour {
 
         string text = link.GetLinkText();
         string desc = dictionary.Lookup(text);
+        string withItalics = dictionary.TagTermsInString(desc, false);
 
-        ShowDefinition(text, desc);
+        ShowDefinition(text, withItalics);
     }
 
     void ShowDefinition(string text, string desc) {
@@ -74,7 +74,7 @@ public class EventPopup : MonoBehaviour {
         definitionPanel.SetActive(true);
     }
 
-    void HideDefinition() {
+    public void HideDefinition() {
 		currTile.IsTileClickable = true;
 		definitionPanel.SetActive(false);
     }

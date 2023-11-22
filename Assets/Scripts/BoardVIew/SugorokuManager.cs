@@ -124,6 +124,7 @@ public class SugorokuManager : MonoBehaviour {
     [SerializeField] SumoGuy[] sumoColorPrefabs;
     [SerializeField] float playerTileMovementTimeGap;
     [SerializeField] TermDictionary dictionary;
+    [SerializeField] int startTile;
 
     AudioManager audioman;
 	Camera cam;
@@ -143,6 +144,7 @@ public class SugorokuManager : MonoBehaviour {
     void Start() {
         Application.targetFrameRate = 60;
         cam = Camera.main;
+		popup.Init();
         popup.RegisterOnExit(OnPopupExit);
         defaultCamState = new CameraData(cam);
         EventPopup.extraEventHasEnded = EndExtraEvent;
@@ -167,7 +169,6 @@ public class SugorokuManager : MonoBehaviour {
             endHighlight += tile.showNumberMask;
         }
 
-		popup.Init();
         dice.Init();
         minigameDice.Init();
         rollTextContainer.Init();
@@ -221,7 +222,7 @@ public class SugorokuManager : MonoBehaviour {
         for(int i=0; i < numPlayers; i++) {
             var data = PlayerSelectMenu.playerData[i];
             players[i] = new PlayerData(i, data.name, data.isBot, data.colorIndex, this);
-            PlayerTeleport(i, 0);
+            PlayerTeleport(i, startTile);
         }
     }
 
@@ -301,6 +302,7 @@ public class SugorokuManager : MonoBehaviour {
 
     void UpdateSumoSize(int pi) {
         players[pi].spritePrefab = GetSumoSize(players[pi].curTile, players[pi].colorIndex);
+        players[pi].player.SetIcon(players[pi].spritePrefab.GetComponent<SpriteRenderer>().sprite);
     }
 
     Vector3 GetPlayerPosOnTile(int pi, Tile tile) {
@@ -718,6 +720,7 @@ public class SugorokuManager : MonoBehaviour {
         players = new PlayerData[numPlayers];
         for(int i=0; i < numPlayers; i++) {
             players[i] = stateData.players[i].Load(this);
+            UpdateSumoSize(i);
         }
 
         curPlayer = stateData.curPlayer;
@@ -876,13 +879,13 @@ public class SugorokuManager : MonoBehaviour {
 
     void EnableAllTileClicks() {
         foreach(Tile tile in tiles) {
-            tile.GetComponent<BoxCollider2D>().enabled = true;
+            tile.SetIsClickable(true);
         }
     }
 
     void DisableAllTileClicks() {
         foreach(Tile tile in tiles) {
-            tile.GetComponent<BoxCollider2D>().enabled = false;
+            tile.SetIsClickable(false);
         }
     }
     
