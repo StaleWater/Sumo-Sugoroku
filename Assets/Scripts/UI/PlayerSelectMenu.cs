@@ -80,6 +80,12 @@ public class PlayerSelectMenu : MonoBehaviour {
 	private IEnumerator StartGameHelper() {
 		SetupStaticData();
 		yield return StartCoroutine(screenCurtain.FadeIn());
+			
+		BgmMultiScene bgm = GameObject.FindGameObjectWithTag("bgm-multiscene").GetComponent<BgmMultiScene>();
+		bgm.Stop();
+		Destroy(bgm.gameObject);
+		Debug.Log("bgm destroyed");
+
 		SceneManager.LoadScene(startGameSceneName);
 	}
 

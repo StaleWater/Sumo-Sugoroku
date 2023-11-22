@@ -13,6 +13,9 @@ public class MainMenu : MonoBehaviour {
 		screenCurtain.Init();
 		screenCurtain.Show();
 
+		BgmMultiScene bgm = GameObject.FindGameObjectWithTag("bgm-multiscene").GetComponent<BgmMultiScene>();
+		bgm.Play();
+
 		StartCoroutine(screenCurtain.FadeOut());
     }
 
