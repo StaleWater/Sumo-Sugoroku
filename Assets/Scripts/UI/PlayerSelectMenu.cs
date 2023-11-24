@@ -26,7 +26,8 @@ public class PlayerSelectMenu : MonoBehaviour {
 
 	[SerializeField] UIFadeable screenCurtain;
 
-	[SerializeField] private PlayerInfoBox playerInfoBoxPrefab;
+	[SerializeField] private GameObject playerInfoBoxPrefab;
+	private PlayerInfoBox playerInfoBox;
 	[SerializeField] private GameObject location;
 	[SerializeField] private string mainMenuSceneName;
 	[SerializeField] private string startGameSceneName;
@@ -37,16 +38,11 @@ public class PlayerSelectMenu : MonoBehaviour {
 	[SerializeField] private List<Button> buttons;
 
 	public int playerCount;
-	private static Vector3 locationPosition;
 
 	public List<PlayerInfoBox> playerList = new List<PlayerInfoBox>();
 
-	private static readonly List<Vector3> predeterminedBoxPositions = new List<Vector3> {
-		new Vector3(0.0f, 275.0f, 0.0f),
-		new Vector3(0.0f, 100.0f, 0.0f),
-		new Vector3(0.0f, -75.0f, 0.0f),
-		new Vector3(0.0f, -250.0f, 0.0f)
-	};
+	private Canvas canvas;
+	private RectTransform container; // Rect transform of gameobject where players are stored
 
 	private void Start() {
 		screenCurtain.Init();
@@ -54,9 +50,12 @@ public class PlayerSelectMenu : MonoBehaviour {
 
 		StartCoroutine(screenCurtain.FadeOut());
 
-		locationPosition = location.transform.position;
+		playerInfoBox = playerInfoBoxPrefab.GetComponent<PlayerInfoBox>();
+		canvas = transform.parent.GetComponent<Canvas>();
+		container = location.GetComponent<RectTransform>();
 
 		PlayerInfoBox.ResetAvailableColors();
+
 		// Start with 1 player
 		AddPlayer();
 	}
@@ -93,11 +92,12 @@ public class PlayerSelectMenu : MonoBehaviour {
 
 		// Create a new player info box GameObject and update states
 		playerList.Add(Instantiate(
-			playerInfoBoxPrefab,
-			locationPosition + predeterminedBoxPositions[playerCount],
+			playerInfoBox,
+			CalculatePosition(playerCount),
 			Quaternion.identity,
 			location.transform
 		));
+
 		PlayerInfoBox infoBox = playerList[playerCount];
 		infoBox.Init(playerCount, RemovePlayer, ChangeAllButtonInteraction);
 
@@ -108,7 +108,7 @@ public class PlayerSelectMenu : MonoBehaviour {
 			addButton.gameObject.SetActive(false);
 		}
 		else {
-			addButton.transform.position = locationPosition + predeterminedBoxPositions[playerCount];
+			addButton.transform.position = CalculatePosition(playerCount);
 		}
 
 		// Make sure the start button is active
@@ -130,13 +130,13 @@ public class PlayerSelectMenu : MonoBehaviour {
 
 		// Reorganize the info boxes as necessary
 		for (int i = 0; i < playerList.Count; ++i) {
-			playerList[i].transform.position = locationPosition + predeterminedBoxPositions[i];
+			playerList[i].transform.position = CalculatePosition(i);
 			PlayerInfoBox infoBox = playerList[i];
 			infoBox.UpdateId(i);
 		}
 
 		// Update the position of the add button
-		addButton.transform.position = locationPosition + predeterminedBoxPositions[playerCount];
+		addButton.transform.position = CalculatePosition(playerCount);
 
 		// Make sure the add button is active
 		if (!addButton.gameObject.activeSelf) {
@@ -152,5 +152,17 @@ public class PlayerSelectMenu : MonoBehaviour {
 		foreach (PlayerInfoBox infoBox in playerList) {
 			infoBox.ChangeAllButtonInteraction(interactable);
 		}
+	}
+
+	private Vector3 CalculatePosition(int index) {
+		Vector3 newPosition = location.transform.position;
+
+		float playerInfoBoxHeight = playerInfoBoxPrefab.GetComponent<RectTransform>().rect.height * canvas.scaleFactor;
+		float containerHeight = container.rect.height * canvas.scaleFactor;
+		float step = containerHeight / PlayerSelectMenuConstants.MAX_PLAYER_COUNT;
+		float offset = (index * step) + (playerInfoBoxHeight / 2);
+		newPosition.y -= offset - (containerHeight / 2);
+
+		return newPosition;
 	}
 }

@@ -56,6 +56,11 @@ public class PlayerInfoBox : MonoBehaviour {
 	}
 
 	public string GetName() {
+		// Return "Player <#>" if no name was provided
+		if (nameField.text == "") {
+			return nameField.placeholder.GetComponent<TMP_Text>().text;
+		}
+
 		return nameField.text;	
 	}
 
