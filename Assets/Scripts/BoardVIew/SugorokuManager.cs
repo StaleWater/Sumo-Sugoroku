@@ -127,6 +127,7 @@ public class SugorokuManager : MonoBehaviour {
     [SerializeField] int startTile;
     [SerializeField] WinLoseText winLoseText;
     [SerializeField] UIFadeable rollTextContainer;
+    [SerializeField] BoardInstructions instructions;
 
     AudioManager audioman;
 	Camera cam;
@@ -135,6 +136,7 @@ public class SugorokuManager : MonoBehaviour {
     int chosenMinigame;
     bool freeRoamMode;
     bool paused;
+    bool instructionsShown;
     int curPlayer;
     int numPlayers;
     PlayerData[] players;
@@ -165,6 +167,7 @@ public class SugorokuManager : MonoBehaviour {
         curPlayer = -1;
         freeRoamMode = false;
         paused = false;
+        instructionsShown = false;
 
         foreach (var tile in tiles) { 
             tile.Init(dictionary, OnTileClick);
@@ -176,11 +179,15 @@ public class SugorokuManager : MonoBehaviour {
         infoTextContainer.Init();
         screenCurtain.Init();
         rollTextContainer.Init();
+        instructions.Init();
+
+        rollTextContainer.gameObject.SetActive(true);
+        clickOverlay.gameObject.SetActive(false);
 
         rollTextContainer.Hide();
         winLoseText.Hide();
+        instructions.Hide();
 
-        clickOverlay.gameObject.SetActive(false);
 
         endTile = tiles.Length - 1;
 
@@ -363,12 +370,20 @@ public class SugorokuManager : MonoBehaviour {
         players[pi].player.transform.position = GetPlayerPosOnTile(pi, tiles[tileIndex]);
     }
 
-    public void OnRollButton() {
+    public void OnOverlayClick() {
         if(gameState != GameState.RollPhase) return;
 
         clickOverlay.gameObject.SetActive(false);
-        StartCoroutine(rollTextContainer.FadeOut());
-        StartCoroutine(RollDice());
+        
+        if(!instructionsShown) {
+            // the overlay was clicked to hide instructions.
+            StartCoroutine(HideInstructions());
+        }
+        else {
+            // the overlay was clicked to roll the dice.
+            StartCoroutine(rollTextContainer.FadeOut());
+            StartCoroutine(RollDice());
+        }
     }
 
     IEnumerator RollDice() {
@@ -725,6 +740,8 @@ public class SugorokuManager : MonoBehaviour {
 
         yield return StartCoroutine(GameEndText(true, 3.0f));
 
+        yield return StartCoroutine(infoTextContainer.FadeIn());
+
         ShowRollText("Click on any tile!");
 
         StartFreeRoamMode();
@@ -750,6 +767,8 @@ public class SugorokuManager : MonoBehaviour {
 
     void LoadState() {
         if(!stateData.usingState) Debug.Log("WARNING: Loading from a state that is not intended to be used");
+
+        instructionsShown = true;
 
         players = new PlayerData[numPlayers];
         for(int i=0; i < numPlayers; i++) {
@@ -800,14 +819,29 @@ public class SugorokuManager : MonoBehaviour {
 
 
         gameState = GameState.RollPhase;
-        StartCoroutine(infoTextContainer.FadeIn());
 
-        if(freeRoamMode) EnableAllTileClicks();
+        if(!instructionsShown) StartCoroutine(ShowInstructions());
+        else if(freeRoamMode) {
+            StartCoroutine(infoTextContainer.FadeIn());
+            EnableAllTileClicks();
+        }
         else if(curPlayer >= 0 && players[curPlayer].curTile == endTile) GameEnd(curPlayer);
         else StartCoroutine(StartNextTurn());
     }
 
+    IEnumerator ShowInstructions() {
+        yield return StartCoroutine(instructions.FadeIn());
+        clickOverlay.gameObject.SetActive(true);
+    }
+
+    IEnumerator HideInstructions() {
+        instructionsShown = true;
+        yield return StartCoroutine(instructions.FadeOut());
+        StartCoroutine(StartNextTurn());
+    }
+
     IEnumerator StartNextTurn() {
+
         curPlayer = (curPlayer + 1) % numPlayers;
 
         while (players[curPlayer].turnSkips > 0) {
@@ -820,6 +854,7 @@ public class SugorokuManager : MonoBehaviour {
 
         ShowRollText($"{players[curPlayer].name}'s Turn");
         audioman.Play("start-turn");
+        yield return StartCoroutine(infoTextContainer.FadeIn());
 
         if(players[curPlayer].ai) {
             StartCoroutine(AITakeTurn());
@@ -832,7 +867,7 @@ public class SugorokuManager : MonoBehaviour {
 
     IEnumerator AITakeTurn() {
         yield return new WaitForSeconds(1.0f);
-        OnRollButton();
+        OnOverlayClick();
     }
 
     IEnumerator OnEventEnd() {
