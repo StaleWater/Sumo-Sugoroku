@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Pole : MonoBehaviour
 {
-    [SerializeField] Vector3 distToPlayer;
+    [SerializeField] float thinPlayerDistXRatio;
+    [SerializeField] float fatPlayerDistXRatio;
+    [SerializeField] float playerDistY;
     [SerializeField] AnimationCurve shakeCurve;
     [SerializeField] float shakeDist;
     [SerializeField] float shakeDurationSEC;
@@ -12,10 +14,12 @@ public class Pole : MonoBehaviour
     Coroutine shakeRoutine; 
     Vector3 originPos;
 
-    public void Init(SpriteRenderer player) {
+    public void Init(SpriteRenderer player, bool fatPlayerSprite) {
         var pos = player.transform.position;
-        pos.x += player.bounds.extents.x;
-        pos += distToPlayer;
+
+        if(fatPlayerSprite) pos.x += player.bounds.extents.x * fatPlayerDistXRatio;
+        else pos.x += player.bounds.extents.x * thinPlayerDistXRatio;
+        pos.y += playerDistY;
         transform.position = pos;
         originPos = pos;
     }

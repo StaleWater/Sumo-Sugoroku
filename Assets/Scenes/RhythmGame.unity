@@ -1382,7 +1382,7 @@ MonoBehaviour:
   infoText: {fileID: 550341944}
   playerSpritePos: {x: 2.6, y: -4.11, z: -2}
   playerSpriteScale: {x: 0.21624352, y: 0.21624352, z: 0.21624352}
-  defaultPlayerPrefab: {fileID: 3371178985632388413, guid: 72fe04e1316a88447b7e7924b55aac83, type: 3}
+  defaultPlayerPrefab: {fileID: 8397613959355733716, guid: 964d8269a2eea9546ac587568db83b57, type: 3}
   defaultLevel: 4
   winLoseText: {fileID: 1200526325}
   backgroundImg: {fileID: 695578323}
@@ -1555,7 +1555,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edbd7cf7855331f4985341662d71017a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distToPlayer: {x: 0.9, y: 0.34, z: 0}
+  thinPlayerDistXRatio: 1.7
+  fatPlayerDistXRatio: 1.5
+  playerDistY: 0.34
   shakeCurve:
     serializedVersion: 2
     m_Curve:

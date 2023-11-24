@@ -56,9 +56,9 @@ public class RhythmManager : MonoBehaviour
     }
 
     public void Init() {
-        playerSprite = SpawnPlayerSprite();
+        bool fatPlayerSprite = SpawnPlayerSprite();
 
-        pole.Init(playerSprite.GetComponent<SpriteRenderer>());
+        pole.Init(playerSprite.GetComponent<SpriteRenderer>(), fatPlayerSprite);
 
         tempoBPS = (tempoQBPM * QUARTER_NOTE) / 60.0f;
         reactionTimeBEATS = reactionTimeSEC * tempoBPS;
@@ -125,7 +125,7 @@ public class RhythmManager : MonoBehaviour
         StartGame();
     }
 
-    Animator SpawnPlayerSprite() {
+    bool SpawnPlayerSprite() {
         SumoGuy prefab = defaultPlayerPrefab;
         if(SugorokuManager.stateData.usingState) {
             int pi = SugorokuManager.stateData.curPlayer;
@@ -141,7 +141,8 @@ public class RhythmManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        return guy.GetComponent<Animator>();
+        playerSprite = guy.GetComponent<Animator>();
+        return guy.largestSize;
     }
 
     void PlayerPush() {

@@ -283,6 +283,7 @@ MonoBehaviour:
   pushRange: 0.75
   alive: 0
   blocking: 0
+  largestSize: 1
   box: {fileID: 0}
 --- !u!114 &6093678471052793264
 MonoBehaviour:

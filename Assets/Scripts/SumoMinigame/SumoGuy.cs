@@ -17,6 +17,10 @@ public class SumoGuy : MonoBehaviour {
     public float pushRange;
     public bool alive;
     public bool blocking;
+
+    // for use in RhythmManager.cs, set in inspector
+    public bool largestSize;
+
     bool duringAction;
     float groundLevel;
 
