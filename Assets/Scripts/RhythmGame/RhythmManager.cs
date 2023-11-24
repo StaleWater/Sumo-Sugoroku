@@ -17,7 +17,6 @@ public class RhythmManager : MonoBehaviour
     [SerializeField] Staff staff2;
     [SerializeField] Staff staff3;
     [SerializeField] Staff staff4;
-    [SerializeField] float pushAniDurationSEC;
     [SerializeField] UIFadeable screenCurtain;
     [SerializeField] float hitPercentToWin;
     [SerializeField] UIFadeable instructionsPanel;
@@ -29,6 +28,10 @@ public class RhythmManager : MonoBehaviour
     [SerializeField] int defaultLevel;
     [SerializeField] WinLoseText winLoseText;
     [SerializeField] SpriteRenderer backgroundImg;
+    [SerializeField] Pole pole;
+    [SerializeField] float playerPushDist;
+    [SerializeField] float playerPushDurationSEC;
+    [SerializeField] AnimationCurve playerPushCurve;
 
     // note values in units of beats.
     // internally, a beat is considered a 16th note to avoid floating point error issues.
@@ -43,8 +46,7 @@ public class RhythmManager : MonoBehaviour
     float tempoBPS; // 16th note based beats per second
 
     AudioManager audioman;
-    WaitForSeconds pushWaiter;
-    Coroutine pushAniRoutine;
+    Coroutine pushRoutine;
     StaffMultiplexer smp;
     Animator playerSprite;
 
@@ -55,6 +57,8 @@ public class RhythmManager : MonoBehaviour
 
     public void Init() {
         playerSprite = SpawnPlayerSprite();
+
+        pole.Init(playerSprite.GetComponent<SpriteRenderer>());
 
         tempoBPS = (tempoQBPM * QUARTER_NOTE) / 60.0f;
         reactionTimeBEATS = reactionTimeSEC * tempoBPS;
@@ -98,8 +102,6 @@ public class RhythmManager : MonoBehaviour
         staff3.RegisterOnHitAttempt(onHitAttempt);
         staff4.RegisterOnHitAttempt(onHitAttempt);
 
-        pushWaiter = new WaitForSeconds(pushAniDurationSEC);
-
         smp = new StaffMultiplexer(new List<Staff>() {staff1, staff2, staff3, staff4});
 
         var notes = GetSheetMusic();
@@ -140,6 +142,38 @@ public class RhythmManager : MonoBehaviour
         }
 
         return guy.GetComponent<Animator>();
+    }
+
+    void PlayerPush() {
+        if(pushRoutine != null) StopCoroutine(pushRoutine);
+        StartCoroutine(PlayerPushHelper());
+    }
+
+    IEnumerator PlayerPushHelper() {
+        var player = playerSprite.transform;
+        player.localPosition = playerSpritePos;
+
+        var startPos = playerSpritePos;
+        var endPos = startPos;
+        endPos.x += playerPushDist;
+
+
+        playerSprite.SetBool("Pushing", true);
+
+        float timePassed = 0.0f;
+        while(timePassed < playerPushDurationSEC) {
+            timePassed += Time.deltaTime;
+
+            float curveX = timePassed / playerPushDurationSEC;
+            float curveY = playerPushCurve.Evaluate(curveX);
+            var pos = Vector3.Lerp(startPos, endPos, curveY);
+            player.localPosition = pos;
+
+            yield return null;
+        }
+
+        player.localPosition = playerSpritePos;
+        playerSprite.SetBool("Pushing", false);
     }
 
     public void OnInstructionsClose() {
@@ -220,8 +254,7 @@ public class RhythmManager : MonoBehaviour
     // an attempt can both not hit and not miss if there are no notes nearby
     void OnHitAttempt(bool hit, bool miss, KeyCode key) {
         if(hit || !miss) {
-            if(pushAniRoutine != null) StopCoroutine(pushAniRoutine);
-            pushAniRoutine = StartCoroutine(PushAnimation());
+            PlayerPush();
 
             switch(key) {
                 case KeyCode.UpArrow:
@@ -237,14 +270,11 @@ public class RhythmManager : MonoBehaviour
                     audioman.Play("right");
                     break;
             }
+
+            if(hit) pole.Shake();
         }
     }
 
-    IEnumerator PushAnimation() {
-        playerSprite.SetBool("Pushing", true);
-        yield return pushWaiter;
-        playerSprite.SetBool("Pushing", false);
-    }
 
     List<(float, int)> SheetMusic1() {
         float h = HALF_NOTE;
