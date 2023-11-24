@@ -153,6 +153,10 @@ public class SugorokuManager : MonoBehaviour {
         defaultCamState = new CameraData(cam);
         EventPopup.extraEventHasEnded = EndExtraEvent;
         audioman = GameObject.FindWithTag("audioman").GetComponent<AudioManager>();
+
+		GameObject menuBgm = GameObject.FindGameObjectWithTag("bgm-multiscene");
+        if(menuBgm != null) Destroy(menuBgm);
+
 		Init();
     }
 
