@@ -744,9 +744,9 @@ public class SugorokuManager : MonoBehaviour {
 
         yield return StartCoroutine(GameEndText(true, 3.0f));
 
+        ShowRollText("Click on any tile!");
         yield return StartCoroutine(infoTextContainer.FadeIn());
 
-        ShowRollText("Click on any tile!");
 
         StartFreeRoamMode();
 

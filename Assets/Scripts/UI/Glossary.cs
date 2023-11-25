@@ -37,7 +37,7 @@ public class Glossary : MonoBehaviour
         container.Init();
         container.Hide();
 
-        SortedDictionary<string, string> dict = termDict.GetDict();
+        Dictionary<string, string> dict = termDict.GetDict();
 
         foreach(KeyValuePair<string, string> entry in dict) {
             SpawnEntry(entry.Key, entry.Value);
