@@ -44,10 +44,7 @@ public class PlayerSelectMenu : MonoBehaviour {
 	private Canvas canvas;
 	private RectTransform container; // Rect transform of gameobject where players are stored
 
-	public static bool loadedFromPlayerSelect = false;
-
 	private void Start() {
-		screenCurtain.gameObject.SetActive(true);
 		screenCurtain.Init();
 		screenCurtain.Show();
 
@@ -87,8 +84,6 @@ public class PlayerSelectMenu : MonoBehaviour {
 		bgm.Stop();
 		Destroy(bgm.gameObject);
 		Debug.Log("bgm destroyed");
-
-		loadedFromPlayerSelect = true;
 
 		SceneManager.LoadScene(startGameSceneName);
 	}
