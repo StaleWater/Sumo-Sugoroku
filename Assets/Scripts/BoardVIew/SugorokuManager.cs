@@ -157,6 +157,12 @@ public class SugorokuManager : MonoBehaviour {
 		GameObject menuBgm = GameObject.FindGameObjectWithTag("bgm-multiscene");
         if(menuBgm != null) Destroy(menuBgm);
 
+		// Check if game is restarting or player just finished minigame
+		if (PlayerSelectMenu.loadedFromPlayerSelect) {
+			stateData.usingState = false;
+			PlayerSelectMenu.loadedFromPlayerSelect = false;
+		}
+
 		Init();
     }
 

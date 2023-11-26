@@ -61,12 +61,12 @@ Material:
     - _Elapsed_Time: 0
     - _Enable_Pulse: 0
     - _Float: 0
-    - _Focus: 0.5
-    - _Focus_Blur: 2
+    - _Focus: 0.6
+    - _Focus_Blur: 1.5
     - _Is_Selected: 0
     - _OutlineThickness: 1
     - _PulseSpeed: 5.46
-    - _Pulse_Speed: 2
+    - _Pulse_Speed: 5
     - _isHoveredOver: 0
     m_Colors:
     - _BrightnessRange: {r: 0, g: 0.2, b: 0, a: 0}

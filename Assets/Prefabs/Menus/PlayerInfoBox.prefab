@@ -199,7 +199,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3da17fa68d92ba34cae33b4c41ec1999, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3b6a5ccff9f42b74c9ab361b3d2761ac, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2192,8 +2192,8 @@ MonoBehaviour:
   - {fileID: 4194817475556240080}
   playerTypeButton: {fileID: 470920777266356948}
   nameField: {fileID: 5091938783992853574}
-  playerImage: {fileID: 21300000, guid: 3da17fa68d92ba34cae33b4c41ec1999, type: 3}
-  botImage: {fileID: 21300000, guid: d35de06f9c593a843bc49a84cfe27df8, type: 3}
+  playerImage: {fileID: 21300000, guid: 3b6a5ccff9f42b74c9ab361b3d2761ac, type: 3}
+  botImage: {fileID: 21300000, guid: de21ddaae7e925e46b7ae57785e4768d, type: 3}
 --- !u!1 &8011656433985901351
 GameObject:
   m_ObjectHideFlags: 0
