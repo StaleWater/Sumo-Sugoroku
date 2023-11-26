@@ -154,7 +154,7 @@ public class SugorokuManager : MonoBehaviour {
         EventPopup.extraEventHasEnded = EndExtraEvent;
         audioman = GameObject.FindWithTag("audioman").GetComponent<AudioManager>();
 
-		GameObject menuBgm = GameObject.FindGameObjectWithTag("bgm-multiscene");
+		BgmMultiScene menuBgm = BgmMultiScene.instance;
         if(menuBgm != null) Destroy(menuBgm);
 
 		// Check if game is restarting or player just finished minigame
