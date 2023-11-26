@@ -1157,11 +1157,11 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 1
-  narrative: "<i>Kanpai</i>! We\u2019re celebrating my san\u2019yaku promotion and
-    it feels amazing to have a night dedicated to the work I have done so far! Not
-    only does it remind me of why I started this journey in the first place, it encourages
-    me to keep pushing onward. My next celebration will be for reaching the rank
-    of yokozuna!"
+  narrative: "<color=#94282a>Celebrating San'yaku Promotion</color>\n\n<i>Kanpai</i>!
+    We\u2019re celebrating my san\u2019yaku promotion and it feels amazing to have
+    a night dedicated to the work I have done so far! Not only does it remind me
+    of why I started this journey in the first place, it encourages me to keep pushing
+    onward. My next celebration will be for reaching the rank of yokozuna!"
   extraContent: "A rikishi being promoted to san\u2019yaku is a momentous occasion.
     Thanks to the higher salary for san\u2019yaku rikishi, it is common to have a
     big celebration at an expensive restaurant for a stablemate\u2019s big promotion."
@@ -1311,12 +1311,12 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: "I have just two matches left, and they will determine whether I advance
-    to j\u016Bry\u014D. I have won my other five matches so far, so if I can pull
-    this off, I will finally be in the upper ranks. On top of that, I will finally
-    have a salary! For my next match, I am facing a recently-relegated sekitori.
-    His will to win should not be underestimated. Then again, neither should mine.\n\n<color=#94282a>Advance
-    three spaces.</color>"
+  narrative: "<color=#94282a>J\u016Bry\u014D</color>\n\nI have just two matches left,
+    and they will determine whether I advance to j\u016Bry\u014D. I have won my other
+    five matches so far, so if I can pull this off, I will finally be in the upper
+    ranks. On top of that, I will finally have a salary! For my next match, I am
+    facing a recently-relegated sekitori. His will to win should not be underestimated.
+    Then again, neither should mine.\n\n<color=#94282a>Advance three spaces.</color>"
   extraContent: "J\u016Bry\u014D is the second-highest division in sumo. It is the
     first of the salaried divisions in sumo. J\u016Bry\u014D is capped at 28 rikishi.
     The rikishi in this rank and above are considered true professionals, and are
@@ -1713,10 +1713,13 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 2
-  narrative: The opportunity has finally come for me to move up to the rank of sekiwake.
-    All I have to do is win two more matches to achieve a winning record in this
-    tournament. I have been waiting for this chance for so long. I will not let it
-    slip by me!
+  narrative: '<color=#94282a>Sekiwake</color>
+
+
+    The opportunity has finally come
+    for me to move up to the rank of sekiwake. All I have to do is win two more matches
+    to achieve a winning record in this tournament. I have been waiting for this
+    chance for so long. I will not let it slip by me!'
   extraContent: "Sekiwake is the third-highest rank in sumo and the second lowest
     rank of san\u2019yaku. A komusubi must achieve a kachi-koshi, or winning record
     in a tournament, to achieve the rank of sekiwake. Much like komusubi, sekiwake
@@ -1870,13 +1873,13 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 3
-  narrative: "It is the last day of the tournament. The opposing \u014Dzeki and I
-    are undefeated going into our match today, so the winner takes all. If I win,
-    it will be my second consecutive y\u016Bsh\u014D, which is the most important
-    criteria for being promoted to yokozuna. My opponent, however, is perhaps the
-    greatest rikishi I have ever faced. He had to withdraw before our match during
-    the last tournament when I won my first y\u016Bsh\u014D. This time, I\u2019ll
-    prove that I deserve to be a yokozuna."
+  narrative: "<color=#94282a>Honbasho</color>\n\nIt is the last day of the tournament.
+    The opposing \u014Dzeki and I are undefeated going into our match today, so the
+    winner takes all. If I win, it will be my second consecutive y\u016Bsh\u014D,
+    which is the most important criteria for being promoted to yokozuna. My opponent,
+    however, is perhaps the greatest rikishi I have ever faced. He had to withdraw
+    before our match during the last tournament when I won my first y\u016Bsh\u014D.
+    This time, I\u2019ll prove that I deserve to be a yokozuna."
   extraContent: A honbasho is an official sumo tournament organized by the Japan
     Sumo Association. These fifteen-day tournaments are held six times a year, beginning
     on the second Sunday of odd-numbered months. Three of the six honbasho are situated
@@ -2169,11 +2172,12 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: "I\u2019ve decided to set up camp under a tree tonight because I don\u2019t
-    have enough funds to purchase a bed at an inn. The ground is hard, but it\u2019s
-    nothing that I can\u2019t handle. My furoshiki is set on top of my chest so that
-    I can hold onto it as I sleep. It\u2019s not the best protective measure but
-    it will have to do for now."
+  narrative: "<color=#94282a>Sleeping Outdoors</color>\n\nI\u2019ve decided to set
+    up camp under a tree tonight because I don\u2019t have enough funds to purchase
+    a bed at an inn. The ground is hard, but it\u2019s nothing that I can\u2019t
+    handle. My furoshiki is set on top of my chest so that I can hold onto it as
+    I sleep. It\u2019s not the best protective measure but it will have to do for
+    now."
   extraContent: On the trip to Edo, he has no choice but to sleep outdoors. This
     image illustrates the significant hardship aspiring rikishi endure before they
     even begin formal training.
@@ -2323,11 +2327,11 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 2
-  narrative: "I don\u2019t care how exhausted I am after morning practice and all
-    my chores, I need to practice more. I will join a few other determined rikishi
-    for another round of training on the dohy\u014D. This extra practice will get
-    me one step closer to my goal, which is more than enough of a reason for me to
-    press on past my exhaustion and get back to work."
+  narrative: "<color=#94282a>More Practice</color>\n\nI don\u2019t care how exhausted
+    I am after morning practice and all my chores, I need to practice more. I will
+    join a few other determined rikishi for another round of training on the dohy\u014D.
+    This extra practice will get me one step closer to my goal, which is more than
+    enough of a reason for me to press on past my exhaustion and get back to work."
   extraContent: Even after hours of grueling practice in the morning, some rikishi
     continue to practice at night in hopes of gaining an edge over their stablemates.
 --- !u!61 &467741865
@@ -2509,90 +2513,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 477339558}
   m_CullTransparentMesh: 1
---- !u!1 &482482360
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 482482361}
-  - component: {fileID: 482482362}
-  m_Layer: 0
-  m_Name: Icon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &482482361
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 482482360}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.029, y: 0.021, z: -1}
-  m_LocalScale: {x: 0.03409, y: 0.03409, z: 0.6818}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1044835411}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &482482362
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 482482360}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 45a3340ccc9f6b841964c150e4b21ba1, type: 3}
-  m_Color: {r: 0.9339623, g: 0.7500274, b: 0.7004717, a: 0.56078434}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1001 &507949794
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2843,11 +2763,12 @@ MonoBehaviour:
   numberMask: {fileID: 1969755904}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: "I have finally made it to Ry\u014Dgoku. As I walk around, I can\u2019t
-    help but imagine myself training with my stablemates in a heya. The Ek\u014D-in
-    Temple is truly a sight to behold, more impressive than any structure I have
-    seen so far. I will have to fight with all of my might to become an official
-    rikishi, but I am determined and willing to risk it all for my goal."
+  narrative: "<color=#94282a>Ry\u014Dgoku</color>\n\nI have finally made it to Ry\u014Dgoku.
+    As I walk around, I can\u2019t help but imagine myself training with my stablemates
+    in a heya. The Ek\u014D-in Temple is truly a sight to behold, more impressive
+    than any structure I have seen so far. I will have to fight with all of my might
+    to become an official rikishi, but I am determined and willing to risk it all
+    for my goal."
   extraContent: "Ry\u014Dgoku is a district in Tokyo that is home to numerous heya
     as well as the current and previous iterations of the Ry\u014Dgoku Kokugikan\u2013an
     indoor arena that hosts half of the honbasho held each year. The name Ry\u014Dgoku,
@@ -3140,16 +3061,19 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 2
-  narrative: 'Recently I have been questioning if I truly made the right choice to
-    become a rikishi. The process has been more difficult than I imagined and sometimes
-    I long for home. But these thoughts are not acceptable and I need to train my
-    mind and heart. To do so I need to go back to the beginning and remind myself
-    why I embarked on this journey in the first place. Only once I have regained
-    my resolve will I be able to achieve my goal.
+  narrative: '<color=#94282a>Maybe I Should Return Home</color>
 
 
-    <color=#94282a>Go back to
-    start.</color>'
+    Recently I
+    have been questioning if I truly made the right choice to become a rikishi. The
+    process has been more difficult than I imagined and sometimes I long for home.
+    But these thoughts are not acceptable and I need to train my mind and heart.
+    To do so I need to go back to the beginning and remind myself why I embarked
+    on this journey in the first place. Only once I have regained my resolve will
+    I be able to achieve my goal.
+
+
+    <color=#94282a>Go back to start.</color>'
   extraContent: The difficulty of being a rikishi can take its toll, causing some
     to consider leaving. Some rikishi who leave may be tracked down by their stablemates
     and forced to return, while others will be forever barred from returning if they
@@ -3217,7 +3141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &607299767
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3433,9 +3357,10 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: "If I have a winning record in this tournament, I will finally be promoted
-    from j\u016Bry\u014D to maegashira. I have seven wins and seven losses, so my
-    final match will decide my fate. It will not be easy, but I will give it my all."
+  narrative: "<color=#94282a>Maegashira</color>\n\nIf I have a winning record in
+    this tournament, I will finally be promoted from j\u016Bry\u014D to maegashira.
+    I have seven wins and seven losses, so my final match will decide my fate. It
+    will not be easy, but I will give it my all."
   extraContent: "Maegashira is the group of \u201Crank-and-file\u201D, or untitled
     rikishi, in the top division in sumo known as makuuchi. The number of maegashira
     per tournament varies because of the ever-changing number of title-holding wrestlers
@@ -3594,10 +3519,11 @@ MonoBehaviour:
   numberMask: {fileID: 881504022}
   pause: {fileID: 52435043}
   orientation: 1
-  narrative: "I have been given the duty of carrying one of the more advanced rikishi\u2019s
-    akeni. The box is definitely something to marvel at, but it will no doubt pale
-    in comparison to the one I will eventually earn. I am looking forward to that
-    day, but to get there I need to hone my skills and advance ranks first."
+  narrative: "<color=#94282a>Carrying Luggage</color>\n\nI have been given the duty
+    of carrying one of the more advanced rikishi\u2019s akeni. The box is definitely
+    something to marvel at, but it will no doubt pale in comparison to the one I
+    will eventually earn. I am looking forward to that day, but to get there I need
+    to hone my skills and advance ranks first."
   extraContent: "The possessions of rikishi and top-ranked gy\u014Dji are stored
     and carried in lacquered paper-and-bamboo boxes called akeni. All akeni bear
     the owner\u2019s name on the side and have the same color scheme of green, vermilion,
@@ -3862,7 +3788,7 @@ MonoBehaviour:
   - {fileID: 3371178985632388413, guid: e071e46538f7e07408fe0ef6a3aa9bc0, type: 3}
   playerTileMovementTimeGap: 0.1
   dictionary: {fileID: 1407456039}
-  startTile: 0
+  startTile: 27
   winLoseText: {fileID: 5281359586945370545}
   rollTextContainer: {fileID: 112500985}
   instructions: {fileID: 160931565}
@@ -4347,10 +4273,11 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 2
-  narrative: "The time has come to help make mochi for New Year\u2019s. This is one
-    of my favorite times of the year because I have always loved the taste of mochi.
-    I am excited to help make it this year because the technique required seems like
-    a new form of exercise. I wonder how much I could make in one sitting\u2026"
+  narrative: "<color=#94282a>Mochi Pounding</color>\n\nThe time has come to help
+    make mochi for New Year\u2019s. This is one of my favorite times of the year
+    because I have always loved the taste of mochi. I am excited to help make it
+    this year because the technique required seems like a new form of exercise. I
+    wonder how much I could make in one sitting\u2026"
   extraContent: "Mochi-tsuki, or pounding rice to make mochi rice cakes, is a Japanese
     tradition usually performed around Christmas time in preparation for the New
     Year. The act of making mochi involves two people, one who pounds the special
@@ -4611,12 +4538,12 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 3
-  narrative: "I have managed to secure 32 wins so far, so this next match is crucial.
-    It will not be an easy one, as my opponent is not only an \u014Dzeki, but is
-    looking to win the tournament. He is by far the most skilled rikishi I have had
-    to face so far, but I will not fail here. I am just as determined as he is, and
-    winning this match will guarantee my promotion to \u014Dzeki. As far as I am
-    concerned, losing is simply not an option."
+  narrative: "<color=#94282a>\u014Czeki</color>\n\nI have managed to secure 32 wins
+    so far, so this next match is crucial. It will not be an easy one, as my opponent
+    is not only an \u014Dzeki, but is looking to win the tournament. He is by far
+    the most skilled rikishi I have had to face so far, but I will not fail here.
+    I am just as determined as he is, and winning this match will guarantee my promotion
+    to \u014Dzeki. As far as I am concerned, losing is simply not an option."
   extraContent: "\u014Czeki is the second-highest rank that a rikishi can obtain,
     just below yokozuna. Promotion to \u014Dzeki takes place over multiple tournaments.
     Rikishi with the rank of sekiwake are generally considered for promotion after
@@ -5634,10 +5561,10 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 1
-  narrative: "The lower ranks have to prepare the food for our heya, and today we
-    made a <i>nabe</i> with fish. Once I rise in rank, I\u2019ll be able to get the
-    best parts instead of the leftovers. My first tournament is coming soon. I can\u2019t
-    wait!"
+  narrative: "<color=#94282a>Sumo Dishes</color>\n\nThe lower ranks have to prepare
+    the food for our heya, and today we made a <i>nabe</i> with fish. Once I rise
+    in rank, I\u2019ll be able to get the best parts instead of the leftovers. My
+    first tournament is coming soon. I can\u2019t wait!"
   extraContent: "Chanko is the general term for dishes eaten by rikishi. It can contain
     curried rice, spaghetti, ramen noodles, etc. Anything prepared by the <i>chanko-ban</i>,
     the cook of the heya, is called chanko. That said, the primary meal eaten by
@@ -5899,10 +5826,11 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: "It seems the yobidashi are announcing the tournament today. I knew
-    they were here as soon as I heard the taiko drums. Soon after, they bellowed
-    the news about the start of the tournament as their voices echoed throughout
-    the streets. I can feel my body shaking in anticipation for what\u2019s to come!"
+  narrative: "<color=#94282a>Drumming in the Streets to Announce a Tournament</color>\n\nIt
+    seems the yobidashi are announcing the tournament today. I knew they were here
+    as soon as I heard the taiko drums. Soon after, they bellowed the news about
+    the start of the tournament as their voices echoed throughout the streets. I
+    can feel my body shaking in anticipation for what\u2019s to come!"
   extraContent: "Yobidashi travel over the <i>Nihonbashi</i> bridge to announce information
     about a new sumo tournament. Because there was no other reliable way to distribute
     the news, they would parade around the city sounding taiko drums to attract attention.
@@ -5988,14 +5916,15 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: "I have completed my dream of becoming Grand Champion, and this ceremony
-    is the final step. Once this is over, I will have finally accomplished what I
-    set out to do all those years ago. My new goal is to win the most y\u016Bsh\u014D
-    ever recorded. My blood is racing thinking about all the new, young wrestlers
-    who will rise the ranks to challenge me over the coming years. They will find
-    me waiting, defending my place within the ring. I will not rest until I become
-    the most well-known rikishi in the country. I will create a legacy that will
-    be remembered for centuries. Next honbasho here I come!"
+  narrative: "<color=#94282a>Grand Champion Ring Entering Ceremony</color>\n\nI have
+    completed my dream of becoming Grand Champion, and this ceremony is the final
+    step. Once this is over, I will have finally accomplished what I set out to do
+    all those years ago. My new goal is to win the most y\u016Bsh\u014D ever recorded.
+    My blood is racing thinking about all the new, young wrestlers who will rise
+    the ranks to challenge me over the coming years. They will find me waiting, defending
+    my place within the ring. I will not rest until I become the most well-known
+    rikishi in the country. I will create a legacy that will be remembered for centuries.
+    Next honbasho here I come!"
   extraContent: "The Yokozuna ring-entering ceremony is performed prior to the start
     of makuuchi matches on each day of the tournament. During this ceremony, each
     makuuchi rikishi enters the dohy\u014D in reverse order of rank wearing a kesh\u014D-mawashi,
@@ -6932,154 +6861,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1044105796}
   m_CullTransparentMesh: 1
---- !u!1 &1044835410
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1044835411}
-  - component: {fileID: 1044835412}
-  - component: {fileID: 1044835413}
-  - component: {fileID: 1044835414}
-  m_Layer: 0
-  m_Name: Player
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1044835411
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1044835410}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.00000008511548, y: 0.00000006391167, z: -0.010431764, w: 0.9999456}
-  m_LocalPosition: {x: 0.463, y: -2.934, z: -0}
-  m_LocalScale: {x: 0.6934, y: 0.6934, z: 0.6934}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 482482361}
-  - {fileID: 1870097490}
-  - {fileID: 1899883641}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -1.195}
---- !u!212 &1044835412
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1044835410}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!114 &1044835413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1044835410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2967c28fc0752ac42ba09a6e81f3a000, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementDurationSEC: 0.5
-  movementCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  colorFilter: {fileID: 0}
-  icon: {fileID: 0}
-  fadeCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  fadeDurationSEC: 0
---- !u!114 &1044835414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1044835410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 910ca4ba4ff390e409307278d4a604a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultSettings: {fileID: 11400000, guid: 31546e53c5180ce4a8b47fdc109d98c7, type: 2}
 --- !u!1 &1047361734
 GameObject:
   m_ObjectHideFlags: 0
@@ -7328,7 +7109,7 @@ MonoBehaviour:
   m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 20
+  m_fontSizeMin: 15
   m_fontSizeMax: 50
   m_fontStyle: 1
   m_HorizontalAlignment: 2
@@ -7680,15 +7461,15 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: "The sun is setting and my decision is finally sinking in. I have decided
-    to pursue the path of a rikishi and have left everything that I know behind to
-    fulfill this dream. All I have with me is a small furoshiki filled with a few
-    necessities. It's grown even lighter as I have had to sell my extra layers to
-    afford a simple meal and there is not enough left to stay in an inn for even
-    one night. This journey will be a tough one, but I am determined to achieve my
-    dream of becoming the grand champion\u2013the yokozuna. To do so, I will face
-    any and all challenges that come my way. For now, I will focus on becoming a
-    rikishi, only then will my journey truly begin."
+  narrative: "<color=#94282a>Starting Point</color>\n\nThe sun is setting and my
+    decision is finally sinking in. I have decided to pursue the path of a rikishi
+    and have left everything that I know behind to fulfill this dream. All I have
+    with me is a small furoshiki filled with a few necessities. It's grown even lighter
+    as I have had to sell my extra layers to afford a simple meal and there is not
+    enough left to stay in an inn for even one night. This journey will be a tough
+    one, but I am determined to achieve my dream of becoming the grand champion\u2013the
+    yokozuna. To do so, I will face any and all challenges that come my way. For
+    now, I will focus on becoming a rikishi, only then will my journey truly begin."
   extraContent: An aspiring rikishi, or sumo wrestler, leaves his home behind with
     only the necessities in a small cloth bag known as a furoshiki. He is traveling
     to Edo in hopes of finding a heya in which to train.
@@ -7838,10 +7619,11 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 1
-  narrative: "I\u2019ve finally become an official rikishi! Now I have to focus on
-    training hard to make sure that I can quickly rise the ranks of professional
-    sumo and increase my standing within my heya. Once I do that, I can focus more
-    on training without having to deal with all the extra chores."
+  narrative: "<color=#94282a>Beginning Training</color>\n\nI\u2019ve finally become
+    an official rikishi! Now I have to focus on training hard to make sure that I
+    can quickly rise the ranks of professional sumo and increase my standing within
+    my heya. Once I do that, I can focus more on training without having to deal
+    with all the extra chores."
   extraContent: "New rikishi start their training at the bottom. Recruits are expected
     to have additional duties on top of their daily training regimens. They are tasked
     with preparing the dohy\u014D every morning prior to practice as well as other
@@ -8034,10 +7816,10 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 2
-  narrative: "I overheard some younger rikishi complaining about having to help their
-    senior bathe today. It reminded me of when I first entered the heya. If they
-    don\u2019t like that duty, they must train even harder to rise to the top like
-    I have. Until then, they have no right to object."
+  narrative: "<color=#94282a>Bath</color>\n\nI overheard some younger rikishi complaining
+    about having to help their senior bathe today. It reminded me of when I first
+    entered the heya. If they don\u2019t like that duty, they must train even harder
+    to rise to the top like I have. Until then, they have no right to object."
   extraContent: Younger rikishi are traditionally required to bathe their seniors,
     this is due to both customs around hierarchy and to the sheer size of highly-ranked
     rikishi. Additionally, higher-ranked rikishi get to bathe before the lower-ranked
@@ -8190,13 +7972,17 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 3
-  narrative: 'I almost reached sandame, but I twisted my ankle in my last match.
-    Now, I am being relegated to jonokuchi. I understand the reasoning, but I am
-    still filled with frustration. Nevertheless, I will recover and come back better
-    than ever before!
+  narrative: '<color=#94282a>Sandanme</color>
 
 
-    <color=#94282a>Return to jonokuchi due to injury.</color>'
+    I almost reached sandame, but
+    I twisted my ankle in my last match. Now, I am being relegated to jonokuchi.
+    I understand the reasoning, but I am still filled with frustration. Nevertheless,
+    I will recover and come back better than ever before!
+
+
+    <color=#94282a>Return
+    to jonokuchi due to injury.</color>'
   extraContent: Sandanme is the third-lowest division in sumo. Like the divisions
     below it, sandanme is an unsalaried division filled with mostly young, up-and-coming
     rikishi. Some rikishi in this division skipped the jonokuchi and jonidan divisions
@@ -8820,9 +8606,9 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 3
-  narrative: "This match will decide if I am promoted to Jonokuchi. It\u2019s my
-    most important match yet, but I am confident in my skills. I will face this challenge
-    head on, and I will win!"
+  narrative: "<color=#94282a>Jonokuchi</color>\n\nThis match will decide if I am
+    promoted to Jonokuchi. It\u2019s my most important match yet, but I am confident
+    in my skills. I will face this challenge head on, and I will win!"
   extraContent: Jonokuchi is the lowest division in sumo. This division is primarily
     comprised of younger rikishi beginning their careers. Older, more experienced
     rikishi can be found in the lower three divisions by falling from higher ranks,
@@ -9263,12 +9049,12 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: "I\u2019ve arrived at Nihonbashi, and it is filled with bustling commotion.
-    So many people are traveling to and fro while merchants line the street to hawk
-    their wares. The area is known for being a great place to watch sumo matches,
-    and the idea fills me with excitement. I want to be up there competing against
-    other rikishi, throwing my opponents to the ground as the crowds cheer\u2026I
-    can\u2019t wait!"
+  narrative: "<color=#94282a>Nihonbashi, District of Edo</color>\n\nI\u2019ve arrived
+    at Nihonbashi, and it is filled with bustling commotion. So many people are traveling
+    to and fro while merchants line the street to hawk their wares. The area is known
+    for being a great place to watch sumo matches, and the idea fills me with excitement.
+    I want to be up there competing against other rikishi, throwing my opponents
+    to the ground as the crowds cheer\u2026I can\u2019t wait!"
   extraContent: The aspiring rikishi arrives at Nihonbashi, the trade and cultural
     center of Edo. Almost half of the population of Edo lives around this area, making
     it an ideal place to find a crowd of financially well-off citizens that have
@@ -9664,9 +9450,10 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 1
-  narrative: "My next opponent is a sekiwake, and my anticipation is like never before.
-    Winning this match will prove that I deserve to be a komusubi. Whether I am promoted
-    or not, the rest of the san\u2019yaku rikishi better watch out!"
+  narrative: "<color=#94282a>Komusubi</color>\n\nMy next opponent is a sekiwake,
+    and my anticipation is like never before. Winning this match will prove that
+    I deserve to be a komusubi. Whether I am promoted or not, the rest of the san\u2019yaku
+    rikishi better watch out!"
   extraContent: "Komusubi or \u201Cthe little knot\u201D is the fourth-highest rank
     in sumo and the lowest rank of san\u2019yaku. It is considered a difficult rank
     because komusubi face rikishi from the higher ranks of sekiwake, \u014Dzeki,
@@ -9821,11 +9608,12 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 3
-  narrative: "Ugh, my head is pounding this morning, and looking at the light makes
-    me feel sick. Last night, I was so sure I could keep up with my superiors, but
-    this was one match I should have conceded. I am in no position to train today,
-    and I know I am going to get an earful about it. I\u2019ll have to work twice
-    as hard tomorrow.\n\n<color=#94282a>Drink too much, rest for one turn.</color>"
+  narrative: "<color=#94282a>Drinking Competition</color>\n\nUgh, my head is pounding
+    this morning, and looking at the light makes me feel sick. Last night, I was
+    so sure I could keep up with my superiors, but this was one match I should have
+    conceded. I am in no position to train today, and I know I am going to get an
+    earful about it. I\u2019ll have to work twice as hard tomorrow.\n\n<color=#94282a>Drink
+    too much, rest for one turn.</color>"
   extraContent: Rikishi are known to consume copious amounts of alcohol to increase
     their caloric intake and appetite. They also use alcohol to help dull the aches
     and pains of practice.
@@ -10080,10 +9868,11 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: "I am at Ek\u014D-in Temple where the tournament is taking place. Rikishi
-    are filing in, with the lower ranks carrying the higher ranks\u2019 akeni. They
-    all draw attention from onlookers with their imposing figures. Someday soon,
-    I will walk beside them as an official rikishi."
+  narrative: "<color=#94282a>Rikishi Arrive at the Tournament Venue</color>\n\nI
+    am at Ek\u014D-in Temple where the tournament is taking place. Rikishi are filing
+    in, with the lower ranks carrying the higher ranks\u2019 akeni. They all draw
+    attention from onlookers with their imposing figures. Someday soon, I will walk
+    beside them as an official rikishi."
   extraContent: "As the sekitori arrive at the tournament, they are accompanied by
     lower-division rikishi acting as their assistants, known as tsukebito, who carry
     their possessions in an akeni. A tsukebito is generally responsible for all of
@@ -10208,90 +9997,6 @@ MonoBehaviour:
   maxDimLevel: 0.8
   highlight: {fileID: 1340449127}
   shade: {fileID: 38794804}
---- !u!1 &1870097489
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1870097490}
-  - component: {fileID: 1870097491}
-  m_Layer: 0
-  m_Name: Inner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1870097490
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1870097489}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.5}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 0.7599}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1044835411}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1870097491
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1870097489}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.9056604, g: 0.65624815, b: 0.508366, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1 &1883551961
 GameObject:
   m_ObjectHideFlags: 0
@@ -10393,11 +10098,11 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 1
-  narrative: "Today is laundry day, and those of us in the lower ranks are in charge
-    of cleaning our superior\u2019s mawashi. The process is long and grueling and
-    it makes me look forward to moving up even more. For now, I will have to finish
-    as fast as I can and get back to practicing to make sure that I get promoted
-    as quickly as possible."
+  narrative: "<color=#94282a>Doing Laundry</color>\n\nToday is laundry day, and those
+    of us in the lower ranks are in charge of cleaning our superior\u2019s mawashi.
+    The process is long and grueling and it makes me look forward to moving up even
+    more. For now, I will have to finish as fast as I can and get back to practicing
+    to make sure that I get promoted as quickly as possible."
   extraContent: In addition to their other responsibilities, lower-ranked rikishi
     are responsible for all the cleaning and laundry at the heya. This includes cleaning
     the mawashi of their stablemates by hand.
@@ -10446,90 +10151,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!1 &1899883640
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1899883641}
-  - component: {fileID: 1899883642}
-  m_Layer: 0
-  m_Name: Outer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1899883641
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899883640}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.25}
-  m_LocalScale: {x: 0.97, y: 0.97, z: 0.7599}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1044835411}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1899883642
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899883640}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.9433962, g: 0.41749555, b: 0.30704877, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1 &1904189399
 GameObject:
   m_ObjectHideFlags: 0
@@ -10938,14 +10559,18 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 2
-  narrative: The lower-division practices start before the sun rises. The hundreds
-    of shiko cause my knees to shake until my legs feel like they will give out.
-    During the moshiai matches, I am thrown to the ground by the more skilled wrestlers
-    over and over again without rest. The butsukari feel like trying to push an unyielding
-    mountain. Every practice takes all that I have out of me. My blood, sweat, and
-    tears have soaked into the unforgiving clay of the ring. Despite this, I am determined
-    to improve with every practice. I will persevere until I am the better wrestler,
-    toppling my opponents and rising within my heya and professional sumo.
+  narrative: '<color=#94282a>Early Morning Practice</color>
+
+
+    The lower-division
+    practices start before the sun rises. The hundreds of shiko cause my knees to
+    shake until my legs feel like they will give out. During the moshiai matches,
+    I am thrown to the ground by the more skilled wrestlers over and over again without
+    rest. The butsukari feel like trying to push an unyielding mountain. Every practice
+    takes all that I have out of me. My blood, sweat, and tears have soaked into
+    the unforgiving clay of the ring. Despite this, I am determined to improve with
+    every practice. I will persevere until I am the better wrestler, toppling my
+    opponents and rising within my heya and professional sumo.'
   extraContent: "Practices start bright and early at around 5 A.M. Every practice
     begins with various exercises designed to increase strength and improve balance
     and flexibility. The most fundamental exercise is shiko, which is performed hundreds
@@ -11140,10 +10765,11 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 3
-  narrative: "I have moved up to jonidan. Not much has changed except a slight bump
-    in my allowance, and I get prize money when I win a match. It\u2019s not a lot,
-    but it is a start. Each yen reminds me that I am on the right track. I just have
-    to keep working hard and take advantage of every opportunity that comes my way."
+  narrative: "<color=#94282a>Jonidan</color>\n\nI have moved up to jonidan. Not much
+    has changed except a slight bump in my allowance, and I get prize money when
+    I win a match. It\u2019s not a lot, but it is a start. Each yen reminds me that
+    I am on the right track. I just have to keep working hard and take advantage
+    of every opportunity that comes my way."
   extraContent: Jonidan is the second-lowest division in sumo and one of its largest.
     This is due, in part, to a cap on the number of rikishi allowed in the divisions
     above jonidan. Rikishi in this division, as well as all other non-salaried divisions,
@@ -11295,10 +10921,11 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: "I have been promoted to makushita, and I can\u2019t wait for the upcoming
-    tournament. If I do well this time, I will be promoted to j\u016Bry\u014D! Then,
-    I will finally receive a salary. My goal is to finish this tournament undefeated,
-    so that there will be no question about my qualifications or readiness for promotion."
+  narrative: "<color=#94282a>Makushita</color>\n\nI have been promoted to makushita,
+    and I can\u2019t wait for the upcoming tournament. If I do well this time, I
+    will be promoted to j\u016Bry\u014D! Then, I will finally receive a salary. My
+    goal is to finish this tournament undefeated, so that there will be no question
+    about my qualifications or readiness for promotion."
   extraContent: "Makushita is the third-highest division in sumo. This division is
     the top of the non-salaried ranks. It is capped at 120 total rikishi. In makushita,
     and all divisions below it, rikishi participate in seven matches across the fifteen-day
@@ -12027,15 +11654,19 @@ MonoBehaviour:
   numberMask: {fileID: 0}
   pause: {fileID: 52435043}
   orientation: 0
-  narrative: 'I have been demoted. I was involved in a scuffle where a man sliced
-    my arm. Although there is no long-term damage, I have had to sit out a few tournaments
-    while I recuperate. I am disappointed that I was demoted for actions done outside
-    of sumo, but I know what I must do to regain my position. I have a challenging
-    journey ahead of me, but I will not give up! Soon, the title of maegashira will
-    be mine once more.
+  narrative: '<color=#94282a>Brawl</color>
 
 
-    <color=#94282a>Return to makushita.</color>'
+    I have been demoted. I was involved
+    in a scuffle where a man sliced my arm. Although there is no long-term damage,
+    I have had to sit out a few tournaments while I recuperate. I am disappointed
+    that I was demoted for actions done outside of sumo, but I know what I must do
+    to regain my position. I have a challenging journey ahead of me, but I will not
+    give up! Soon, the title of maegashira will be mine once more.
+
+
+    <color=#94282a>Return
+    to makushita.</color>'
   extraContent: This tile is a depiction of the Akizuki rebellion, which was an uprising
     by former <i>samurai</i> against the Meiji government in 1876. Enraged by the
     government reforms stripping them of their privileged social status, as well
@@ -12382,7 +12013,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
-  - {fileID: 1044835411}
   - {fileID: 667063886}
   - {fileID: 818384743}
   - {fileID: 698817951}

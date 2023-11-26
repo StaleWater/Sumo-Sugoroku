@@ -6,20 +6,20 @@ using System;
 public class TermDictionary : MonoBehaviour {
 
     [SerializeField] DictUnit[] dictEditor;
-    SortedDictionary<string, string> dict;
+    Dictionary<string, string> dict;
 
     void Awake() {
         BuildDictionary();
     }
 
     void BuildDictionary() {
-        dict = new SortedDictionary<string, string>();
+        dict = new Dictionary<string, string>();
         foreach(var u in dictEditor) {
             dict[u.term.ToLower()] = u.description;
         }
     }
 
-    public SortedDictionary<string, string> GetDict() {
+    public Dictionary<string, string> GetDict() {
         return dict;
     }
 
